@@ -1,26 +1,32 @@
 package ru.marslab.filmoteca.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.widget.TextViewCompat
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.data.RepositoryImpl
 import ru.marslab.filmoteca.domain.Repository
+
+const val LOG_TAG = "log_tag"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var filmName: AppCompatTextView
     private lateinit var filmYear: AppCompatTextView
     private lateinit var firstButton: Button
-    private val repository by lazy { RepositoryImpl }
+    private lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initUi()
+        initRepository()
         initListeners()
+    }
+
+    private fun initRepository() {
+        repository = RepositoryImpl
     }
 
     private fun initUi() {
@@ -31,9 +37,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListeners() {
         firstButton.setOnClickListener {
-            val randomFilm = repository.getRandomFilm()
-            filmName.text = randomFilm.name
-            filmYear.text = randomFilm.year.toString()
+            val (name, year) = repository.getRandomFilm().copy()
+            filmName.text = name
+            filmYear.text = year.toString()
+            launchCycles()
         }
+    }
+
+    private fun launchCycles() {
+        val films = repository.getFilms()
+        for (film in films) {
+            Log.d(LOG_TAG, film.name)
+        }
+        Log.d(LOG_TAG, "---------------------------")
+        var index = 0
+        while (index < films.size) {
+            Log.d(LOG_TAG, films[index].name + ":" + films[index].year)
+            index++
+        }
+        Log.d(LOG_TAG, "---------------------------")
     }
 }
