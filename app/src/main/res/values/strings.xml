@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Filmoteca</string>
-    <string name="first_button">Кнопка первого задания</string>
+    <string name="first_button">Случайный фильм</string>
 </resources>

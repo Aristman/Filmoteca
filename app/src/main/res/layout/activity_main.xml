@@ -6,11 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
+
     <Button
         android:id="@+id/first_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/first_button"/>
+        android:text="@string/first_button" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/film_name"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_dim"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/film_year"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
