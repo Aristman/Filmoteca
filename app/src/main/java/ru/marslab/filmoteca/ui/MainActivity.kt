@@ -9,9 +9,11 @@ import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.data.RepositoryImpl
 import ru.marslab.filmoteca.domain.Repository
 
-const val LOG_TAG = "log_tag"
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val LOG_TAG = "log_tag"
+    }
     private lateinit var filmName: AppCompatTextView
     private lateinit var filmYear: AppCompatTextView
     private lateinit var firstButton: Button
