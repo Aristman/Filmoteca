@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun launchCycles() {
         val films = repository.getFilms()
-        for (film in films) {
-            Log.d(LOG_TAG, film.name)
+        films.forEach {
+            Log.d(LOG_TAG, it.name)
         }
         Log.d(LOG_TAG, "---------------------------")
         var index = 0
