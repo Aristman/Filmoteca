@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Filmoteca</string>
     <string name="first_button">Случайный фильм</string>
+    <string name="about">О программе</string>
+    <string name="help">Помощь</string>
+    <string name="films">Фильмы</string>
+    <string name="tv">ТВ</string>
+    <string name="people">Люди</string>
+    <string name="search">Поиск</string>
 </resources>
