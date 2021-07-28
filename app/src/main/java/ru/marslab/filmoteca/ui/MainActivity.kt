@@ -1,18 +1,22 @@
 package ru.marslab.filmoteca.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import ru.marslab.filmoteca.R
-import ru.marslab.filmoteca.data.RepositoryImpl
 import ru.marslab.filmoteca.databinding.ActivityMainBinding
-import ru.marslab.filmoteca.domain.Repository
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +24,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initUi()
-        initListeners()
     }
 
 
     private fun initUi() {
+        setSupportActionBar(binding.mainContent.mainToolbar)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.mainContent.mainFragmentContainer.id) as NavHostFragment
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(
+            navController.graph,
+            binding.root
+//            fallbackOnNavigateUpListener = this::onSupportNavigateUp
+        )
+        binding.mainContent.mainToolbar.setupWithNavController(navController, binding.root)
+        initBottomNav()
     }
 
-    private fun initListeners() {
-
+    private fun initBottomNav() {
+        //TODO("Not yet implemented")
     }
 
+//    override fun onSupportNavigateUp() =
+//        navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 }
