@@ -32,12 +32,10 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.mainContent.mainFragmentContainer.id) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(
-            navController.graph,
-            binding.root
-//            fallbackOnNavigateUpListener = this::onSupportNavigateUp
-        )
-        binding.mainContent.mainToolbar.setupWithNavController(navController, binding.root)
+        appBarConfiguration = AppBarConfiguration(navController.graph, binding.root)
+        binding.mainContent.mainToolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.mainNavView.setupWithNavController(navController)
+        binding.mainContent.mainBottomNav.setupWithNavController(navController)
         initBottomNav()
     }
 

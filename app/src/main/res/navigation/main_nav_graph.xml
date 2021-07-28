@@ -7,11 +7,16 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="ru.marslab.filmoteca.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="ru.marslab.filmoteca.ui.about.AboutFragment"
-        android:label="fragment_about"
+        android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="ru.marslab.filmoteca.ui.help.HelpFragment"
+        android:label="@string/help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

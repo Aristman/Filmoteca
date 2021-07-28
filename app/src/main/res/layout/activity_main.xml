@@ -7,18 +7,18 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <include
+        android:id="@+id/main_content"
+        layout="@layout/main_content" />
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/layout_main_header"
         app:menu="@menu/drawer_menu" />
-
-    <include
-        android:id="@+id/main_content"
-        layout="@layout/main_content" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
