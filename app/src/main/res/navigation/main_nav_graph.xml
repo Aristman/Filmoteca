@@ -8,7 +8,11 @@
         android:id="@+id/loginFragment"
         android:name="ru.marslab.filmoteca.ui.login.LoginFragment"
         android:label="@string/login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_guestFragment"
+            app:destination="@id/guestFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="ru.marslab.filmoteca.ui.about.AboutFragment"
@@ -19,4 +23,9 @@
         android:name="ru.marslab.filmoteca.ui.help.HelpFragment"
         android:label="@string/help"
         tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/guestFragment"
+        android:name="ru.marslab.filmoteca.ui.guest.GuestFragment"
+        android:label="fragment_guest"
+        tools:layout="@layout/fragment_guest" />
 </navigation>
