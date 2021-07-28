@@ -11,4 +11,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Вход в систему</string>
+    <string name="login_string">Login</string>
+    <string name="password_string">Пароль</string>
+    <string name="login_btn">Вход</string>
+    <string name="guest_btn">Продолжить как гость</string>
 </resources>

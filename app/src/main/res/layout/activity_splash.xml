@@ -8,14 +8,14 @@
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dim_ui"
+        android:paddingBottom="@dimen/dim_24"
         android:indeterminate="true"/>
 
     <ImageView
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:contentDescription="@string/logo_image"
-        android:paddingBottom="@dimen/dim_ui"
+        android:paddingBottom="@dimen/dim_24"
         android:src="@drawable/logo" />
 
     <TextView
