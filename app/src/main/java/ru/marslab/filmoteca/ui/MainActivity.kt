@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.ActivityMainBinding
-import ru.marslab.filmoteca.ui.about.AboutFragment
 
 
 class MainActivity : AppCompatActivity() {

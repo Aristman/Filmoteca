@@ -4,7 +4,8 @@ import ru.marslab.filmoteca.domain.Repository
 import ru.marslab.filmoteca.domain.model.Film
 import kotlin.random.Random
 
-object RepositoryImpl: Repository {
+
+class RepositoryImpl: Repository {
 
     private var filmList = listOf(
         Film("Побег из Шоушенка", 1994),
