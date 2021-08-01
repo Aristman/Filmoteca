@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentMainFilmBinding
 
+@AndroidEntryPoint
 class MainFilmFragment : Fragment() {
     private var _binding: FragmentMainFilmBinding? = null
     private val binding: FragmentMainFilmBinding

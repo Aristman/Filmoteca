@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentPeopleMainBinding
 
+@AndroidEntryPoint
 class PeopleMainFragment : Fragment() {
     private var _binding: FragmentPeopleMainBinding? = null
     private val binding: FragmentPeopleMainBinding

@@ -19,4 +19,6 @@
     <string name="rated_moves">Популярные фильмы</string>
     <string name="rated_tv_shows">Популярные ТВ-шоу</string>
     <string name="rated_tv_episodes">Популярные серии ТВ-шоу</string>
+    <string name="movie_poster">movie poster</string>
+    <string name="repeat">Повтор</string>
 </resources>
