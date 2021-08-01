@@ -16,4 +16,7 @@
     <string name="login_btn">Вход</string>
     <string name="guest_btn">Продолжить как гость</string>
     <string name="films_guest">Фильмы - Гость</string>
+    <string name="rated_moves">Популярные фильмы</string>
+    <string name="rated_tv_shows">Популярные ТВ-шоу</string>
+    <string name="rated_tv_episodes">Популярные серии ТВ-шоу</string>
 </resources>

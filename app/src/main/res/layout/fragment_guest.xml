@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.guest.GuestFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:gravity="center"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/guest_btn" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <include layout="@layout/rv_layout_rated_moves" />
+
+        <include layout="@layout/rv_layout_rated_tv_shows" />
+
+        <include layout="@layout/rv_layout_rated_tv_episodes" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
