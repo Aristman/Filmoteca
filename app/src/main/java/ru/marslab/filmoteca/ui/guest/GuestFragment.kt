@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentGuestBinding
 import ru.marslab.filmoteca.ui.guest.adapter.RatedMoviesAdapter
-import ru.marslab.filmoteca.ui.guest.model.RatedMoviesUi
+import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 import ru.marslab.filmoteca.ui.util.ViewState
 
 @Suppress("UNCHECKED_CAST")
@@ -80,8 +81,7 @@ class GuestFragment : Fragment() {
 
     private fun initRv() {
         ratedMovesAdapter = RatedMoviesAdapter { movie ->
-            // TODO ("Реализация клика по фильму")
-            Snackbar.make(requireView(), movie.title, Snackbar.LENGTH_LONG).show()
+            showMovieDetail(movie.id)
         }
         with(binding.ratedMovies.rvRatedMoves) {
             adapter = ratedMovesAdapter
@@ -89,6 +89,11 @@ class GuestFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
         guestViewModel.getRatedMoviesList()
+    }
+
+    private fun showMovieDetail(id: Int) {
+        val action = GuestFragmentDirections.actionGuestFragmentToMovieDetailFragment(id)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

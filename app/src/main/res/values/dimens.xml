@@ -8,4 +8,7 @@
     <dimen name="card_conner_radius">8dp</dimen>
     <dimen name="rated_movie_list_width">124dp</dimen>
     <dimen name="item_image_height">180dp</dimen>
+    <dimen name="item_image_width">180dp</dimen>
+    <dimen name="movie_detail_image_width">180dp</dimen>
+    <dimen name="movie_detail_image_height">300dp</dimen>
 </resources>

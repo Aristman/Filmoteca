@@ -21,4 +21,5 @@
     <string name="rated_tv_episodes">Популярные серии ТВ-шоу</string>
     <string name="movie_poster">movie poster</string>
     <string name="repeat">Повтор</string>
+    <string name="movie_detail_fragment">Информация о фильме</string>
 </resources>

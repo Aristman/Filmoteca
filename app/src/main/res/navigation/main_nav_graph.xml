@@ -8,7 +8,7 @@
         android:id="@+id/loginFragment"
         android:name="ru.marslab.filmoteca.ui.login.LoginFragment"
         android:label="@string/login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_guestFragment"
             app:destination="@id/guestFragment" />
@@ -30,10 +30,14 @@
         android:id="@+id/guestFragment"
         android:name="ru.marslab.filmoteca.ui.guest.GuestFragment"
         android:label="@string/films_guest"
-        tools:layout="@layout/fragment_guest" />
+        tools:layout="@layout/fragment_guest">
+        <action
+            android:id="@+id/action_guestFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFilmFragment"
-        android:name="ru.marslab.filmoteca.ui.film.MainFilmFragment"
+        android:name="ru.marslab.filmoteca.ui.movie.MainFilmFragment"
         android:label="@string/films"
         tools:layout="@layout/fragment_main_film" />
     <fragment
@@ -46,4 +50,14 @@
         android:name="ru.marslab.filmoteca.ui.people.PeopleMainFragment"
         android:label="@string/people"
         tools:layout="@layout/fragment_people_main" />
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="ru.marslab.filmoteca.ui.movie.MovieDetailFragment"
+        android:label="@string/movie_detail_fragment"
+        tools:layout="@layout/fragment_movie_delail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>
