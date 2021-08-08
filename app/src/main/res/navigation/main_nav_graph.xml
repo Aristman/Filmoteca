@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="ru.marslab.filmoteca.ui.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_guestFragment"
+            app:destination="@id/guestFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFilmFragment"
+            app:destination="@id/mainFilmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ru.marslab.filmoteca.ui.about.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="ru.marslab.filmoteca.ui.help.HelpFragment"
+        android:label="@string/help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/guestFragment"
+        android:name="ru.marslab.filmoteca.ui.guest.GuestFragment"
+        android:label="@string/films_guest"
+        tools:layout="@layout/fragment_guest" />
+    <fragment
+        android:id="@+id/mainFilmFragment"
+        android:name="ru.marslab.filmoteca.ui.film.MainFilmFragment"
+        android:label="@string/films"
+        tools:layout="@layout/fragment_main_film" />
+    <fragment
+        android:id="@+id/mainTvFragment"
+        android:name="ru.marslab.filmoteca.ui.tv.MainTvFragment"
+        android:label="@string/tv"
+        tools:layout="@layout/fragment_main_tv" />
+    <fragment
+        android:id="@+id/peopleMainFragment"
+        android:name="ru.marslab.filmoteca.ui.people.PeopleMainFragment"
+        android:label="@string/people"
+        tools:layout="@layout/fragment_people_main" />
+</navigation>

@@ -1,4 +1,24 @@
 <resources>
-    <string name="app_name">Filmoteca</string>
+    <string name="app_name">Фильмотека</string>
     <string name="first_button">Случайный фильм</string>
+    <string name="about">О программе</string>
+    <string name="help">Помощь</string>
+    <string name="films">Фильмы</string>
+    <string name="tv">ТВ</string>
+    <string name="people">Люди</string>
+    <string name="search">Поиск</string>
+    <string name="logo_image">logo image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Вход в систему</string>
+    <string name="login_string">Login</string>
+    <string name="password_string">Пароль</string>
+    <string name="login_btn">Вход</string>
+    <string name="guest_btn">Продолжить как гость</string>
+    <string name="films_guest">Фильмы - Гость</string>
+    <string name="rated_moves">Популярные фильмы</string>
+    <string name="rated_tv_shows">Популярные ТВ-шоу</string>
+    <string name="rated_tv_episodes">Популярные серии ТВ-шоу</string>
+    <string name="movie_poster">movie poster</string>
+    <string name="repeat">Повтор</string>
 </resources>

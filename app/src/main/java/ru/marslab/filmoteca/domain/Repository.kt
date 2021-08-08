@@ -1,11 +1,8 @@
 package ru.marslab.filmoteca.domain
 
-import ru.marslab.filmoteca.domain.model.Film
+import ru.marslab.filmoteca.ui.guest.model.RatedMoviesUi
 
 interface Repository {
-    fun getFilms(): List<Film>
+    fun getRatedMovies(): List<RatedMoviesUi>
 
-    fun getSize(): Int
-
-    fun getRandomFilm(): Film
 }

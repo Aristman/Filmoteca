@@ -1,62 +1,67 @@
 package ru.marslab.filmoteca.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
-import ru.marslab.filmoteca.data.RepositoryImpl
-import ru.marslab.filmoteca.domain.Repository
+import ru.marslab.filmoteca.databinding.ActivityMainBinding
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    companion object {
-        const val LOG_TAG = "log_tag"
-    }
-    private lateinit var filmName: AppCompatTextView
-    private lateinit var filmYear: AppCompatTextView
-    private lateinit var firstButton: Button
-    private lateinit var repository: Repository
+
+    private lateinit var mainBottomNav: BottomNavigationView
+    private lateinit var mainToolbar: Toolbar
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initUi()
-        initRepository()
-        initListeners()
     }
 
-    private fun initRepository() {
-        repository = RepositoryImpl
-    }
 
     private fun initUi() {
-        firstButton = findViewById(R.id.first_button)
-        filmName = findViewById(R.id.film_name)
-        filmYear = findViewById(R.id.film_year)
+        mainToolbar = binding.mainContent.mainToolbar
+        mainBottomNav = binding.mainContent.mainBottomNav
+
+        setSupportActionBar(mainToolbar)
+        initNavController()
     }
 
-    private fun initListeners() {
-        firstButton.setOnClickListener {
-            val (name, year) = repository.getRandomFilm().copy()
-            filmName.text = name
-            filmYear.text = year.toString()
-            launchCycles()
+    private fun initNavController() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.mainContent.mainFragmentContainer.id) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.aboutFragment -> {
+                    mainToolbar.visibility = View.GONE
+                    mainBottomNav.visibility = View.GONE
+                }
+                R.id.helpFragment -> {
+                    mainToolbar.visibility = View.GONE
+                    mainBottomNav.visibility = View.GONE
+                }
+                R.id.loginFragment -> {
+                    mainToolbar.visibility = View.GONE
+                    mainBottomNav.visibility = View.GONE
+                }
+                else -> {
+                    mainToolbar.visibility = View.VISIBLE
+                    mainBottomNav.visibility = View.VISIBLE
+                }
+            }
         }
-    }
-
-    private fun launchCycles() {
-        val films = repository.getFilms()
-        films.forEach {
-            Log.d(LOG_TAG, it.name)
-        }
-        Log.d(LOG_TAG, "---------------------------")
-        var index = 0
-        while (index < films.size) {
-            Log.d(LOG_TAG, films[index].name + ":" + films[index].year)
-            index++
-        }
-        Log.d(LOG_TAG, "---------------------------")
+        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.root)
+        mainToolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.mainNavView.setupWithNavController(navController)
+        mainBottomNav.setupWithNavController(navController)
     }
 }
