@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.marslab.filmoteca.databinding.RvItemRatedMovieBinding
-import ru.marslab.filmoteca.ui.guest.model.RatedMoviesUi
+import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 
 val diffCallback = object : DiffUtil.ItemCallback<RatedMoviesUi>() {
     override fun areItemsTheSame(oldItem: RatedMoviesUi, newItem: RatedMoviesUi): Boolean {

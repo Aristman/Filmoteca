@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.guest.model
+package ru.marslab.filmoteca.ui.model
 
 data class RatedMoviesUi(
     val id: Int,

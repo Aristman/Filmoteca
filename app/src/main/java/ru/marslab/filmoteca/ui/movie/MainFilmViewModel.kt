@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.film
+package ru.marslab.filmoteca.ui.movie
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

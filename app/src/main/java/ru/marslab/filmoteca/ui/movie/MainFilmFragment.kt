@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.film
+package ru.marslab.filmoteca.ui.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
