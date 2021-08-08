@@ -15,6 +15,8 @@ import ru.marslab.filmoteca.databinding.FragmentGuestBinding
 import ru.marslab.filmoteca.ui.guest.adapter.RatedMoviesAdapter
 import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 import ru.marslab.filmoteca.ui.util.ViewState
+import ru.marslab.filmoteca.ui.util.showMessage
+import ru.marslab.filmoteca.ui.util.showMessageWithAction
 
 @Suppress("UNCHECKED_CAST")
 @AndroidEntryPoint
@@ -45,13 +47,17 @@ class GuestFragment : Fragment() {
                 is ViewState.Successful<*> -> {
                     showDataLayout()
                     val data = result.data as? List<RatedMoviesUi>
-                    data?.let {  ratedMovesAdapter.submitList(it) }
+                    data?.let { ratedMovesAdapter.submitList(it) }
                 }
                 is ViewState.Loading -> {
                     showLoadingLayout()
                 }
                 is ViewState.LoadError -> {
-                    showRepeatMessage(result.message)
+                    requireView().showMessageWithAction(
+                        R.string.load_list_movies_error, R.string.repeat,
+                    ) {
+                        guestViewModel.getRatedMoviesList()
+                    }
                 }
             }
         }
@@ -69,14 +75,6 @@ class GuestFragment : Fragment() {
             dataLayout.visibility = View.VISIBLE
             loadingIndicator.visibility = View.GONE
         }
-    }
-
-    private fun showRepeatMessage(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
-            .setAction(getString(R.string.repeat)) {
-                guestViewModel.getRatedMoviesList()
-            }
-            .show()
     }
 
     private fun initRv() {
