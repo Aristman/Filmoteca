@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.data.model
+package ru.marslab.filmoteca.data.model.account
 
 
 import kotlinx.serialization.SerialName
