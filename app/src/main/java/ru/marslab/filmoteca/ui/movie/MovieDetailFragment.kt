@@ -35,7 +35,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun initObservers() {
         movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) {movie ->
-            with(binding) {
+            binding.apply {
                 movieTitle.text = movie.title
                 movieOriginTitle.text = movie.titleOrigin
                 movie.poster?.let {

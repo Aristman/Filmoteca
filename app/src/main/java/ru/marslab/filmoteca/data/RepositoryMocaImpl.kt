@@ -1,7 +1,6 @@
 package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.domain.Repository
-import ru.marslab.filmoteca.domain.model.Film
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 
@@ -47,11 +46,7 @@ class RepositoryMocaImpl : Repository {
         )
     )
 
-    override fun getRatedMovies(): List<RatedMoviesUi> {
-        return ratedMoviesList
-    }
+    override fun getRatedMovies(): List<RatedMoviesUi> = ratedMoviesList
 
-    override fun getMovieDetail(id: Int): MovieDetailUi? {
-        return movieDetailList.find { it.id == id }
-    }
+    override fun getMovieDetail(id: Int): MovieDetailUi? = movieDetailList.find { it.id == id }
 }

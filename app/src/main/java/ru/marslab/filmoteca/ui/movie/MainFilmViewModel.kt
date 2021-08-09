@@ -6,5 +6,7 @@ import ru.marslab.filmoteca.domain.Repository
 import javax.inject.Inject
 
 @HiltViewModel
-class MainFilmViewModel @Inject constructor(repository: Repository) : ViewModel(){
+class MainFilmViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 }

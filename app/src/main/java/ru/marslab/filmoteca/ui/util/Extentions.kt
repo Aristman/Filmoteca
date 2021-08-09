@@ -45,3 +45,15 @@ fun View.showMessageWithAction(
         )
     }
 }
+
+fun View.viewShow() {
+    if (this.visibility == View.GONE) {
+        this.visibility = View.VISIBLE
+    }
+}
+
+fun View.viewHide() {
+    if (this.visibility == View.VISIBLE) {
+        this.visibility = View.GONE
+    }
+}

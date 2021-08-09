@@ -1,7 +1,6 @@
 package ru.marslab.filmoteca.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +10,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.ActivityMainBinding
+import ru.marslab.filmoteca.ui.util.viewHide
+import ru.marslab.filmoteca.ui.util.viewShow
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -39,23 +40,17 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.mainContent.mainFragmentContainer.id) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.aboutFragment -> {
-                    mainToolbar.visibility = View.GONE
-                    mainBottomNav.visibility = View.GONE
-                }
-                R.id.helpFragment -> {
-                    mainToolbar.visibility = View.GONE
-                    mainBottomNav.visibility = View.GONE
-                }
+                R.id.aboutFragment,
+                R.id.helpFragment,
                 R.id.loginFragment -> {
-                    mainToolbar.visibility = View.GONE
-                    mainBottomNav.visibility = View.GONE
+                    mainToolbar.viewHide()
+                    mainBottomNav.viewHide()
                 }
                 else -> {
-                    mainToolbar.visibility = View.VISIBLE
-                    mainBottomNav.visibility = View.VISIBLE
+                    mainToolbar.viewShow()
+                    mainBottomNav.viewShow()
                 }
             }
         }
