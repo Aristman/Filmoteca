@@ -9,14 +9,11 @@ import ru.marslab.filmoteca.databinding.RvItemRatedMovieBinding
 import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 
 val diffCallback = object : DiffUtil.ItemCallback<RatedMoviesUi>() {
-    override fun areItemsTheSame(oldItem: RatedMoviesUi, newItem: RatedMoviesUi): Boolean {
-        return oldItem.id == newItem.id
-    }
+    override fun areItemsTheSame(oldItem: RatedMoviesUi, newItem: RatedMoviesUi): Boolean =
+        oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: RatedMoviesUi, newItem: RatedMoviesUi): Boolean {
-        return oldItem == newItem
-    }
-
+    override fun areContentsTheSame(oldItem: RatedMoviesUi, newItem: RatedMoviesUi): Boolean =
+        oldItem == newItem
 }
 
 class RatedMoviesAdapter(private val callback: (item: RatedMoviesUi) -> Unit) :

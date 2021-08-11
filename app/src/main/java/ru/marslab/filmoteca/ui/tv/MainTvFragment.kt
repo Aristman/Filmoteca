@@ -16,10 +16,6 @@ class MainTvFragment : Fragment() {
         get() = _binding!!
     private val mainTvViewModel by viewModels<MainTvViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

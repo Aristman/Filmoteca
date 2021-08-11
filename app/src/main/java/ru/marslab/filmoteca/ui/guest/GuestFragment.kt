@@ -8,13 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentGuestBinding
 import ru.marslab.filmoteca.ui.guest.adapter.RatedMoviesAdapter
 import ru.marslab.filmoteca.ui.model.RatedMoviesUi
 import ru.marslab.filmoteca.ui.util.ViewState
+import ru.marslab.filmoteca.ui.util.viewHide
+import ru.marslab.filmoteca.ui.util.showMessageWithAction
+import ru.marslab.filmoteca.ui.util.viewShow
 
 @Suppress("UNCHECKED_CAST")
 @AndroidEntryPoint
@@ -45,13 +47,17 @@ class GuestFragment : Fragment() {
                 is ViewState.Successful<*> -> {
                     showDataLayout()
                     val data = result.data as? List<RatedMoviesUi>
-                    data?.let {  ratedMovesAdapter.submitList(it) }
+                    data?.let { ratedMovesAdapter.submitList(it) }
                 }
                 is ViewState.Loading -> {
                     showLoadingLayout()
                 }
                 is ViewState.LoadError -> {
-                    showRepeatMessage(result.message)
+                    requireView().showMessageWithAction(
+                        R.string.load_list_movies_error, R.string.repeat,
+                    ) {
+                        guestViewModel.getRatedMoviesList()
+                    }
                 }
             }
         }
@@ -59,31 +65,23 @@ class GuestFragment : Fragment() {
 
     private fun showLoadingLayout() {
         with(binding) {
-            dataLayout.visibility = View.GONE
-            loadingIndicator.visibility = View.VISIBLE
+            dataLayout.viewHide()
+            loadingIndicator.viewShow()
         }
     }
 
     private fun showDataLayout() {
         with(binding) {
-            dataLayout.visibility = View.VISIBLE
-            loadingIndicator.visibility = View.GONE
+            dataLayout.viewShow()
+            loadingIndicator.viewHide()
         }
-    }
-
-    private fun showRepeatMessage(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
-            .setAction(getString(R.string.repeat)) {
-                guestViewModel.getRatedMoviesList()
-            }
-            .show()
     }
 
     private fun initRv() {
         ratedMovesAdapter = RatedMoviesAdapter { movie ->
             showMovieDetail(movie.id)
         }
-        with(binding.ratedMovies.rvRatedMoves) {
+        binding.ratedMovies.rvRatedMoves.apply {
             adapter = ratedMovesAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

@@ -9,7 +9,9 @@ import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MovieDetailViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
     private var _movieDetail: MutableLiveData<MovieDetailUi> = MutableLiveData()
     val movieDetail: LiveData<MovieDetailUi>
         get() = _movieDetail

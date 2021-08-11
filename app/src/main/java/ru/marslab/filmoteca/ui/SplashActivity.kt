@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import ru.marslab.filmoteca.R
+import ru.marslab.filmoteca.ui.util.Constants.START_DELAY
 
 
 class SplashActivity: AppCompatActivity() {
@@ -17,6 +18,6 @@ class SplashActivity: AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000L)
+        }, START_DELAY)
     }
 }

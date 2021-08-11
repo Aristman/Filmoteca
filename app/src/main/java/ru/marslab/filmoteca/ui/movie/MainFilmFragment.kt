@@ -16,10 +16,6 @@ class MainFilmFragment : Fragment() {
         get() = _binding!!
     private val mainFilmViewModel by viewModels<MainFilmViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
