@@ -1,35 +1,35 @@
 package ru.marslab.filmoteca.data.model.certifications
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TvCertificationsNW(
-    @SerialName("certifications")
+    @SerializedName("certifications")
     val certifications: Certifications
 ) {
     @Serializable
     data class Certifications(
-        @SerialName("AU")
+        @SerializedName("AU")
         val AU: List<Certificate>,
-        @SerialName("BR")
+        @SerializedName("BR")
         val BR: List<Certificate>,
-        @SerialName("CA")
+        @SerializedName("CA")
         val CA: List<Certificate>,
-        @SerialName("DE")
+        @SerializedName("DE")
         val DE: List<Certificate>,
-        @SerialName("FR")
+        @SerializedName("FR")
         val FR: List<Certificate>,
-        @SerialName("GB")
+        @SerializedName("GB")
         val GB: List<Certificate>,
-        @SerialName("KR")
+        @SerializedName("KR")
         val KR: List<Certificate>,
-        @SerialName("RU")
+        @SerializedName("RU")
         val RU: List<Certificate>,
-        @SerialName("TH")
+        @SerializedName("TH")
         val TH: List<Certificate>,
-        @SerialName("US")
+        @SerializedName("US")
         val US: List<Certificate>
     )
 }

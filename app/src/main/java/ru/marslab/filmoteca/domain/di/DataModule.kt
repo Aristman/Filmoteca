@@ -12,13 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.RepositoryNetworkImpl
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.Repository
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object DataModule {
 
-    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideRepository(api: MovieApi): Repository = RepositoryNetworkImpl(api)
 
@@ -39,5 +38,5 @@ object DataModule {
 
     @Provides
     fun provideBaseUrl(): String =
-        "https://developers.themoviedb.org/3/"
+        "https://api.themoviedb.org/3/"
 }

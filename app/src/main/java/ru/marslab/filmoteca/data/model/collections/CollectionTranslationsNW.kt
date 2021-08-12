@@ -1,36 +1,36 @@
 package ru.marslab.filmoteca.data.model.collections
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CollectionTranslationsNW(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("translations")
+    @SerializedName("translations")
     val translations: List<Translation>
 ) {
     @Serializable
     data class Translation(
-        @SerialName("data")
+        @SerializedName("data")
         val `data`: Data,
-        @SerialName("english_name")
+        @SerializedName("english_name")
         val englishName: String,
-        @SerialName("iso_3166_1")
+        @SerializedName("iso_3166_1")
         val iso31661: String,
-        @SerialName("iso_639_1")
+        @SerializedName("iso_639_1")
         val iso6391: String,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String
     ) {
         @Serializable
         data class Data(
-            @SerialName("homepage")
+            @SerializedName("homepage")
             val homepage: String,
-            @SerialName("overview")
+            @SerializedName("overview")
             val overview: String,
-            @SerialName("title")
+            @SerializedName("title")
             val title: String
         )
     }

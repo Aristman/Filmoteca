@@ -1,47 +1,47 @@
 package ru.marslab.filmoteca.data.model.account
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TvShowWatchlistNW(
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<Result>,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int
 ) {
     @Serializable
     data class Result(
-        @SerialName("backdrop_path")
+        @SerializedName("backdrop_path")
         val backdropPath: String?,
-        @SerialName("first_air_date")
+        @SerializedName("first_air_date")
         val firstAirDate: String,
-        @SerialName("genre_ids")
+        @SerializedName("genre_ids")
         val genreIds: List<Int>,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("origin_country")
+        @SerializedName("origin_country")
         val originCountry: List<String>,
-        @SerialName("original_language")
+        @SerializedName("original_language")
         val originalLanguage: String,
-        @SerialName("original_name")
+        @SerializedName("original_name")
         val originalName: String,
-        @SerialName("overview")
+        @SerializedName("overview")
         val overview: String,
-        @SerialName("popularity")
+        @SerializedName("popularity")
         val popularity: Double,
-        @SerialName("poster_path")
+        @SerializedName("poster_path")
         val posterPath: String?,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Double,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int
     )
 }

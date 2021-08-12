@@ -1,21 +1,21 @@
 package ru.marslab.filmoteca.data.model.companies
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CompanyAlternativeNamesNW(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<Result>
 ) {
     @Serializable
     data class Result(
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("type")
+        @SerializedName("type")
         val type: String
     )
 }

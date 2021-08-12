@@ -1,33 +1,33 @@
 package ru.marslab.filmoteca.data.model.companies
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CompanyImagesNW(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("logos")
+    @SerializedName("logos")
     val logos: List<Logo>
 ) {
     @Serializable
     data class Logo(
-        @SerialName("aspect_ratio")
+        @SerializedName("aspect_ratio")
         val aspectRatio: Double,
-        @SerialName("file_path")
+        @SerializedName("file_path")
         val filePath: String,
-        @SerialName("file_type")
+        @SerializedName("file_type")
         val fileType: String,
-        @SerialName("height")
+        @SerializedName("height")
         val height: Int,
-        @SerialName("id")
+        @SerializedName("id")
         val id: String,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Int,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int,
-        @SerialName("width")
+        @SerializedName("width")
         val width: Int
     )
 }

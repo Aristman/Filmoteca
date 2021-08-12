@@ -1,57 +1,57 @@
 package ru.marslab.filmoteca.data.model.credits
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreditNW(
-    @SerialName("credit_type")
+    @SerializedName("credit_type")
     val creditType: String,
-    @SerialName("department")
+    @SerializedName("department")
     val department: String,
-    @SerialName("id")
+    @SerializedName("id")
     val id: String,
-    @SerialName("job")
+    @SerializedName("job")
     val job: String,
-    @SerialName("media")
+    @SerializedName("media")
     val media: Media,
-    @SerialName("media_type")
+    @SerializedName("media_type")
     val mediaType: String,
-    @SerialName("person")
+    @SerializedName("person")
     val person: Person
 ) {
     @Serializable
     data class Media(
-        @SerialName("character")
+        @SerializedName("character")
         val character: String,
-        @SerialName("episodes")
+        @SerializedName("episodes")
         val episodes: List<String>,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("original_name")
+        @SerializedName("original_name")
         val originalName: String,
-        @SerialName("seasons")
+        @SerializedName("seasons")
         val seasons: List<Season>
     ) {
         @Serializable
         data class Season(
-            @SerialName("air_date")
+            @SerializedName("air_date")
             val airDate: String,
-            @SerialName("poster_path")
+            @SerializedName("poster_path")
             val posterPath: String,
-            @SerialName("season_number")
+            @SerializedName("season_number")
             val seasonNumber: Int
         )
     }
 
     @Serializable
     data class Person(
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String
     )
 }

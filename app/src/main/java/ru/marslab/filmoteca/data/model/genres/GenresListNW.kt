@@ -1,19 +1,19 @@
 package ru.marslab.filmoteca.data.model.genres
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GenresListNW(
-    @SerialName("genres")
+    @SerializedName("genres")
     val genres: List<Genre>
 ) {
     @Serializable
     data class Genre(
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String
     )
 }

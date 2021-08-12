@@ -1,14 +1,14 @@
 package ru.marslab.filmoteca.data.model.certifications
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Certificate(
-    @SerialName("certification")
+    @SerializedName("certification")
     val certification: String,
-    @SerialName("meaning")
+    @SerializedName("meaning")
     val meaning: String,
-    @SerialName("order")
+    @SerializedName("order")
     val order: Int
 )

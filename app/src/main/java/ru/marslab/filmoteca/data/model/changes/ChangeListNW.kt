@@ -1,25 +1,25 @@
 package ru.marslab.filmoteca.data.model.changes
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChangeListNW(
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<Result>,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int
 ) {
     @Serializable
     data class Result(
-        @SerialName("adult")
+        @SerializedName("adult")
         val adult: Boolean,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int
     )
 }

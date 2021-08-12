@@ -11,7 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.domain.Repository
-import ru.marslab.filmoteca.ui.util.Constants.LOAD_DELAY
+import ru.marslab.filmoteca.domain.util.Constants.LOAD_DELAY
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
 import kotlin.random.Random

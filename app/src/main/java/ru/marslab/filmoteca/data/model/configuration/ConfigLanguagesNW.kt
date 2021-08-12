@@ -1,15 +1,15 @@
 package ru.marslab.filmoteca.data.model.configuration
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConfigLanguagesNW(
-    @SerialName("english_name")
+    @SerializedName("english_name")
     val englishName: String,
-    @SerialName("iso_639_1")
+    @SerializedName("iso_639_1")
     val iso6391: String,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String
 )

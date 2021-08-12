@@ -1,45 +1,45 @@
 package ru.marslab.filmoteca.data.model.guest
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GuestRatedTvEpisodesNW(
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<TvEpisod>,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int
 ) {
     @Serializable
     data class TvEpisod(
-        @SerialName("air_date")
+        @SerializedName("air_date")
         val airDate: String,
-        @SerialName("episode_number")
+        @SerializedName("episode_number")
         val episodeNumber: Int,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("overview")
+        @SerializedName("overview")
         val overview: String,
-        @SerialName("production_code")
+        @SerializedName("production_code")
         val productionCode: String?,
-        @SerialName("rating")
+        @SerializedName("rating")
         val rating: Int,
-        @SerialName("season_number")
+        @SerializedName("season_number")
         val seasonNumber: Int,
-        @SerialName("show_id")
+        @SerializedName("show_id")
         val showId: Int,
-        @SerialName("still_path")
+        @SerializedName("still_path")
         val stillPath: String?,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Double,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int
     )
 }

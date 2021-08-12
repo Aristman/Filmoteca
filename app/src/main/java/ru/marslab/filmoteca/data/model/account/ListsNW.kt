@@ -1,37 +1,37 @@
 package ru.marslab.filmoteca.data.model.account
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ListsNW(
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<Result>,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int
 ) {
     @Serializable
     data class Result(
-        @SerialName("description")
+        @SerializedName("description")
         val description: String,
-        @SerialName("favorite_count")
+        @SerializedName("favorite_count")
         val favoriteCount: Int,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("iso_639_1")
+        @SerializedName("iso_639_1")
         val iso6391: String,
-        @SerialName("item_count")
+        @SerializedName("item_count")
         val itemCount: Int,
-        @SerialName("list_type")
+        @SerializedName("list_type")
         val listType: String,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("poster_path")
+        @SerializedName("poster_path")
         val posterPath: String?
     )
 }

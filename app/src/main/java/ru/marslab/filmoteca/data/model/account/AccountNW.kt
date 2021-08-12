@@ -1,35 +1,35 @@
 package ru.marslab.filmoteca.data.model.account
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @kotlinx.serialization.Serializable
 data class AccountNW(
-    @SerialName("avatar")
+    @SerializedName("avatar")
     val avatar: Avatar,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("include_adult")
+    @SerializedName("include_adult")
     val includeAdult: Boolean,
-    @SerialName("iso_3166_1")
+    @SerializedName("iso_3166_1")
     val iso31661: String,
-    @SerialName("iso_639_1")
+    @SerializedName("iso_639_1")
     val iso6391: String,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String,
-    @SerialName("username")
+    @SerializedName("username")
     val username: String
 ) {
 
     @kotlinx.serialization.Serializable
     data class Avatar(
-        @SerialName("gravatar")
+        @SerializedName("gravatar")
         val gravatar: Gravatar
     ) {
         @Serializable
         data class Gravatar(
-            @SerialName("hash")
+            @SerializedName("hash")
             val hash: String
         )
     }

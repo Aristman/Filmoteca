@@ -1,25 +1,25 @@
 package ru.marslab.filmoteca.data.model.companies
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CompanyDetailsNW(
-    @SerialName("description")
+    @SerializedName("description")
     val description: String,
-    @SerialName("headquarters")
+    @SerializedName("headquarters")
     val headquarters: String,
-    @SerialName("homepage")
+    @SerializedName("homepage")
     val homepage: String,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("logo_path")
+    @SerializedName("logo_path")
     val logoPath: String,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String,
-    @SerialName("origin_country")
+    @SerializedName("origin_country")
     val originCountry: String,
-    @SerialName("parent_company")
+    @SerializedName("parent_company")
     val parentCompany: String?
 )

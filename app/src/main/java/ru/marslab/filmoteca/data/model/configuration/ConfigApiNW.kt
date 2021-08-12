@@ -1,31 +1,31 @@
 package ru.marslab.filmoteca.data.model.configuration
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConfigApiNW(
-    @SerialName("change_keys")
+    @SerializedName("change_keys")
     val changeKeys: List<String>,
-    @SerialName("images")
+    @SerializedName("images")
     val images: Images
 ) {
     @Serializable
     data class Images(
-        @SerialName("backdrop_sizes")
+        @SerializedName("backdrop_sizes")
         val backdropSizes: List<String>,
-        @SerialName("base_url")
+        @SerializedName("base_url")
         val baseUrl: String,
-        @SerialName("logo_sizes")
+        @SerializedName("logo_sizes")
         val logoSizes: List<String>,
-        @SerialName("poster_sizes")
+        @SerializedName("poster_sizes")
         val posterSizes: List<String>,
-        @SerialName("profile_sizes")
+        @SerializedName("profile_sizes")
         val profileSizes: List<String>,
-        @SerialName("secure_base_url")
+        @SerializedName("secure_base_url")
         val secureBaseUrl: String,
-        @SerialName("still_sizes")
+        @SerializedName("still_sizes")
         val stillSizes: List<String>
     )
 }

@@ -1,51 +1,51 @@
 package ru.marslab.filmoteca.data.model.collections
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CollectionImagesNW(
-    @SerialName("backdrops")
+    @SerializedName("backdrops")
     val backdrops: List<Backdrop>,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int,
-    @SerialName("posters")
+    @SerializedName("posters")
     val posters: List<Poster>
 ) {
     @Serializable
     data class Backdrop(
-        @SerialName("aspect_ratio")
+        @SerializedName("aspect_ratio")
         val aspectRatio: Double,
-        @SerialName("file_path")
+        @SerializedName("file_path")
         val filePath: String,
-        @SerialName("height")
+        @SerializedName("height")
         val height: Int,
-        @SerialName("iso_639_1")
+        @SerializedName("iso_639_1")
         val iso6391: String?,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Double,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int,
-        @SerialName("width")
+        @SerializedName("width")
         val width: Int
     )
 
     @Serializable
     data class Poster(
-        @SerialName("aspect_ratio")
+        @SerializedName("aspect_ratio")
         val aspectRatio: Double,
-        @SerialName("file_path")
+        @SerializedName("file_path")
         val filePath: String,
-        @SerialName("height")
+        @SerializedName("height")
         val height: Int,
-        @SerialName("iso_639_1")
+        @SerializedName("iso_639_1")
         val iso6391: String,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Double,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int,
-        @SerialName("width")
+        @SerializedName("width")
         val width: Int
     )
 }

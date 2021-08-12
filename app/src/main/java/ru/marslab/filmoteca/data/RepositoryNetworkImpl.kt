@@ -1,10 +1,12 @@
 package ru.marslab.filmoteca.data
 
+import android.util.Log
 import ru.marslab.filmoteca.BuildConfig
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.Repository
 import ru.marslab.filmoteca.domain.model.Movie
+import ru.marslab.filmoteca.domain.util.Constants.LOG_TAG
 
 class RepositoryNetworkImpl (
     private val api: MovieApi,
@@ -19,6 +21,7 @@ class RepositoryNetworkImpl (
         sessionId = try {
             val guestSessionId = api.getGuestSessionId(apiKeyV3)
             if (guestSessionId.isSuccessful) {
+                Log.d(LOG_TAG, guestSessionId.body().toString())
                 guestSessionId.body()?.guestSessionId
             } else {
                 null

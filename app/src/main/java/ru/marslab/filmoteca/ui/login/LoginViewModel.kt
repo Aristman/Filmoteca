@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.domain.Repository
-import ru.marslab.filmoteca.ui.util.Constants
+import ru.marslab.filmoteca.domain.util.Constants
 import ru.marslab.filmoteca.ui.util.OnEvent
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
@@ -19,6 +19,7 @@ private const val ERROR_LOADING_SESSION = "Ошибка соединение. Н
 class LoginViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
+    private var sessionId: String = ""
     private var _isSessionConnected: MutableLiveData<ViewState> = MutableLiveData()
     val isSessionConnected: LiveData<ViewState>
         get() = _isSessionConnected
@@ -28,8 +29,9 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 for (step in 0..Constants.MAX_REQUEST_COUNT) {
-                    val sessionId = repository.getSessionId()
-                    sessionId?.let {
+                    val tempSessionId = repository.getSessionId()
+                    tempSessionId?.let {
+                        sessionId = it
                         _isSessionConnected.postValue(ViewState.Successful(OnEvent(true)))
                         return@launch
                     }
@@ -41,4 +43,6 @@ class LoginViewModel @Inject constructor(
 
         }
     }
+
+    fun getSessionId(): String = sessionId
 }

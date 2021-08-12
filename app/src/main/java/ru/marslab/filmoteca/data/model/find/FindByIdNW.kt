@@ -1,51 +1,51 @@
 package ru.marslab.filmoteca.data.model.find
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class FindByIdNW(
-    @SerialName("movie_results")
+    @SerializedName("movie_results")
     val movieResults: List<Movies>,
-    @SerialName("person_results")
+    @SerializedName("person_results")
     val personResults: List<Persons>,
-    @SerialName("tv_episode_results")
+    @SerializedName("tv_episode_results")
     val tvEpisodeResults: List<TvEpisodes>,
-    @SerialName("tv_results")
+    @SerializedName("tv_results")
     val tvResults: List<Tv>,
-    @SerialName("tv_season_results")
+    @SerializedName("tv_season_results")
     val tvSeasonResults: List<TvSeason>
 ) {
     @Serializable
     data class Movies(
-        @SerialName("adult")
+        @SerializedName("adult")
         val adult: Boolean,
-        @SerialName("backdrop_path")
+        @SerializedName("backdrop_path")
         val backdropPath: String?,
-        @SerialName("genre_ids")
+        @SerializedName("genre_ids")
         val genreIds: List<Int>,
-        @SerialName("id")
+        @SerializedName("id")
         val id: Int,
-        @SerialName("original_language")
+        @SerializedName("original_language")
         val originalLanguage: String,
-        @SerialName("original_title")
+        @SerializedName("original_title")
         val originalTitle: String,
-        @SerialName("overview")
+        @SerializedName("overview")
         val overview: String,
-        @SerialName("popularity")
+        @SerializedName("popularity")
         val popularity: Double,
-        @SerialName("poster_path")
+        @SerializedName("poster_path")
         val posterPath: String?,
-        @SerialName("release_date")
+        @SerializedName("release_date")
         val releaseDate: String,
-        @SerialName("title")
+        @SerializedName("title")
         val title: String,
-        @SerialName("video")
+        @SerializedName("video")
         val video: Boolean,
-        @SerialName("vote_average")
+        @SerializedName("vote_average")
         val voteAverage: Double,
-        @SerialName("vote_count")
+        @SerializedName("vote_count")
         val voteCount: Int
     )
 
