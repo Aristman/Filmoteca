@@ -7,8 +7,8 @@ interface Repository {
     val apiKeyV4: String
     var sessionId: String?
 
-    suspend fun getSessionId(): String?
-    suspend fun getRatedMovies(): List<Movie>
+    suspend fun takeSessionId(): String?
+    suspend fun getGuestRatedMovies(): List<Movie>
     suspend fun getMovieDetail(id: Int): Movie?
 
 }

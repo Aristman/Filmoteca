@@ -19,30 +19,31 @@ private const val ERROR_LOADING_SESSION = "Ошибка соединение. Н
 class LoginViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    private var sessionId: String = ""
-    private var _isSessionConnected: MutableLiveData<ViewState> = MutableLiveData()
-    val isSessionConnected: LiveData<ViewState>
-        get() = _isSessionConnected
+    private var isSessionConnected: Boolean = false
+    private var _sessionConnect: MutableLiveData<ViewState> = MutableLiveData()
+    val sessionConnect: LiveData<ViewState>
+        get() = _sessionConnect
 
     fun sessionConnect() {
-        _isSessionConnected.value = ViewState.Loading
+        _sessionConnect.value = ViewState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 for (step in 0..Constants.MAX_REQUEST_COUNT) {
-                    val tempSessionId = repository.getSessionId()
-                    tempSessionId?.let {
-                        sessionId = it
-                        _isSessionConnected.postValue(ViewState.Successful(OnEvent(true)))
+                    val sessionId = repository.takeSessionId()
+                    sessionId?.let {
+                        _sessionConnect.postValue(ViewState.Successful(OnEvent(true)))
+                        isSessionConnected = true
                         return@launch
                     }
                 }
-                _isSessionConnected.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
+                _sessionConnect.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             } catch (e: Exception) {
-                _isSessionConnected.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
+                _sessionConnect.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             }
-
         }
     }
-
-    fun getSessionId(): String = sessionId
+    
+    fun isNotConnected(): Boolean = !isSessionConnected
+    
+    fun getSessionId(): String? = repository.sessionId
 }

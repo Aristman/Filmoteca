@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentGuestBinding
 import ru.marslab.filmoteca.ui.guest.adapter.RatedMoviesAdapter
-import ru.marslab.filmoteca.ui.model.RatedMoviesUi
+import ru.marslab.filmoteca.ui.model.MovieShortUi
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.viewHide
 import ru.marslab.filmoteca.ui.util.showMessageWithAction
@@ -43,10 +43,11 @@ class GuestFragment : Fragment() {
 
     private fun initObservers() {
         guestViewModel.ratedMovies.observe(viewLifecycleOwner) { result ->
-            when (result) {
+            ratedMovesAdapter.submitList(result)
+/*            when (result) {
                 is ViewState.Successful<*> -> {
                     showDataLayout()
-                    val data = result.data as? List<RatedMoviesUi>
+                    val data = result.data as? List<MovieShortUi>
                     data?.let { ratedMovesAdapter.submitList(it) }
                 }
                 is ViewState.Loading -> {
@@ -59,9 +60,10 @@ class GuestFragment : Fragment() {
                         guestViewModel.getRatedMoviesList()
                     }
                 }
-            }
+            }*/
         }
     }
+
 
     private fun showLoadingLayout() {
         with(binding) {

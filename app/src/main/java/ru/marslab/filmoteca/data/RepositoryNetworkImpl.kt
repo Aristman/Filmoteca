@@ -17,7 +17,7 @@ class RepositoryNetworkImpl (
         get() = BuildConfig.API_KEY_V4
     override var sessionId: String? = null
 
-    override suspend fun getSessionId(): String? {
+    override suspend fun takeSessionId(): String? {
         sessionId = try {
             val guestSessionId = api.getGuestSessionId(apiKeyV3)
             if (guestSessionId.isSuccessful) {
@@ -32,9 +32,9 @@ class RepositoryNetworkImpl (
         return sessionId
     }
 
-    override suspend fun getRatedMovies(): List<Movie> {
+    override suspend fun getGuestRatedMovies(): List<Movie> {
         sessionId?.let{
-            val ratedMovies = api.getRatedMovies(it, apiKeyV3)
+            val ratedMovies = api.getGuestRatedMovies(it, apiKeyV3)
             ratedMovies.body()?.let { guestRatedMoviesNW ->
                 return guestRatedMoviesNW.toDomain()
             }

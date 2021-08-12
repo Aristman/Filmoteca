@@ -39,13 +39,13 @@ class LoginFragment : Fragment() {
             loadingIndicator.viewHide()
             mainView.viewShow()
         }
-        loginViewModel.sessionConnect()
-        var sess = loginViewModel.getSessionId()
-        sess = ""
+        if (loginViewModel.isNotConnected()) {
+            loginViewModel.sessionConnect()
+        }
     }
 
     private fun initObservers() {
-        loginViewModel.isSessionConnected.observe(viewLifecycleOwner) { viewState ->
+        loginViewModel.sessionConnect.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
                     requireView().showMessageWithAction(
@@ -60,9 +60,8 @@ class LoginFragment : Fragment() {
                 }
                 is ViewState.Successful<*> -> {
                     val isSessionConnected = viewState.data as? OnEvent<Boolean>
-                    isSessionConnected?.let {
+                    isSessionConnected?.getContentIfNotHandled()?.let {
                         showMainView()
-                        requireView().showMessage(loginViewModel.getSessionId())
                     }
                 }
             }

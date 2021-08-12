@@ -16,6 +16,7 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
                 listOf(),
                 movie.releaseDate,
                 listOf(),
-                movie.originalLanguage
+                movie.originalLanguage,
+                movie.rating
             )
         }

@@ -14,7 +14,7 @@ interface MovieApi {
     ): Response<GuestNewSessionNW>
 
     @GET("guest_session/{guest_session_id}/rated/movies")
-    suspend fun getRatedMovies(
+    suspend fun getGuestRatedMovies(
         @Path("guest_session_id") sessionId: String,
         @Query("api_key") apiKey: String,
         @Query("language") language: String? = null,
