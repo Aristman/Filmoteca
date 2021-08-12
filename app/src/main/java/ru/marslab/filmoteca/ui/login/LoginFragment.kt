@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentLoginBinding
+import ru.marslab.filmoteca.ui.util.ViewState
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -27,7 +28,24 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObservers()
         initListeners()
+    }
+
+    private fun initObservers() {
+        loginViewModel.isSessionConnected.observe(viewLifecycleOwner) { viewState ->
+            when (viewState) {
+                is ViewState.LoadError -> {
+
+                }
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Successful<*> -> {
+
+                }
+            }
+        }
     }
 
     private fun initListeners() {

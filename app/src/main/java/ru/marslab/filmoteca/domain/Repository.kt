@@ -1,10 +1,14 @@
 package ru.marslab.filmoteca.domain
 
-import ru.marslab.filmoteca.ui.model.MovieDetailUi
-import ru.marslab.filmoteca.ui.model.RatedMoviesUi
+import ru.marslab.filmoteca.domain.model.Movie
 
 interface Repository {
-    fun getRatedMovies(): List<RatedMoviesUi>
-    fun getMovieDetail(id: Int): MovieDetailUi?
+    val apiKeyV3: String
+    val apiKeyV4: String
+    var sessionId: String?
+
+    suspend fun getSessionId(): String?
+    suspend fun getRatedMovies(): List<Movie>
+    suspend fun getMovieDetail(id: Int): Movie?
 
 }

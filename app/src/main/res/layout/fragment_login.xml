@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".ui.login.LoginFragment">
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="@dimen/input_text_field"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dim_24">
+    <LinearLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/login_string"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="@dimen/input_text_field"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dim_24">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="@dimen/input_text_field"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dim_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/login_string"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/password_string"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="@dimen/input_text_field"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dim_24">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/login_btn"
-        android:layout_width="@dimen/input_text_field"
-        android:layout_height="wrap_content"
-        android:text="@string/login_btn"
-        android:layout_marginBottom="@dimen/dim_24"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/password_string"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/guest_btn"
-        android:layout_width="@dimen/input_text_field"
-        android:layout_height="wrap_content"
-        android:text="@string/guest_btn"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_btn"
+            android:layout_width="@dimen/input_text_field"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dim_24"
+            android:text="@string/login_btn" />
 
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/guest_btn"
+            android:layout_width="@dimen/input_text_field"
+            android:layout_height="wrap_content"
+            android:text="@string/guest_btn" />
+    </LinearLayout>
+
+</FrameLayout>

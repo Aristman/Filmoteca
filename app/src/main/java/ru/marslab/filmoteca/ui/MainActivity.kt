@@ -1,6 +1,7 @@
 package ru.marslab.filmoteca.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainBottomNav: BottomNavigationView
     private lateinit var mainToolbar: Toolbar
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

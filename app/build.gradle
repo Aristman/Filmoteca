@@ -67,12 +67,18 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
     //Hilt Dagger
-    implementation 'com.google.dagger:hilt-android:2.38.1'
-    kapt 'com.google.dagger:hilt-compiler:2.38.1'
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //Serialization
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2'
 
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 
 
 

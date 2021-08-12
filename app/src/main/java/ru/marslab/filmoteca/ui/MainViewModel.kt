@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.login
+package ru.marslab.filmoteca.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,12 +11,13 @@ import ru.marslab.filmoteca.domain.Repository
 import ru.marslab.filmoteca.ui.util.Constants
 import ru.marslab.filmoteca.ui.util.OnEvent
 import ru.marslab.filmoteca.ui.util.ViewState
+import java.lang.Exception
 import javax.inject.Inject
 
 private const val ERROR_LOADING_SESSION = "Ошибка соединение. Не получен ключ сессии"
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
     private var _isSessionConnected: MutableLiveData<ViewState> = MutableLiveData()
@@ -28,13 +29,11 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 for (step in 0..Constants.MAX_REQUEST_COUNT) {
-                    val sessionId = repository.getSessionId()
-                    sessionId?.let {
+                    repository.getSessionId()
+                    repository.sessionId?.let {
                         _isSessionConnected.postValue(ViewState.Successful(OnEvent(true)))
-                        return@launch
                     }
                 }
-                _isSessionConnected.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             } catch (e: Exception) {
                 _isSessionConnected.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             }
