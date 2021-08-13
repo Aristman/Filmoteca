@@ -2,6 +2,7 @@ package ru.marslab.filmoteca.domain.di
 
 import android.app.Application
 import android.content.Context
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.RepositoryNetworkImpl
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.Repository
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -33,7 +35,11 @@ object DataModule {
     fun provideRetrofit(baseUrl: String): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().setLenient().create()
+                )
+            )
             .build()
 
     @Provides

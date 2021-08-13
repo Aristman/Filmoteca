@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 for (step in 0..Constants.MAX_REQUEST_COUNT) {
-                    val sessionId = repository.takeSessionId()
+                    val sessionId = repository.createGuestSession()
                     sessionId?.let {
                         _sessionConnect.postValue(ViewState.Successful(OnEvent(true)))
                         isSessionConnected = true
@@ -45,5 +45,5 @@ class LoginViewModel @Inject constructor(
     
     fun isNotConnected(): Boolean = !isSessionConnected
     
-    fun getSessionId(): String? = repository.sessionId
+    fun getSessionId(): String? = Repository.sessionId
 }

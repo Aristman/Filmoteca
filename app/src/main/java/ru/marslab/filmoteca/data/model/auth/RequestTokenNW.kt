@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NewTokenNW(
+data class RequestTokenNW(
     @SerializedName("expires_at")
     val expiresAt: String,
     @SerializedName("request_token")
