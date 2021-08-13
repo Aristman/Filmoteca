@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentLoginBinding
+import ru.marslab.filmoteca.domain.model.User
 import ru.marslab.filmoteca.ui.util.*
 
 @AndroidEntryPoint
@@ -64,9 +65,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.guestBtn.setOnClickListener {
-            loginViewModel.guestSessionConnect()
+        binding.apply {
+            guestBtn.setOnClickListener {
+                loginViewModel.guestSessionConnect()
+            }
+            loginBtn.setOnClickListener {
+                loginViewModel.userLogin(
+                    User(
+                        binding.login.text.toString(),
+                        binding.password.text.toString()
+                    )
+                )
+            }
         }
+
     }
 
     private fun showLoading() {

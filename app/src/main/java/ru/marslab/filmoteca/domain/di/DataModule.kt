@@ -11,6 +11,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.retrofit.MovieApi
+import ru.marslab.filmoteca.domain.util.Constants
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -25,17 +26,13 @@ object DataModule {
         retrofit.create(MovieApi::class.java)
 
     @Provides
-    fun provideRetrofit(baseUrl: String): Retrofit =
+    fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(ru.marslab.filmoteca.domain.util.Constants.BASE_URL)
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().setLenient().create()
                 )
             )
             .build()
-
-    @Provides
-    fun provideBaseUrl(): String =
-        "https://api.themoviedb.org/3/"
 }
