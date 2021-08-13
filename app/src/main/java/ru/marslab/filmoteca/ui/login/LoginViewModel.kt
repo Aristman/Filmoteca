@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.marslab.filmoteca.domain.repository.Repository
 import ru.marslab.filmoteca.domain.repository.GuestRepository
 import ru.marslab.filmoteca.domain.util.Constants
 import ru.marslab.filmoteca.ui.util.OnEvent
@@ -18,32 +17,31 @@ private const val ERROR_LOADING_SESSION = "Ошибка соединение. Н
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: Repository,
     private val guestRepository: GuestRepository
 ) : ViewModel() {
-    private var isSessionConnected: Boolean = false
-    private var _sessionConnect: MutableLiveData<ViewState> = MutableLiveData()
-    val sessionConnect: LiveData<ViewState>
-        get() = _sessionConnect
+    private var isGuestSessionConnected: Boolean = false
+    private var _guestSession: MutableLiveData<ViewState> = MutableLiveData()
+    val guestSession: LiveData<ViewState>
+        get() = _guestSession
 
-    fun sessionConnect() {
-        _sessionConnect.value = ViewState.Loading
+    fun guestSessionConnect() {
+        _guestSession.value = ViewState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 for (step in 0..Constants.MAX_REQUEST_COUNT) {
                     val sessionId = guestRepository.createGuestSession()
                     sessionId?.let {
-                        _sessionConnect.postValue(ViewState.Successful(OnEvent(true)))
-                        isSessionConnected = true
+                        _guestSession.postValue(ViewState.Successful(OnEvent(true)))
+                        isGuestSessionConnected = true
                         return@launch
                     }
                 }
-                _sessionConnect.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
+                _guestSession.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             } catch (e: Exception) {
-                _sessionConnect.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
+                _guestSession.postValue(ViewState.LoadError(ERROR_LOADING_SESSION))
             }
         }
     }
-    
-    fun isNotConnected(): Boolean = !isSessionConnected
+
+    fun isNotConnected(): Boolean = !isGuestSessionConnected
 }

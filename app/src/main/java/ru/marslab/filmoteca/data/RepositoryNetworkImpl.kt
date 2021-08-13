@@ -13,7 +13,7 @@ import ru.marslab.filmoteca.domain.util.Constants.LOG_TAG
 
 class RepositoryNetworkImpl(
     private val api: MovieApi,
-) : Repository, GuestRepository, MovieRepository {
+) : Repository, MovieRepository {
 
     override suspend fun createRequestToken(): RequestToken? {
         val createdRequestToken = api.createRequestToken(Store.apiKeyV3)
@@ -25,32 +25,7 @@ class RepositoryNetworkImpl(
         return Store.requestToken
     }
 
-    override suspend fun createGuestSession(): String? {
-        Store.guestSessionId = try {
-            val guestSessionId = api.createGuestSessionId(Store.apiKeyV3)
-            if (guestSessionId.isSuccessful) {
-                Log.d(LOG_TAG, guestSessionId.body().toString())
-                guestSessionId.body()?.guestSessionId
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            null
-        }
-        return Store.guestSessionId
-    }
 
-    override suspend fun getGuestRatedMovies(): List<Movie> {
-        Store.guestSessionId?.let {
-            val ratedMovies = api.getGuestRatedMovies(it, Store.apiKeyV3)
-            ratedMovies.body()?.let { guestRatedMoviesNW ->
-                Log.d(LOG_TAG, ratedMovies.body().toString())
-                return guestRatedMoviesNW.toDomain()
-            }
-        }
-        // Доработать обработку ошибки получения списка фильмов
-        return emptyList()
-    }
 
     override suspend fun getMovieDetail(id: Int): Movie? {
         return null

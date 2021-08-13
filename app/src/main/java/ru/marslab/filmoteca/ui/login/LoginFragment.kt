@@ -40,19 +40,19 @@ class LoginFragment : Fragment() {
             mainView.viewShow()
         }
         if (loginViewModel.isNotConnected()) {
-            loginViewModel.sessionConnect()
+            loginViewModel.guestSessionConnect()
         }
     }
 
     private fun initObservers() {
-        loginViewModel.sessionConnect.observe(viewLifecycleOwner) { viewState ->
+        loginViewModel.guestSession.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
                     requireView().showMessageWithAction(
                         viewState.message,
                         getString(R.string.repeat)
                     ) {
-                        loginViewModel.sessionConnect()
+                        loginViewModel.guestSessionConnect()
                     }
                 }
                 is ViewState.Loading -> {
