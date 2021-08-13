@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentLoginBinding
-import ru.marslab.filmoteca.domain.Repository
 import ru.marslab.filmoteca.ui.util.*
 
 @AndroidEntryPoint
@@ -71,7 +70,6 @@ class LoginFragment : Fragment() {
 
     private fun initListeners() {
         binding.guestBtn.setOnClickListener {
-            Repository.requestToken
             val action = LoginFragmentDirections.actionLoginFragmentToGuestFragment()
             findNavController().navigate(action)
         }

@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.marslab.filmoteca.domain.Repository
+import ru.marslab.filmoteca.domain.repository.GuestRepository
 import ru.marslab.filmoteca.ui.mapper.toUi
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 import javax.inject.Inject
 
 @HiltViewModel
 class GuestViewModel @Inject constructor(
-    private val repository: Repository
+    private val repository: GuestRepository
 ) : ViewModel() {
     private var _ratedMovies: MutableLiveData<List<MovieShortUi>> = MutableLiveData()
     val ratedMovies: LiveData<List<MovieShortUi>>

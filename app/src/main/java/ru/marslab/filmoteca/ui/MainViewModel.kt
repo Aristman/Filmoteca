@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.marslab.filmoteca.domain.Repository
+import ru.marslab.filmoteca.domain.repository.Repository
 import ru.marslab.filmoteca.domain.util.Constants
 import ru.marslab.filmoteca.ui.util.OnEvent
 import ru.marslab.filmoteca.ui.util.ViewState
