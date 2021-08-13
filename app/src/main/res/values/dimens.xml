@@ -11,5 +11,5 @@
     <dimen name="item_image_width">180dp</dimen>
     <dimen name="movie_detail_image_width">180dp</dimen>
     <dimen name="movie_detail_image_height">300dp</dimen>
-    <dimen name="horizont_rv_heigth">238dp</dimen>
+    <dimen name="horizon_rv_height">238dp</dimen>
 </resources>
