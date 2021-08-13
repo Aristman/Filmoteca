@@ -44,38 +44,6 @@ class GuestFragment : Fragment() {
     private fun initObservers() {
         guestViewModel.ratedMovies.observe(viewLifecycleOwner) { result ->
             ratedMovesAdapter.submitList(result)
-/*            when (result) {
-                is ViewState.Successful<*> -> {
-                    showDataLayout()
-                    val data = result.data as? List<MovieShortUi>
-                    data?.let { ratedMovesAdapter.submitList(it) }
-                }
-                is ViewState.Loading -> {
-                    showLoadingLayout()
-                }
-                is ViewState.LoadError -> {
-                    requireView().showMessageWithAction(
-                        R.string.load_list_movies_error, R.string.repeat,
-                    ) {
-                        guestViewModel.getRatedMoviesList()
-                    }
-                }
-            }*/
-        }
-    }
-
-
-    private fun showLoadingLayout() {
-        with(binding) {
-            dataLayout.viewHide()
-            loadingIndicator.viewShow()
-        }
-    }
-
-    private fun showDataLayout() {
-        with(binding) {
-            dataLayout.viewShow()
-            loadingIndicator.viewHide()
         }
     }
 

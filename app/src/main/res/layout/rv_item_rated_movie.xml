@@ -20,14 +20,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/movie_title"
             android:src="@drawable/ic_not_interested_24"/>
+
         <TextView
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/movie_poster"
             android:gravity="start"
-            tools:text="Пример заголовка"
-            android:lines="2"/>
+            android:lines="2"
+            app:layout_constraintTop_toBottomOf="@id/movie_poster"
+            tools:text="Пример заголовка" />
         <TextView
             android:id="@+id/movie_release_date"
             android:layout_width="0dp"

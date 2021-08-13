@@ -39,21 +39,14 @@ class LoginFragment : Fragment() {
             loadingIndicator.viewHide()
             mainView.viewShow()
         }
-        if (loginViewModel.isNotConnected()) {
-            loginViewModel.guestSessionConnect()
-        }
     }
 
     private fun initObservers() {
         loginViewModel.guestSession.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
-                    requireView().showMessageWithAction(
-                        viewState.message,
-                        getString(R.string.repeat)
-                    ) {
-                        loginViewModel.guestSessionConnect()
-                    }
+                    requireView().showMessage(viewState.message)
+                    showMainView()
                 }
                 is ViewState.Loading -> {
                     showLoading()
@@ -61,7 +54,9 @@ class LoginFragment : Fragment() {
                 is ViewState.Successful<*> -> {
                     val isSessionConnected = viewState.data as? OnEvent<Boolean>
                     isSessionConnected?.getContentIfNotHandled()?.let {
-                        showMainView()
+                        val action =
+                            LoginFragmentDirections.actionLoginFragmentToGuestFragment()
+                        findNavController().navigate(action)
                     }
                 }
             }
@@ -70,8 +65,7 @@ class LoginFragment : Fragment() {
 
     private fun initListeners() {
         binding.guestBtn.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToGuestFragment()
-            findNavController().navigate(action)
+            loginViewModel.guestSessionConnect()
         }
     }
 

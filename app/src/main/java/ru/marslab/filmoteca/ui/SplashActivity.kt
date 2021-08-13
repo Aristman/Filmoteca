@@ -18,7 +18,6 @@ import ru.marslab.filmoteca.ui.util.viewShow
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private val mainViewModel by viewModels<MainViewModel>()
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(LayoutInflater.from(this))
     }
@@ -26,31 +25,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initObservers()
-        mainViewModel.requestToken()
-    }
-
-    private fun initObservers() {
-        mainViewModel.token.observe(this) { result ->
-            when (result) {
-                is ViewState.LoadError -> {
-                    binding.loadingIndicator.viewHide()
-                    binding.root.showMessageWithAction(result.message, getString(R.string.repeat)) {
-                        mainViewModel.requestToken()
-                    }
-                }
-                ViewState.Loading -> {
-                    binding.loadingIndicator.viewShow()
-                }
-                is ViewState.Successful<*> -> {
-                    binding.loadingIndicator.viewHide()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }, START_DELAY)
-                }
-            }
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, START_DELAY)
     }
 }
