@@ -12,6 +12,7 @@ buildscript {
 
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
@@ -27,4 +28,10 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    retrofit_version = "2.9.0"
+    hilt_version = "2.38.1"
+    coroutines_version = "1.5.0"
 }

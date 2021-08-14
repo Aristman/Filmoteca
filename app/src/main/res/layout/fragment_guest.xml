@@ -2,12 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/loading_indicator"
-        android:indeterminate="true"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,15 +15,21 @@
 
             <include
                 android:id="@+id/rated_movies"
-                layout="@layout/rv_layout_rated_movies" />
+                layout="@layout/rv_layout_rated_movies"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/horizon_rv_height" />
 
             <include
                 android:id="@+id/rated_tv_shows"
-                layout="@layout/rv_layout_rated_tv_shows" />
+                layout="@layout/rv_layout_rated_tv_shows"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/horizon_rv_height"/>
 
             <include
                 android:id="@+id/rated_tv_episodes"
-                layout="@layout/rv_layout_rated_tv_episodes" />
+                layout="@layout/rv_layout_rated_tv_episodes"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/horizon_rv_height"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
