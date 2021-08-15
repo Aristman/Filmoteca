@@ -65,7 +65,6 @@ class LoginFragment : Fragment() {
                 )
             )
         }
-//        initObservers()
         initListeners()
         initView()
     }
@@ -77,28 +76,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
-        loginViewModel.guestSession.observe(viewLifecycleOwner) { viewState ->
-            when (viewState) {
-                is ViewState.LoadError -> {
-                    requireView().showMessage(viewState.message)
-                    showMainView()
-                }
-                is ViewState.Loading -> {
-                    showLoading()
-                }
-                is ViewState.Successful<*> -> {
-                    val isSessionConnected = viewState.data as? OnEvent<Boolean>
-                    isSessionConnected?.getContentIfNotHandled()?.let {
-                        val action =
-                            LoginFragmentDirections.actionLoginFragmentToGuestFragment()
-                        findNavController().navigate(action)
-                    }
-                }
-            }
-        }
-    }
-
     private fun initListeners() {
         binding.apply {
             guestBtn.setOnClickListener {
@@ -106,7 +83,6 @@ class LoginFragment : Fragment() {
                 context?.let {
                     it.startService(Intent(it, LoginService::class.java))
                 }
-//                loginViewModel.guestLogin()
             }
             loginBtn.setOnClickListener {
                 loginViewModel.userLogin(

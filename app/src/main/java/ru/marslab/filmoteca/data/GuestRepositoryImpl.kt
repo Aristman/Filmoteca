@@ -8,9 +8,7 @@ import ru.marslab.filmoteca.domain.repository.GuestRepository
 import ru.marslab.filmoteca.ui.util.logMessage
 
 
-class GuestRepositoryImpl(
-    private val api: MovieApi
-): GuestRepository {
+class GuestRepositoryImpl(private val api: MovieApi) : GuestRepository {
 
     override suspend fun createGuestSession(): String? {
         Store.sessionId = try {

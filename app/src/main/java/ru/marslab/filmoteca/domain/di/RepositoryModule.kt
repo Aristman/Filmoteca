@@ -3,9 +3,6 @@ package ru.marslab.filmoteca.domain.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ServiceComponent
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import ru.marslab.filmoteca.data.GuestRepositoryImpl
 import ru.marslab.filmoteca.data.MovieRepositoryImpl
@@ -22,7 +19,6 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideUserRepository(api: MovieApi): UserRepository = UserRepositoryImpl(api)
-
 
     @Provides
     @Singleton

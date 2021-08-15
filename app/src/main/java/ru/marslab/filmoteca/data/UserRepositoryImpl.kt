@@ -8,9 +8,7 @@ import ru.marslab.filmoteca.domain.model.User
 import ru.marslab.filmoteca.domain.repository.UserRepository
 import ru.marslab.filmoteca.ui.util.logMessage
 
-class UserRepositoryImpl(
-    private val api: MovieApi,
-) : UserRepository {
+class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
 
     override suspend fun createRequestToken(): RequestToken? {
         val createdRequestToken = api.createRequestToken(Store.apiKeyV3)

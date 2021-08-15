@@ -3,11 +3,7 @@ package ru.marslab.filmoteca.ui.login
 import android.app.IntentService
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.components.ServiceComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.*
 import ru.marslab.filmoteca.domain.Store
 import ru.marslab.filmoteca.domain.model.User
