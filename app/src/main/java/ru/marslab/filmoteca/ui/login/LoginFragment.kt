@@ -28,7 +28,6 @@ class LoginFragment : Fragment() {
     private val loginBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             intent?.extras?.let {
-                showMainView()
                 when {
                     it.getBoolean(GUEST_LOGIN_SUCCESSFUL) -> {
                         val action =
@@ -41,6 +40,7 @@ class LoginFragment : Fragment() {
                     it.getBoolean(LOGIN_ERROR) -> {
                         this@LoginFragment.requireView()
                             .showMessage(getString(R.string.login_error))
+                        showMainView()
                     }
                 }
             }
