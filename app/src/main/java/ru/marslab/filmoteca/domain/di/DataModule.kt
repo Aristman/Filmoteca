@@ -8,23 +8,23 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.util.Constants
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object DataModule {
 
-    @ViewModelScoped
-    @Provides
-    fun provideContext(app: Application): Context = app.baseContext
-
+    @Singleton
     @Provides
     fun provideRequestService(retrofit: Retrofit): MovieApi =
         retrofit.create(MovieApi::class.java)
 
+    @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()

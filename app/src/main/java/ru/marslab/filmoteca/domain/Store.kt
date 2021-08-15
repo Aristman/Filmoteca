@@ -5,7 +5,6 @@ import ru.marslab.filmoteca.domain.model.RequestToken
 import ru.marslab.filmoteca.domain.model.User
 
 object Store {
-    var guestSessionId: String? = null
     var sessionId: String? = null
     var requestToken: RequestToken? = null
     var user: User? = null

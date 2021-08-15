@@ -30,6 +30,7 @@
                 <action android:name="android.intent.action.CONNECTIVITY_ACTION" />
             </intent-filter>
         </receiver>
+        <service android:name=".ui.login.LoginService"/>
     </application>
 
 </manifest>

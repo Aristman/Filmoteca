@@ -13,7 +13,7 @@ class GuestRepositoryImpl(
 ): GuestRepository {
 
     override suspend fun createGuestSession(): String? {
-        Store.guestSessionId = try {
+        Store.sessionId = try {
             val guestSessionId = api.createGuestSessionId(Store.apiKeyV3)
             if (guestSessionId.isSuccessful) {
                 logMessage(guestSessionId.body().toString())
@@ -24,11 +24,11 @@ class GuestRepositoryImpl(
         } catch (e: Exception) {
             null
         }
-        return Store.guestSessionId
+        return Store.sessionId
     }
 
     override suspend fun getGuestRatedMovies(): List<Movie> {
-        Store.guestSessionId?.let {
+        Store.sessionId?.let {
             val ratedMovies = api.getGuestRatedMovies(it, Store.apiKeyV3)
             ratedMovies.body()?.let { guestRatedMoviesNW ->
                 logMessage(ratedMovies.body().toString())

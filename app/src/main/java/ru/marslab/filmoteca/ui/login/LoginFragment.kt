@@ -1,11 +1,16 @@
 package ru.marslab.filmoteca.ui.login
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
@@ -20,6 +25,29 @@ class LoginFragment : Fragment() {
         get() = _binding!!
     private val loginViewModel by viewModels<LoginViewModel>()
 
+    private val loginBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.extras?.let {
+                showMainView()
+                when {
+                    it.getBoolean(GUEST_LOGIN_SUCCESSFUL) -> {
+                        val action =
+                            LoginFragmentDirections.actionLoginFragmentToGuestFragment()
+                        findNavController().navigate(action)
+                    }
+                    it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
+                        TODO("Запуск сеанса зарегестрированного пользователя")
+                    }
+                    it.getBoolean(LOGIN_ERROR) -> {
+                        this@LoginFragment.requireView()
+                            .showMessage(getString(R.string.login_error))
+                    }
+                }
+            }
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +58,14 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers()
+        context?.let {
+            LocalBroadcastManager.getInstance(it).registerReceiver(
+                loginBroadcastReceiver, IntentFilter(
+                    LOGIN_INTENT_FILTER
+                )
+            )
+        }
+//        initObservers()
         initListeners()
         initView()
     }
@@ -67,7 +102,11 @@ class LoginFragment : Fragment() {
     private fun initListeners() {
         binding.apply {
             guestBtn.setOnClickListener {
-                loginViewModel.guestSessionConnect()
+                showLoading()
+                context?.let {
+                    it.startService(Intent(it, LoginService::class.java))
+                }
+//                loginViewModel.guestLogin()
             }
             loginBtn.setOnClickListener {
                 loginViewModel.userLogin(
@@ -97,6 +136,9 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        context?.let {
+            LocalBroadcastManager.getInstance(it).unregisterReceiver(loginBroadcastReceiver)
+        }
         super.onDestroyView()
     }
 }

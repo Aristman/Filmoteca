@@ -21,9 +21,11 @@ private const val ERROR_LOADING_USER_SESSION = "Ошибка соединени�
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val guestRepository: GuestRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
+    @Inject
+    lateinit var guestRepository: GuestRepository
+
     private var isGuestSessionConnected: Boolean = false
     private var isUserSessionConnected: Boolean = false
 
@@ -35,7 +37,7 @@ class LoginViewModel @Inject constructor(
     val userSession: LiveData<ViewState>
         get() = _userSession
 
-    fun guestSessionConnect() {
+    fun guestLogin() {
         _guestSession.value = ViewState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -53,8 +55,6 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
-    fun guestIsNotConnected(): Boolean = !isGuestSessionConnected
 
     fun userLogin(user: User) {
         _userSession.value = ViewState.Loading
