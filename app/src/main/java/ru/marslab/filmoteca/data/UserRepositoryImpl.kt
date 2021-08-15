@@ -35,6 +35,7 @@ class UserRepositoryImpl(
             if (response.isSuccessful && response.body()?.success == true) {
                 Log.d(LOG_TAG, response.body().toString())
                 Store.requestToken = response.body()?.toDomain()
+                Store.user = user
                 Store.requestToken
             } else {
                 null
