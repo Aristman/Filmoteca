@@ -23,4 +23,5 @@
     <string name="repeat">Повтор</string>
     <string name="movie_detail_fragment">Информация о фильме</string>
     <string name="load_list_movies_error">Ошибка загрузки списка фильмов</string>
+    <string name="connection_change_notify">Изменился вид связи: %s</string>
 </resources>
