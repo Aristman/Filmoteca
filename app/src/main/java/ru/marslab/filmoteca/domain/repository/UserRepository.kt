@@ -8,5 +8,6 @@ interface UserRepository {
     suspend fun createRequestToken(): RequestToken?
     suspend fun createSession(): String?
     suspend fun createSessionWithLogin(user: User): RequestToken?
+    suspend fun createGuestSession(): String?
     suspend fun deleteSession(): Boolean
 }

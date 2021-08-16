@@ -36,9 +36,7 @@ class GuestFragment : Fragment() {
     }
 
     private fun initObservers() {
-        guestViewModel.ratedMovies.observe(viewLifecycleOwner) { result ->
-            ratedMovesAdapter.submitList(result)
-        }
+
     }
 
     private fun initRv() {
@@ -50,7 +48,6 @@ class GuestFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
-        guestViewModel.getRatedMoviesList()
     }
 
     private fun showMovieDetail(id: Int) {

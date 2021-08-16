@@ -13,12 +13,14 @@ interface MovieApi {
         @Query("api_key") apiKey: String
     ): Response<RequestTokenNW>
 
+    @FormUrlEncoded
     @POST("authentication/session/new")
     suspend fun createSession(
         @Query("api_key") apiKey: String,
         @Field("request_token") requestToken: String
     ): Response<SessionNW>
 
+    @FormUrlEncoded
     @POST("authentication/token/validate_with_login")
     suspend fun createSessionWithLogin(
         @Query("api_key") apiKey: String,
