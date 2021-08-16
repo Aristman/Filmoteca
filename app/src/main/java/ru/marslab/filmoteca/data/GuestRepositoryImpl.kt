@@ -1,23 +1,20 @@
 package ru.marslab.filmoteca.data
 
-import android.util.Log
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.Store
 import ru.marslab.filmoteca.domain.model.Movie
 import ru.marslab.filmoteca.domain.repository.GuestRepository
-import ru.marslab.filmoteca.domain.util.Constants
+import ru.marslab.filmoteca.ui.util.logMessage
 
 
-class GuestRepositoryImpl(
-    private val api: MovieApi
-): GuestRepository {
+class GuestRepositoryImpl(private val api: MovieApi) : GuestRepository {
 
     override suspend fun createGuestSession(): String? {
-        Store.guestSessionId = try {
+        Store.sessionId = try {
             val guestSessionId = api.createGuestSessionId(Store.apiKeyV3)
             if (guestSessionId.isSuccessful) {
-                Log.d(Constants.LOG_TAG, guestSessionId.body().toString())
+                logMessage(guestSessionId.body().toString())
                 guestSessionId.body()?.guestSessionId
             } else {
                 null
@@ -25,14 +22,14 @@ class GuestRepositoryImpl(
         } catch (e: Exception) {
             null
         }
-        return Store.guestSessionId
+        return Store.sessionId
     }
 
     override suspend fun getGuestRatedMovies(): List<Movie> {
-        Store.guestSessionId?.let {
+        Store.sessionId?.let {
             val ratedMovies = api.getGuestRatedMovies(it, Store.apiKeyV3)
             ratedMovies.body()?.let { guestRatedMoviesNW ->
-                Log.d(Constants.LOG_TAG, ratedMovies.body().toString())
+                logMessage(ratedMovies.body().toString())
                 return guestRatedMoviesNW.toDomain()
             }
         }

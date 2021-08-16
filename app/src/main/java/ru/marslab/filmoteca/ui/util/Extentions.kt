@@ -1,7 +1,10 @@
 package ru.marslab.filmoteca.ui.util
 
+import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+
+const val LOG_TAG = "MOVIE"
 
 fun View.showMessage(message: String, longShow: Boolean = true) {
     Snackbar.make(
@@ -56,4 +59,8 @@ fun View.viewHide() {
     if (this.visibility == View.VISIBLE) {
         this.visibility = View.GONE
     }
+}
+
+fun logMessage(message: String) {
+    Log.d(LOG_TAG, message)
 }

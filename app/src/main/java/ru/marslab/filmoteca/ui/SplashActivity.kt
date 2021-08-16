@@ -5,16 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.ActivitySplashBinding
 import ru.marslab.filmoteca.domain.util.Constants.START_DELAY
-import ru.marslab.filmoteca.ui.util.ViewState
-import ru.marslab.filmoteca.ui.util.showMessageWithAction
-import ru.marslab.filmoteca.ui.util.viewHide
-import ru.marslab.filmoteca.ui.util.viewShow
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
