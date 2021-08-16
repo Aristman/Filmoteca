@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marslab.filmoteca.databinding.FragmentMainFilmBinding
+import ru.marslab.filmoteca.databinding.FragmentMainMovieBinding
 
 @AndroidEntryPoint
-class MainFilmFragment : Fragment() {
-    private var _binding: FragmentMainFilmBinding? = null
-    private val binding: FragmentMainFilmBinding
+class MainMovieFragment : Fragment() {
+    private var _binding: FragmentMainMovieBinding? = null
+    private val binding: FragmentMainMovieBinding
         get() = _binding!!
-    private val mainFilmViewModel by viewModels<MainFilmViewModel>()
+    private val mainFilmViewModel by viewModels<MainMovieViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainFilmBinding.inflate(inflater, container, false)
+        _binding = FragmentMainMovieBinding.inflate(inflater, container, false)
+        requireActivity()
         return _binding?.root
     }
 

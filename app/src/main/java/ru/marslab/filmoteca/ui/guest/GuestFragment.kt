@@ -51,8 +51,6 @@ class GuestFragment : Fragment() {
     }
 
     private fun showMovieDetail(id: Int) {
-        val action = GuestFragmentDirections.actionGuestFragmentToMovieDetailFragment(id)
-        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

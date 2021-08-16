@@ -26,4 +26,6 @@
     <string name="connection_change_notify">Изменился вид связи: %s</string>
     <string name="login_error">Ошибка входа в систему</string>
     <string name="token_error">Ошибка получения токена</string>
+    <string name="binding_not_init">Binding не инициализирован</string>
+    <string name="welcome_screen">Добро пожаловать</string>
 </resources>
