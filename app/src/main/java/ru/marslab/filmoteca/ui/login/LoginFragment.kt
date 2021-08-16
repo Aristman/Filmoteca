@@ -29,17 +29,20 @@ class LoginFragment : Fragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             intent?.extras?.let {
                 when {
-                    it.getBoolean(GUEST_LOGIN_SUCCESSFUL) -> {
+                    it.getBoolean(GUEST_LOGIN_SUCCESSFUL) ||
+                            it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
                         val action =
                             LoginFragmentDirections.actionLoginFragmentToGuestFragment()
                         findNavController().navigate(action)
                     }
-                    it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
-                        // TODO("Запуск сеанса зарегестрированного пользователя")
-                    }
                     it.getBoolean(LOGIN_ERROR) -> {
                         this@LoginFragment.requireView()
                             .showMessage(getString(R.string.login_error))
+                        showMainView()
+                    }
+                    it.getBoolean(TOKEN_ERROR) -> {
+                        this@LoginFragment.requireView()
+                            .showMessage(getString(R.string.token_error))
                         showMainView()
                     }
                 }
@@ -78,12 +81,11 @@ class LoginFragment : Fragment() {
         binding.apply {
             guestBtn.setOnClickListener {
                 showLoading()
-                context?.let {
-                    it.startService(Intent(it, LoginService::class.java))
-                }
+                startLoginService()
             }
             loginBtn.setOnClickListener {
-                loginViewModel.userLogin(
+                showLoading()
+                startLoginService(
                     User(
                         binding.login.text.toString(),
                         binding.password.text.toString()
@@ -92,6 +94,16 @@ class LoginFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun startLoginService(user: User? = null) {
+        context?.let {
+            val serviceIntent = Intent(it, LoginService::class.java)
+            user?.let {
+                serviceIntent.putExtra(USER_EXTRA, user)
+            }
+            it.startService(serviceIntent)
+        }
     }
 
     private fun showLoading() {

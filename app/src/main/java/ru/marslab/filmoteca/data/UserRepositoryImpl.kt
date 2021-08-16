@@ -38,6 +38,21 @@ class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
         }
     }
 
+    override suspend fun createGuestSession(): String? {
+        Store.sessionId = try {
+            val guestSessionId = api.createGuestSessionId(Store.apiKeyV3)
+            if (guestSessionId.isSuccessful) {
+                logMessage(guestSessionId.body().toString())
+                guestSessionId.body()?.guestSessionId
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+        return Store.sessionId
+    }
+
     override suspend fun deleteSession(): Boolean {
         return false
     }

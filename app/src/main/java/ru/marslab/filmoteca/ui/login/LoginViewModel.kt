@@ -8,10 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.domain.model.User
-import ru.marslab.filmoteca.domain.repository.GuestRepository
 import ru.marslab.filmoteca.domain.repository.UserRepository
-import ru.marslab.filmoteca.domain.util.Constants
-import ru.marslab.filmoteca.ui.util.OnEvent
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
 
@@ -21,8 +18,7 @@ private const val ERROR_LOADING_USER_SESSION = "Ошибка соединени�
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val guestRepository: GuestRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private var isUserSessionConnected: Boolean = false

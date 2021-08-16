@@ -7,20 +7,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import ru.marslab.filmoteca.domain.Store
 import ru.marslab.filmoteca.domain.model.User
-import ru.marslab.filmoteca.domain.repository.GuestRepository
+import ru.marslab.filmoteca.domain.repository.UserRepository
 import javax.inject.Inject
 
 const val USER_EXTRA = "login_user"
 const val GUEST_LOGIN_SUCCESSFUL = "guest_login_successful"
 const val USER_LOGIN_SUCCESSFUL = "user_login_successful"
 const val LOGIN_ERROR = "login_error"
+const val TOKEN_ERROR = "token_error"
 const val LOGIN_INTENT_FILTER = "login_intent_filter"
 
 @AndroidEntryPoint
 class LoginService(name: String = "GuestLoginService") : IntentService(name) {
 
     @Inject
-    lateinit var guestRepository: GuestRepository
+    lateinit var userRepository: UserRepository
 
     private val loginIntent = Intent(LOGIN_INTENT_FILTER)
 
@@ -34,21 +35,39 @@ class LoginService(name: String = "GuestLoginService") : IntentService(name) {
 
     private fun guestLogin() {
         runBlocking {
-            val guestSession = guestRepository.createGuestSession()
-            guestSession?.let {
-                Store.sessionId = it
+            val guestSession = userRepository.createGuestSession()
+            if (guestSession == null) {
+                LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
+                    loginIntent.putExtra(LOGIN_ERROR, true)
+                )
+            } else {
+                Store.sessionId = guestSession
                 LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
                     loginIntent.putExtra(GUEST_LOGIN_SUCCESSFUL, true)
                 )
-                return@runBlocking
             }
-            LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
-                loginIntent.putExtra(LOGIN_ERROR, true)
-            )
         }
     }
 
     private fun userLogin(user: User) {
-        TODO("Not yet implemented")
+        runBlocking {
+            val requestToken = userRepository.createRequestToken()
+            if (requestToken == null) {
+                LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
+                    loginIntent.putExtra(TOKEN_ERROR, true)
+                )
+            } else {
+                val userLoginToken = userRepository.createSessionWithLogin(user)
+                if (userLoginToken == null) {
+                    LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
+                        loginIntent.putExtra(LOGIN_ERROR, true)
+                    )
+                } else {
+                    LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(
+                        loginIntent.putExtra(USER_LOGIN_SUCCESSFUL, true)
+                    )
+                }
+            }
+        }
     }
 }
