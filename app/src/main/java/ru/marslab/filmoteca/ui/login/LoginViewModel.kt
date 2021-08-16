@@ -36,12 +36,12 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = userRepository.createSessionWithLogin(user)
-                token?.let {
+                if (token == null) {
+                    _userSession.postValue(ViewState.LoadError(ERROR_LOADING_USER_SESSION))
+                } else {
                     _userSession.postValue(ViewState.Successful(true))
                     isUserSessionConnected = true
-                    return@launch
                 }
-                _userSession.postValue(ViewState.LoadError(ERROR_LOADING_USER_SESSION))
             } catch (e: java.lang.Exception) {
                 _userSession.postValue(ViewState.LoadError(ERROR_LOADING_USER_SESSION))
             }

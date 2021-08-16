@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                     it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
-                        TODO("Запуск сеанса зарегестрированного пользователя")
+                        // TODO("Запуск сеанса зарегестрированного пользователя")
                     }
                     it.getBoolean(LOGIN_ERROR) -> {
                         this@LoginFragment.requireView()
@@ -58,13 +58,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        context?.let {
-            LocalBroadcastManager.getInstance(it).registerReceiver(
-                loginBroadcastReceiver, IntentFilter(
-                    LOGIN_INTENT_FILTER
-                )
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            loginBroadcastReceiver, IntentFilter(
+                LOGIN_INTENT_FILTER
             )
-        }
+        )
         initListeners()
         initView()
     }
@@ -112,9 +110,8 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
-        context?.let {
-            LocalBroadcastManager.getInstance(it).unregisterReceiver(loginBroadcastReceiver)
-        }
+        LocalBroadcastManager.getInstance(requireContext())
+            .unregisterReceiver(loginBroadcastReceiver)
         super.onDestroyView()
     }
 }

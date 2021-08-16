@@ -33,7 +33,7 @@ class LoginService(name: String = "GuestLoginService") : IntentService(name) {
     }
 
     private fun guestLogin() {
-        runBlocking(Dispatchers.IO) {
+        runBlocking {
             val guestSession = guestRepository.createGuestSession()
             guestSession?.let {
                 Store.sessionId = it

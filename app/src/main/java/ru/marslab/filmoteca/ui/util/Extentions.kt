@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-const val LOG_TAG = "MOVIE_LOG_TAG"
+const val LOG_TAG = "MOVIE"
 
 fun View.showMessage(message: String, longShow: Boolean = true) {
     Snackbar.make(
@@ -61,6 +61,6 @@ fun View.viewHide() {
     }
 }
 
-fun Any.logMessage(message: String) {
+fun logMessage(message: String) {
     Log.d(LOG_TAG, message)
 }
