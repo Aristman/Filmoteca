@@ -63,11 +63,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-            loginBroadcastReceiver, IntentFilter(
-                LOGIN_INTENT_FILTER
-            )
-        )
+        LocalBroadcastManager
+            .getInstance(requireContext())
+            .registerReceiver(loginBroadcastReceiver, IntentFilter(LOGIN_INTENT_FILTER))
         initListeners()
         initView()
     }
