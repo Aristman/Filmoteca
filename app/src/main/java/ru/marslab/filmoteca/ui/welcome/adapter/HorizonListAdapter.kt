@@ -17,21 +17,21 @@ val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
         oldItem == newItem
 }
 
-class PopularMoviesAdapter(private val callback: (item: MovieShortUi) -> Unit) :
-    ListAdapter<MovieShortUi, PopularMovesViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMovesViewHolder {
+class HorizonListAdapter(private val callback: (item: MovieShortUi) -> Unit) :
+    ListAdapter<MovieShortUi, HorizonViewHolder>(diffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizonViewHolder {
         val binding =
             RvItemShortMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PopularMovesViewHolder(binding, callback)
+        return HorizonViewHolder(binding, callback)
     }
 
-    override fun onBindViewHolder(holder: PopularMovesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HorizonViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
 }
 
-class PopularMovesViewHolder(
+class HorizonViewHolder(
     private val binding: RvItemShortMovieBinding,
     private val callback: (item: MovieShortUi) -> Unit
 ) :

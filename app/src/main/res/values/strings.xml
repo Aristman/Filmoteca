@@ -28,4 +28,5 @@
     <string name="token_error">Ошибка получения токена</string>
     <string name="binding_not_init">Binding не инициализирован</string>
     <string name="welcome_screen">Добро пожаловать</string>
+    <string name="load_list_tvshows_error">Ошибка загрузки списка ТВ</string>
 </resources>
