@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentLoginBinding
@@ -36,9 +37,9 @@ class LoginFragment : Fragment() {
             when {
                 it.getBoolean(GUEST_LOGIN_SUCCESSFUL) ||
                         it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
-//                    val action =
-//                        LoginFragmentDirections.actionLoginFragmentToGuestFragment()
-//                    findNavController().navigate(action)
+                    val action =
+                        LoginFragmentDirections.actionLoginFragmentToWelcomeScreenFragment()
+                    findNavController().navigate(action)
                 }
                 it.getBoolean(LOGIN_ERROR) -> {
                     requireView().showMessage(getString(R.string.login_error))
