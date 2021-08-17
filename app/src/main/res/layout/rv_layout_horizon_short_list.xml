@@ -6,13 +6,14 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/rated_moves"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_rated_moves"
+        android:id="@+id/list_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

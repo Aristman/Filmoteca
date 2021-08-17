@@ -17,19 +17,19 @@
 
             <include
                 android:id="@+id/popular_movies"
-                layout="@layout/rv_layout_popular_movies"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/popular_tv_shows"
-                layout="@layout/rv_layout_popular_tv_shows"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <include
-                android:id="@+id/popular_tv_episodes"
-                layout="@layout/rv_layout_popular_tv_episodes"
+                android:id="@+id/recommendation_movies"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

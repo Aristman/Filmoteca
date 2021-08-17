@@ -15,12 +15,22 @@ class WelcomeScreenFragment : Fragment() {
         get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false)
         return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRv()
+    }
+
+    private fun initRv() {
+        TODO("Not yet implemented")
     }
 
     override fun onDestroyView() {

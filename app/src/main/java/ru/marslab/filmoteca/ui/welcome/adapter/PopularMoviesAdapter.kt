@@ -1,11 +1,12 @@
-package ru.marslab.filmoteca.ui.guest.adapter
+package ru.marslab.filmoteca.ui.welcome.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.marslab.filmoteca.databinding.RvItemRatedMovieBinding
+import coil.load
+import ru.marslab.filmoteca.databinding.RvItemShortMovieBinding
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 
 val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
@@ -16,28 +17,28 @@ val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
         oldItem == newItem
 }
 
-class RatedMoviesAdapter(private val callback: (item: MovieShortUi) -> Unit) :
-    ListAdapter<MovieShortUi, RatedMovesViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatedMovesViewHolder {
+class PopularMoviesAdapter(private val callback: (item: MovieShortUi) -> Unit) :
+    ListAdapter<MovieShortUi, PopularMovesViewHolder>(diffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMovesViewHolder {
         val binding =
-            RvItemRatedMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RatedMovesViewHolder(binding, callback)
+            RvItemShortMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PopularMovesViewHolder(binding, callback)
     }
 
-    override fun onBindViewHolder(holder: RatedMovesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PopularMovesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
 }
 
-class RatedMovesViewHolder(
-    private val binding: RvItemRatedMovieBinding,
+class PopularMovesViewHolder(
+    private val binding: RvItemShortMovieBinding,
     private val callback: (item: MovieShortUi) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: MovieShortUi) {
         item.poster?.let {
-            // TODO ("Реализовать загрузку постера по ссылке")
+            binding.moviePoster.load(it)
         }
         with(binding) {
             movieTitle.text = item.title
