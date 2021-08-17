@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.marslab.filmoteca.databinding.RvItemShortMovieBinding
+import ru.marslab.filmoteca.domain.util.Constants
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 
 val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
@@ -38,7 +39,7 @@ class HorizonViewHolder(
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: MovieShortUi) {
         item.poster?.let {
-            binding.moviePoster.load(it)
+            binding.moviePoster.load(Constants.BASE_POSTER_URL+it)
         }
         with(binding) {
             movieTitle.text = item.title

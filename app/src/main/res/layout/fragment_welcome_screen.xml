@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"/>
 
             <include
-                android:id="@+id/recommendation_movies"
+                android:id="@+id/top_rated_movies"
                 layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

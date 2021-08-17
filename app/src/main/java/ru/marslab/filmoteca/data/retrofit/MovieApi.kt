@@ -6,6 +6,8 @@ import ru.marslab.filmoteca.data.model.auth.GuestNewSessionNW
 import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.auth.SessionNW
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
+import ru.marslab.filmoteca.data.model.movies.MoviesNW
+import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 
 interface MovieApi {
     @GET("authentication/token/new")
@@ -39,4 +41,19 @@ interface MovieApi {
         @Path("guest_session_id") sessionId: String,
         @Query("api_key") apiKey: String
     ): Response<GuestRatedMoviesNW>
+
+    @GET("movie/popular")
+    suspend fun getPopularMovies(
+        @Query("api_key") apiKey: String
+    ): Response<MoviesNW>
+
+    @GET("tv/popular")
+    suspend fun getPopularTvShows(
+        @Query("api_key") apiKey: String
+    ): Response<TvShowsNW>
+
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("api_key") apiKey: String
+    ): Response<MoviesNW>
 }

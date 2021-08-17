@@ -3,40 +3,72 @@ package ru.marslab.filmoteca.ui.welcome
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.MovieRepository
+import ru.marslab.filmoteca.domain.repository.TvRepository
+import ru.marslab.filmoteca.ui.mapper.toUiShort
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
 
-private const val DATA_NOT_INIT = "Данные не инициализированы"
+private const val ERROR_LOAD_POPULAR_MOVIES =
+    "Ошибка загрузки списка фильмов: пустой список от сервера"
 
 @HiltViewModel
 class WelcomeViewModel @Inject constructor(
-    movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val tvRepository: TvRepository
 ) : ViewModel() {
-    private var _popularMovies: MutableLiveData<ViewState>? = null
 
+    private var _popularMovies: MutableLiveData<ViewState> = MutableLiveData()
     val popularMovies: LiveData<ViewState>
-        get() = checkNotNull(_popularMovies) { DATA_NOT_INIT }
-    private var _popularTvShows: MutableLiveData<ViewState>? = null
+        get() = _popularMovies
 
+    private var _popularTvShows: MutableLiveData<ViewState> = MutableLiveData()
     val popularTvShows: LiveData<ViewState>
-        get() = checkNotNull(_popularTvShows) { DATA_NOT_INIT }
-    private var _recommendationMovies: MutableLiveData<ViewState>? = null
+        get() = _popularTvShows
 
-    val recommendationMovies: LiveData<ViewState>
-        get() = checkNotNull(_recommendationMovies) { DATA_NOT_INIT }
+    private var _topRatedMovies: MutableLiveData<ViewState> = MutableLiveData()
+    val topRatedMovies: LiveData<ViewState>
+        get() = _topRatedMovies
 
 
     fun loadPopularMovies() {
-        TODO("Not yet implemented")
+        _popularMovies.value = ViewState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            val listMovies = movieRepository.getPopularMovies()?.toDomain()
+            if (listMovies == null) {
+                _popularMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
+            } else {
+                _popularMovies.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
+            }
+        }
     }
 
     fun loadPopularTvShows() {
-        TODO("Not yet implemented")
+        _popularTvShows.value = ViewState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            val listMovies = tvRepository.getPopularTvShows()?.toDomain()
+            if (listMovies == null) {
+                _popularTvShows.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
+            } else {
+                _popularTvShows.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
+            }
+        }
     }
 
-    fun loadRecommendationMovies() {
-        TODO("Not yet implemented")
+    fun loadTopRatedMovies() {
+        _topRatedMovies.value = ViewState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            val listMovies = movieRepository.getTopRatedMovies()?.toDomain()
+            if (listMovies == null) {
+                _topRatedMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
+            } else {
+                _topRatedMovies.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
+            }
+        }
     }
 }

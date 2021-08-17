@@ -29,4 +29,7 @@
     <string name="binding_not_init">Binding не инициализирован</string>
     <string name="welcome_screen">Добро пожаловать</string>
     <string name="load_list_tvshows_error">Ошибка загрузки списка ТВ</string>
+    <string name="popular_movies_title">Популярные фильмы</string>
+    <string name="popular_tvshows_title">Популярные сериалы</string>
+    <string name="top_rated_movies_title">Лучшие фильмы</string>
 </resources>

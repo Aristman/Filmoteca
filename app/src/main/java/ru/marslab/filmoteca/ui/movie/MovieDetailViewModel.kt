@@ -17,6 +17,5 @@ class MovieDetailViewModel @Inject constructor(
         get() = _movieDetail
 
     fun getMovieDetailInfo(id: Int) {
-//        _movieDetail.value = repository.getMovieDetail(id)!!
     }
 }

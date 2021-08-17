@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
 
 @AndroidEntryPoint
@@ -41,7 +40,7 @@ class MovieDetailFragment : Fragment() {
                 movie.poster?.let {
                     //TODO ("Загрузка постера фильма")
                 }
-                movieGanre.text = movie.ganre.joinToString(separator = ",")
+                movieGanre.text = movie.genres.joinToString(separator = ",")
                 movieRelease.text = movie.release
                 movieTiming.text = movie.timing.toString()
                 movieDescription.text = movie.description

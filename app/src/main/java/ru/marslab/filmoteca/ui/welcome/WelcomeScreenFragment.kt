@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentWelcomeScreenBinding
 import ru.marslab.filmoteca.databinding.RvLayoutHorizonShortListBinding
@@ -14,6 +15,7 @@ import ru.marslab.filmoteca.ui.model.MovieShortUi
 import ru.marslab.filmoteca.ui.util.*
 import ru.marslab.filmoteca.ui.welcome.adapter.HorizonListAdapter
 
+@AndroidEntryPoint
 class WelcomeScreenFragment : Fragment() {
 
     private var _binding: FragmentWelcomeScreenBinding? = null
@@ -24,17 +26,17 @@ class WelcomeScreenFragment : Fragment() {
 
     private val popularMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            // TODO("Обработка нажатия на список популярных фильмов")
+            requireView().showMessage(it.title)
         }
     }
     private val popularTvShowsAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            // TODO("Обработка нажатия на список популярных тв шоу")
+            requireView().showMessage(it.title)
         }
     }
-    private val recommendationMoviesAdapter: HorizonListAdapter by lazy {
+    private val topRatedMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            // TODO("Обработка нажатия на список рекомендуемых фильмов")
+            requireView().showMessage(it.title)
         }
     }
 
@@ -96,23 +98,23 @@ class WelcomeScreenFragment : Fragment() {
                     }
                 }
             }
-            recommendationMovies.observe(viewLifecycleOwner) { viewState ->
+            topRatedMovies.observe(viewLifecycleOwner) { viewState ->
                 when (viewState) {
                     is ViewState.LoadError -> {
                         requireView().showMessageWithAction(
                             R.string.load_list_movies_error,
                             R.string.repeat
                         ) {
-                            welcomeViewModel.loadRecommendationMovies()
+                            welcomeViewModel.loadTopRatedMovies()
                         }
                     }
                     ViewState.Loading -> {
-                        showLoading(binding.recommendationMovies)
+                        showLoading(binding.topRatedMovies)
                     }
                     is ViewState.Successful<*> -> {
                         val data = viewState.data as List<MovieShortUi>
-                        showDataLayout(binding.recommendationMovies)
-                        recommendationMoviesAdapter.submitList(data)
+                        showDataLayout(binding.topRatedMovies)
+                        topRatedMoviesAdapter.submitList(data)
                     }
                 }
             }
@@ -121,9 +123,12 @@ class WelcomeScreenFragment : Fragment() {
 
     private fun initView() {
         binding.run {
+            popularMovies.listTitle.text = getString(R.string.popular_movies_title)
+            popularTvShows.listTitle.text = getString(R.string.popular_tvshows_title)
+            topRatedMovies.listTitle.text = getString(R.string.top_rated_movies_title)
             showDataLayout(popularMovies)
             showDataLayout(popularTvShows)
-            showDataLayout(recommendationMovies)
+            showDataLayout(topRatedMovies)
         }
     }
 
@@ -131,10 +136,10 @@ class WelcomeScreenFragment : Fragment() {
         binding.run {
             setupPopularMovies(this.popularMovies, popularMoviesAdapter)
             setupPopularMovies(this.popularTvShows, popularTvShowsAdapter)
-            setupPopularMovies(this.recommendationMovies, recommendationMoviesAdapter)
+            setupPopularMovies(this.topRatedMovies, topRatedMoviesAdapter)
             welcomeViewModel.loadPopularMovies()
             welcomeViewModel.loadPopularTvShows()
-            welcomeViewModel.loadRecommendationMovies()
+            welcomeViewModel.loadTopRatedMovies()
         }
     }
 

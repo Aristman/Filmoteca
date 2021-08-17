@@ -5,8 +5,8 @@ data class MovieDetailUi(
     val title: String,
     val titleOrigin: String,
     val poster: String?,
-    val ganre: List<String>,
-    val timing: Int,
+    val genres: List<String>,
+    val timing: Int?,
     val release: String,
     val description: String
 )
