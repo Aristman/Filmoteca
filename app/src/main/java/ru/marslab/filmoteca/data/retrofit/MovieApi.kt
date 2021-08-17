@@ -6,6 +6,7 @@ import ru.marslab.filmoteca.data.model.auth.GuestNewSessionNW
 import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.auth.SessionNW
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
+import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
 import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 
@@ -56,4 +57,10 @@ interface MovieApi {
     suspend fun getTopRatedMovies(
         @Query("api_key") apiKey: String
     ): Response<MoviesNW>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") id: Int,
+        @Query("api_key") apiKey: String,
+    ): Response<MovieDetailsNW>
 }

@@ -1,14 +1,21 @@
 package ru.marslab.filmoteca.ui.movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
+import ru.marslab.filmoteca.domain.util.Constants
+import ru.marslab.filmoteca.ui.model.MovieDetailUi
+import ru.marslab.filmoteca.ui.util.ViewState
+import ru.marslab.filmoteca.ui.util.showMessage
+import ru.marslab.filmoteca.ui.util.showMessageWithAction
 
 @AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
@@ -33,17 +40,27 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun initObservers() {
-        movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) {movie ->
-            binding.apply {
-                movieTitle.text = movie.title
-                movieOriginTitle.text = movie.titleOrigin
-                movie.poster?.let {
-                    //TODO ("Загрузка постера фильма")
+        movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) { viewState ->
+            when (viewState) {
+                is ViewState.LoadError -> {
+                    requireView().showMessage(viewState.message)
                 }
-                movieGanre.text = movie.genres.joinToString(separator = ",")
-                movieRelease.text = movie.release
-                movieTiming.text = movie.timing.toString()
-                movieDescription.text = movie.description
+                ViewState.Loading -> {
+                }
+                is ViewState.Successful<*> -> {
+                    val data = viewState.data as MovieDetailUi
+                    binding.apply {
+                        movieTitle.text = data.title
+                        movieOriginTitle.text = data.titleOrigin
+                        data.poster?.let {
+                            moviePoster.load(Constants.BASE_POSTER_URL + it)
+                        }
+                        movieGanre.text = data.genres.joinToString(separator = ",")
+                        movieRelease.text = data.release
+                        movieTiming.text = data.timing.toString()
+                        movieDescription.text = data.description
+                    }
+                }
             }
         }
     }

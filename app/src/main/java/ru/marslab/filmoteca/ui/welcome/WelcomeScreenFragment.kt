@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
@@ -26,18 +27,24 @@ class WelcomeScreenFragment : Fragment() {
 
     private val popularMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            requireView().showMessage(it.title)
+            showMovieDetailsFragment(it.id)
         }
     }
+
     private val popularTvShowsAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            requireView().showMessage(it.title)
+            showMovieDetailsFragment(it.id)
         }
     }
+
     private val topRatedMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            requireView().showMessage(it.title)
+            showMovieDetailsFragment(it.id)
         }
+    }
+    private fun showMovieDetailsFragment(id: Int) {
+        val action = WelcomeScreenFragmentDirections.actionWelcomeScreenFragmentToMovieDetailFragment(id)
+        findNavController().navigate(action)
     }
 
 

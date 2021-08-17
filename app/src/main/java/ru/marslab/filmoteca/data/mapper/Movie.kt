@@ -2,6 +2,7 @@ package ru.marslab.filmoteca.data.mapper
 
 import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
+import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
 import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 import ru.marslab.filmoteca.domain.model.Movie
@@ -28,11 +29,6 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
         )
     }
 
-fun RequestTokenNW.toDomain(): RequestToken = RequestToken(
-    this.requestToken,
-    this.expiresAt
-)
-
 fun MoviesNW.toDomain(): List<Movie> =
     this.Movies.map {
         Movie(
@@ -53,27 +49,20 @@ fun MoviesNW.toDomain(): List<Movie> =
         )
     }
 
-fun TvShowsNW.toDomain(): List<TvShow> =
-    this.tvShows.map { tvShow ->
-        TvShow(
-            tvShow.id,
-            tvShow.name,
-            tvShow.originalName,
-            listOf(),
-            tvShow.genreIds,
-            listOf(),
-            tvShow.firstAirDate,
-            null,
-            null,
-            0,
-            0,
-            tvShow.originalLanguage,
-            tvShow.popularity,
-            tvShow.posterPath,
-            null,
-            tvShow.voteAverage,
-            tvShow.voteCount,
-            tvShow.overview
-        )
-
-    }
+fun MovieDetailsNW.toDomain(): Movie =
+    Movie(
+        id,
+        title,
+        originalTitle,
+        budget,
+        genres.map { it.id },
+        popularity,
+        posterPath,
+        productionCompanies.map { it.name },
+        releaseDate,
+        spokenLanguages.map { it.name },
+        originalLanguage,
+        voteAverage,
+        timing = null,
+        overview
+    )

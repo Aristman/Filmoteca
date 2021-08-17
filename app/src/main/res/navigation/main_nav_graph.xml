@@ -51,6 +51,10 @@
         android:id="@+id/welcomeScreenFragment"
         android:name="ru.marslab.filmoteca.ui.welcome.WelcomeScreenFragment"
         android:label="@string/welcome_screen"
-        tools:layout="@layout/fragment_welcome_screen" />
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/action_welcomeScreenFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
 
 </navigation>

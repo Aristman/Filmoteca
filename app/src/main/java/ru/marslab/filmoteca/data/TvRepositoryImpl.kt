@@ -6,6 +6,7 @@ import ru.marslab.filmoteca.domain.Store
 import ru.marslab.filmoteca.domain.repository.TvRepository
 
 class TvRepositoryImpl(private val api: MovieApi) : TvRepository {
+
     override suspend fun getPopularTvShows(): TvShowsNW? {
         val response = api.getPopularTvShows(Store.apiKeyV3)
         return if (response.isSuccessful) {

@@ -3,7 +3,7 @@ package ru.marslab.filmoteca.data.model.tv
 
 import com.google.gson.annotations.SerializedName
 
-data class TvShowNW(
+data class TvShowDetailsNW(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("created_by")
