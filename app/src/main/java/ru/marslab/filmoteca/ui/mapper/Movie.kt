@@ -1,14 +1,28 @@
 package ru.marslab.filmoteca.ui.mapper
 
 import ru.marslab.filmoteca.domain.model.Movie
+import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 
-fun List<Movie>.toUi(): List<MovieShortUi> = this.map { movie ->
+fun Movie.toUiShort(): MovieShortUi =
     MovieShortUi(
-        movie.id,
-        movie.title,
-        movie.poster,
-        movie.release,
-        movie.rating
+        id,
+        title,
+        poster,
+        release,
+        rating
     )
-}
+
+fun Movie.toUiFull(): MovieDetailUi =
+    MovieDetailUi(
+        id,
+        title,
+        originalTitle,
+        poster,
+        genres.map { it.toString() }, // TODO ("Доделать преобразование жанров из списка ИД в список названий")
+        timing,
+        release,
+        description
+    )
+
+

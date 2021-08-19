@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieNW(
+data class MovieDetailsNW(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: MovieNW?,
+    val belongsToCollection: MovieDetailsNW?,
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("genres")

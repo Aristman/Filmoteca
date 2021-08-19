@@ -13,5 +13,6 @@ data class Movie(
     val spokenLanguages: List<String>,
     val originalLanguage: String,
     val rating: Double,
+    val timing: Int?,
     val description: String = ""
 )

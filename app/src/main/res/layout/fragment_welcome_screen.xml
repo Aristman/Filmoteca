@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.welcome.WelcomeScreenFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/data_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <include
-                android:id="@+id/rated_movies"
-                layout="@layout/rv_layout_rated_movies"
+                android:id="@+id/popular_movies"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/horizon_rv_height" />
+                android:layout_height="wrap_content" />
 
             <include
-                android:id="@+id/rated_tv_shows"
-                layout="@layout/rv_layout_rated_tv_shows"
+                android:id="@+id/popular_tv_shows"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/horizon_rv_height"/>
+                android:layout_height="wrap_content"/>
 
             <include
-                android:id="@+id/rated_tv_episodes"
-                layout="@layout/rv_layout_rated_tv_episodes"
+                android:id="@+id/top_rated_movies"
+                layout="@layout/rv_layout_horizon_short_list"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/horizon_rv_height"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

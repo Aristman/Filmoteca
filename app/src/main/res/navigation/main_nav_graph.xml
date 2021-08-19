@@ -10,11 +10,8 @@
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_guestFragment"
-            app:destination="@id/guestFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainFilmFragment"
-            app:destination="@id/mainFilmFragment" />
+            android:id="@+id/action_loginFragment_to_welcomeScreenFragment"
+            app:destination="@id/welcomeScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -27,19 +24,10 @@
         android:label="@string/help"
         tools:layout="@layout/fragment_help" />
     <fragment
-        android:id="@+id/guestFragment"
-        android:name="ru.marslab.filmoteca.ui.guest.GuestFragment"
-        android:label="@string/films_guest"
-        tools:layout="@layout/fragment_guest">
-        <action
-            android:id="@+id/action_guestFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mainFilmFragment"
-        android:name="ru.marslab.filmoteca.ui.movie.MainFilmFragment"
+        android:id="@+id/mainMovieFragment"
+        android:name="ru.marslab.filmoteca.ui.movie.MainMovieFragment"
         android:label="@string/films"
-        tools:layout="@layout/fragment_main_film" />
+        tools:layout="@layout/fragment_main_movie" />
     <fragment
         android:id="@+id/mainTvFragment"
         android:name="ru.marslab.filmoteca.ui.tv.MainTvFragment"
@@ -58,6 +46,15 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeScreenFragment"
+        android:name="ru.marslab.filmoteca.ui.welcome.WelcomeScreenFragment"
+        android:label="@string/welcome_screen"
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/action_welcomeScreenFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 
 </navigation>
