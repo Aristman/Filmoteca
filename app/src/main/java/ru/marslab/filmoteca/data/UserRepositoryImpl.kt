@@ -2,21 +2,21 @@ package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.retrofit.MovieApi
-import ru.marslab.filmoteca.domain.Store
 import ru.marslab.filmoteca.domain.model.RequestToken
 import ru.marslab.filmoteca.domain.model.User
+import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.domain.repository.UserRepository
 import ru.marslab.filmoteca.ui.util.logMessage
 
-class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
+class UserRepositoryImpl(private val api: MovieApi, private val store: Store) : UserRepository {
 
     override suspend fun createRequestToken(): RequestToken? {
-        val createdRequestToken = api.createRequestToken(Store.apiKeyV3)
+        val createdRequestToken = api.createRequestToken(store.apiKeyV3)
         if (createdRequestToken.isSuccessful) {
             logMessage(createdRequestToken.body().toString())
-            Store.requestToken = createdRequestToken.body()?.toDomain()
+            store.requestToken = createdRequestToken.body()?.toDomain()
         }
-        return Store.requestToken
+        return store.requestToken
     }
 
     override suspend fun createSession(): String? {
@@ -24,14 +24,14 @@ class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
     }
 
     override suspend fun createSessionWithLogin(user: User): RequestToken? {
-        return Store.requestToken?.let {
+        return store.requestToken?.let {
             val response =
-                api.createSessionWithLogin(Store.apiKeyV3, user.name, user.password, it.token)
+                api.createSessionWithLogin(store.apiKeyV3, user.name, user.password, it.token)
             if (response.isSuccessful && response.body()?.success == true) {
                 logMessage(response.body().toString())
-                Store.requestToken = response.body()?.toDomain()
-                Store.user = user
-                Store.requestToken
+                store.requestToken = response.body()?.toDomain()
+                store.user = user
+                store.requestToken
             } else {
                 null
             }
@@ -39,8 +39,8 @@ class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
     }
 
     override suspend fun createGuestSession(): String? {
-        Store.sessionId = try {
-            val guestSessionId = api.createGuestSessionId(Store.apiKeyV3)
+        store.sessionId = try {
+            val guestSessionId = api.createGuestSessionId(store.apiKeyV3)
             if (guestSessionId.isSuccessful) {
                 logMessage(guestSessionId.body().toString())
                 guestSessionId.body()?.guestSessionId
@@ -50,7 +50,7 @@ class UserRepositoryImpl(private val api: MovieApi) : UserRepository {
         } catch (e: Exception) {
             null
         }
-        return Store.sessionId
+        return store.sessionId
     }
 
     override suspend fun deleteSession(): Boolean {

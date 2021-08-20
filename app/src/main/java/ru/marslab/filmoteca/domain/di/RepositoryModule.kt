@@ -1,5 +1,6 @@
 package ru.marslab.filmoteca.domain.di
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -7,16 +8,10 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import ru.marslab.filmoteca.AppDispatchers
-import ru.marslab.filmoteca.data.DatabaseRepositoryImpl
-import ru.marslab.filmoteca.data.MovieRepositoryImpl
-import ru.marslab.filmoteca.data.TvRepositoryImpl
-import ru.marslab.filmoteca.data.UserRepositoryImpl
+import ru.marslab.filmoteca.data.*
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.data.room.database.MainDatabase
-import ru.marslab.filmoteca.domain.repository.DatabaseRepository
-import ru.marslab.filmoteca.domain.repository.MovieRepository
-import ru.marslab.filmoteca.domain.repository.TvRepository
-import ru.marslab.filmoteca.domain.repository.UserRepository
+import ru.marslab.filmoteca.domain.repository.*
 import javax.inject.Singleton
 
 @Module
@@ -24,25 +19,25 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun providerDispatcher(): AppDispatchers = object : AppDispatchers {
-        override val io: CoroutineDispatcher
-            get() = Dispatchers.IO
-        override val main: CoroutineDispatcher
-            get() = Dispatchers.Main
-    }
-    @Singleton
-    @Provides
-    fun provideUserRepository(api: MovieApi): UserRepository = UserRepositoryImpl(api)
+    fun provideUserRepository(api: MovieApi, store: Store): UserRepository =
+        UserRepositoryImpl(api, store)
 
     @Singleton
     @Provides
-    fun provideMovieRepository(api: MovieApi): MovieRepository = MovieRepositoryImpl(api)
+    fun provideMovieRepository(api: MovieApi, store: Store): MovieRepository =
+        MovieRepositoryImpl(api, store)
 
     @Singleton
     @Provides
-    fun provideTvRepository(api: MovieApi): TvRepository = TvRepositoryImpl(api)
+    fun provideTvRepository(api: MovieApi, store: Store): TvRepository =
+        TvRepositoryImpl(api, store)
 
     @Singleton
     @Provides
-    fun provideDatabaseRepository(database: MainDatabase): DatabaseRepository = DatabaseRepositoryImpl(database)
+    fun provideDatabaseRepository(database: MainDatabase): DatabaseRepository =
+        DatabaseRepositoryImpl(database)
+
+    @Singleton
+    @Provides
+    fun provideStore(sharedPreferences: SharedPreferences): Store = StoreImpl(sharedPreferences)
 }

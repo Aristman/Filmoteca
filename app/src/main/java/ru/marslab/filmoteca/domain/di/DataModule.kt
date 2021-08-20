@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.data.room.database.MainDatabase
-import ru.marslab.filmoteca.domain.Store
+import ru.marslab.filmoteca.domain.repository.Store
 import javax.inject.Singleton
 
 @Module
@@ -26,7 +26,7 @@ object DataModule {
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(ru.marslab.filmoteca.domain.util.Constants.BASE_URL)
+            .baseUrl(Store.BASE_URL)
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().setLenient().create()

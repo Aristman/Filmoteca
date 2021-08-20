@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.databinding.ActivitySplashBinding
-import ru.marslab.filmoteca.domain.util.Constants.START_DELAY
+import ru.marslab.filmoteca.domain.repository.Store.Companion.START_DELAY
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initSettings()
+        mainViewModel.loadSettings()
         CoroutineScope(Dispatchers.IO).launch {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             delay(START_DELAY)
@@ -31,9 +31,4 @@ class SplashActivity : AppCompatActivity() {
             this@SplashActivity.finish()
         }
     }
-
-    private fun initSettings() {
-
-    }
-
 }
