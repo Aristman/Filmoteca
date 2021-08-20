@@ -12,7 +12,7 @@ interface MoviesHistoryDao {
     suspend fun getAllHistory(): List<MoviesHistoryTable>
 
     @Query("SELECT * FROM movies_history WHERE lookTime BETWEEN :beginTime AND :endTime ORDER BY lookTime")
-    suspend fun getPeriodHistory(beginTime: Double, endTime: Double): List<MoviesHistoryTable>
+    suspend fun getPeriodHistory(beginTime: Long, endTime: Long): List<MoviesHistoryTable>
 
     @Query("SELECT * FROM movies_history WHERE movieId=:movieId")
     suspend fun getMovieData(movieId: Int): List<MoviesHistoryTable>

@@ -14,6 +14,7 @@ import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
+import java.util.*
 
 @AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
@@ -61,9 +62,22 @@ class MovieDetailFragment : Fragment() {
                 }
             }
         }
+        movieDetailViewModel.movieComment.observe(viewLifecycleOwner) { comment ->
+            binding.movieComment.setText(comment)
+        }
+    }
+
+    override fun onPause() {
+        movieDetailViewModel.saveMovieDataToHistory(
+            args.movieId,
+            Date().time,
+            binding.movieComment.text ?: ""
+        )
+        super.onPause()
     }
 
     override fun onDestroyView() {
+
         _binding = null
         super.onDestroyView()
     }

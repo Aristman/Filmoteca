@@ -35,6 +35,7 @@
     <string name="setting_tag_adult">adult</string>
     <string name="loading_settings">Загрузка настроек</string>
     <string name="load_settings_complete">Загрузка настроек завершена</string>
+    <string name="comment">Коментарий</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

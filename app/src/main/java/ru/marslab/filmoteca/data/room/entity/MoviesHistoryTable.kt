@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class MoviesHistoryTable(
     @PrimaryKey
     val movieId: Int,
-    val lookTime: Double,
+    val lookTime: Long,
     val comment: String
 )
