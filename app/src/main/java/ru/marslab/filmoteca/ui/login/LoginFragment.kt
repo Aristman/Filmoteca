@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
                 it.getBoolean(GUEST_LOGIN_SUCCESSFUL) ||
                         it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
                     val action =
-                        LoginFragmentDirections.actionLoginFragmentToWelcomeScreenFragment()
+                        LoginFragmentDirections.actionLoginFragmentToMovieMainFragment()
                     findNavController().navigate(action)
                 }
                 it.getBoolean(LOGIN_ERROR) -> {

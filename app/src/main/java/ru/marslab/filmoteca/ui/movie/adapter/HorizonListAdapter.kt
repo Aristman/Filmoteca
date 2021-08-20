@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.welcome.adapter
+package ru.marslab.filmoteca.ui.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
