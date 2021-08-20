@@ -55,6 +55,18 @@
         <action
             android:id="@+id/action_movieMainFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_movieMainFragment_to_tvDetailFragment"
+            app:destination="@id/tvDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvDetailFragment"
+        android:name="ru.marslab.filmoteca.ui.movie.TvDetailFragment"
+        android:label="TvDetailFragment"
+        tools:layout="@layout/fragment_movie_delail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

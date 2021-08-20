@@ -2,8 +2,8 @@ package ru.marslab.filmoteca.domain.model
 
 data class TvShow(
     val id: Int,
-    val name: String,
-    val originalName: String,
+    val title: String,
+    val originalTitle: String,
     val languages: List<String>,
     val genres: List<Int>,
     val episodeRunTime: List<Int>,

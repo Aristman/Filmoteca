@@ -33,8 +33,13 @@ class MovieMainFragment : Fragment() {
 
     private val popularTvShowsAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            showMovieDetailsFragment(it.id)
+            showTvDetailsFragment(it.id)
         }
+    }
+
+    private fun showTvDetailsFragment(id: Int) {
+        val action = MovieMainFragmentDirections.actionMovieMainFragmentToTvDetailFragment(id)
+        findNavController().navigate(action)
     }
 
     private val topRatedMoviesAdapter: HorizonListAdapter by lazy {

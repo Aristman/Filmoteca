@@ -7,7 +7,7 @@ import ru.marslab.filmoteca.ui.model.MovieShortUi
 fun TvShow.toUiShort(): MovieShortUi =
     MovieShortUi(
         id,
-        name,
+        title,
         poster,
         firstAirDate,
         rating

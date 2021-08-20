@@ -1,5 +1,6 @@
 package ru.marslab.filmoteca.data
 
+import ru.marslab.filmoteca.data.model.tv.TvShowDetailsNW
 import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.repository.Store
@@ -9,10 +10,11 @@ class TvRepositoryImpl(private val api: MovieApi, private val store: Store) : Tv
 
     override suspend fun getPopularTvShows(): TvShowsNW? {
         val response = api.getPopularTvShows(store.apiKeyV3)
-        return if (response.isSuccessful) {
-            response.body()
-        } else {
-            null
-        }
+        return checkResponse(response)?.body()
+    }
+
+    override suspend fun getTvDetailInfo(id: Int): TvShowDetailsNW? {
+        val response = api.getTvDetails(id, store.apiKeyV3)
+        return checkResponse(response)?.body()
     }
 }
