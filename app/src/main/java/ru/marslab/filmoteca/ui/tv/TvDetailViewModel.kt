@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.movie
+package ru.marslab.filmoteca.ui.tv
 
 
 import androidx.lifecycle.LiveData
@@ -15,7 +15,7 @@ import ru.marslab.filmoteca.ui.mapper.toUiFull
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
 
-private const val ERROR_LOAD_DATA = "Ошибка загрузки данных по фильму"
+private const val ERROR_LOAD_DATA = "Ошибка загрузки данных по сериалу"
 
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(

@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.movie
+package ru.marslab.filmoteca.ui.tv
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
+import ru.marslab.filmoteca.ui.movie.MovieDetailFragmentArgs
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
 

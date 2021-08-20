@@ -25,9 +25,9 @@
         tools:layout="@layout/fragment_help" />
     <fragment
         android:id="@+id/mainTvFragment"
-        android:name="ru.marslab.filmoteca.ui.tv.MainTvFragment"
+        android:name="ru.marslab.filmoteca.ui.tv.TvMainFragment"
         android:label="@string/tv"
-        tools:layout="@layout/fragment_main_tv" />
+        tools:layout="@layout/fragment_tv_main" />
     <fragment
         android:id="@+id/peopleMainFragment"
         android:name="ru.marslab.filmoteca.ui.people.PeopleMainFragment"
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvDetailFragment"
-        android:name="ru.marslab.filmoteca.ui.movie.TvDetailFragment"
+        android:name="ru.marslab.filmoteca.ui.tv.TvDetailFragment"
         android:label="TvDetailFragment"
         tools:layout="@layout/fragment_movie_delail">
         <argument
