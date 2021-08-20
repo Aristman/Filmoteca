@@ -7,6 +7,10 @@ import android.os.Looper
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.databinding.ActivitySplashBinding
 import ru.marslab.filmoteca.domain.util.Constants.START_DELAY
 
@@ -19,10 +23,11 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            delay(START_DELAY)
             startActivity(intent)
-            finish()
-        }, START_DELAY)
+            this@SplashActivity.finish()
+        }
     }
 }

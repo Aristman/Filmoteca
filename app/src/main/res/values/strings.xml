@@ -8,8 +8,6 @@
     <string name="people">Люди</string>
     <string name="search">Поиск</string>
     <string name="logo_image">logo image</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Вход в систему</string>
     <string name="login_string">Login</string>
     <string name="password_string">Пароль</string>
@@ -32,4 +30,5 @@
     <string name="popular_movies_title">Популярные фильмы</string>
     <string name="popular_tvshows_title">Популярные сериалы</string>
     <string name="top_rated_movies_title">Лучшие фильмы</string>
+    <string name="setting_content_18">Показывать контент 18+</string>
 </resources>
