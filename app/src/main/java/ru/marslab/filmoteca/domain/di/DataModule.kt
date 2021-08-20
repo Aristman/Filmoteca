@@ -1,5 +1,7 @@
 package ru.marslab.filmoteca.domain.di
 
+import android.content.Context
+import androidx.room.Room
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -8,12 +10,12 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.retrofit.MovieApi
+import ru.marslab.filmoteca.data.room.database.MainDatabase
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-
     @Singleton
     @Provides
     fun provideRequestService(retrofit: Retrofit): MovieApi =
@@ -30,4 +32,13 @@ object DataModule {
                 )
             )
             .build()
+
+    @Singleton
+    @Provides
+    fun provideDatabase(context: Context): MainDatabase =
+        Room.databaseBuilder(
+            context,
+            MainDatabase::class.java,
+            "main_database.db"
+        ).build()
 }

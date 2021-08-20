@@ -1,6 +1,7 @@
 package ru.marslab.filmoteca.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,11 +24,15 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        loadSetting()
         CoroutineScope(Dispatchers.IO).launch {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             delay(START_DELAY)
             startActivity(intent)
             this@SplashActivity.finish()
         }
+    }
+
+    private fun loadSetting() {
     }
 }
