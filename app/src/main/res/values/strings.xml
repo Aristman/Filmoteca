@@ -31,4 +31,13 @@
     <string name="popular_tvshows_title">Популярные сериалы</string>
     <string name="top_rated_movies_title">Лучшие фильмы</string>
     <string name="setting_content_18">Показывать контент 18+</string>
+    <string name="settings_title">Настройки</string>
+    <string name="setting_tag_adult">adult</string>
+    <string name="loading_settings">Загрузка настроек</string>
+    <string name="load_settings_complete">Загрузка настроек завершена</string>
+
+    <string-array name="setting_tags">
+        <item>adult</item>
+        <item>language</item>
+    </string-array>
 </resources>

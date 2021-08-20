@@ -16,7 +16,15 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:checked="true"
-            android:text="@string/setting_content_18"/>
+            android:text="@string/setting_content_18"
+            app:layout_constraintBottom_toTopOf="@id/setting_language"
+            android:tag="@string/setting_tag_adult"/>
+
+        <Spinner
+            android:id="@+id/setting_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/setting_adult"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies_history")
-data class MoviesHistory(
+data class MoviesHistoryTable(
     @PrimaryKey
     val movieId: Int,
     val lookTime: Double,

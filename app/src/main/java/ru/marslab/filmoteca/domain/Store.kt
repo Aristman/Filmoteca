@@ -9,6 +9,8 @@ object Store {
     var requestToken: RequestToken? = null
     var user: User? = null
 
+    var adult: Boolean = false
+
     val apiKeyV3: String
         get() = BuildConfig.API_KEY_V3
     val apiKeyV4: String

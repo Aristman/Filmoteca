@@ -1,11 +1,9 @@
 package ru.marslab.filmoteca.ui
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -20,11 +18,12 @@ class SplashActivity : AppCompatActivity() {
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(LayoutInflater.from(this))
     }
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        loadSetting()
+        initSettings()
         CoroutineScope(Dispatchers.IO).launch {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             delay(START_DELAY)
@@ -33,6 +32,8 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadSetting() {
+    private fun initSettings() {
+
     }
+
 }
