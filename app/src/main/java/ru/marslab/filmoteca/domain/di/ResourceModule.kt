@@ -23,6 +23,7 @@ object ResourceModule {
         override val main: CoroutineDispatcher
             get() = Dispatchers.Main
     }
+
     @Singleton
     @Provides
     fun providePreference(app: Application): SharedPreferences {

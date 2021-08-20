@@ -14,7 +14,10 @@ import ru.marslab.filmoteca.databinding.FragmentMovieMainBinding
 import ru.marslab.filmoteca.databinding.RvLayoutHorizonShortListBinding
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 import ru.marslab.filmoteca.ui.movie.adapter.HorizonListAdapter
-import ru.marslab.filmoteca.ui.util.*
+import ru.marslab.filmoteca.ui.util.ViewState
+import ru.marslab.filmoteca.ui.util.showMessageWithAction
+import ru.marslab.filmoteca.ui.util.viewHide
+import ru.marslab.filmoteca.ui.util.viewShow
 
 @AndroidEntryPoint
 class MovieMainFragment : Fragment() {

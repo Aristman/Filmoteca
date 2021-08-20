@@ -5,9 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.data.*
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.data.room.database.MainDatabase
