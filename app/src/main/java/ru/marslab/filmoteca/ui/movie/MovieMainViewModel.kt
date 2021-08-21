@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.welcome
+package ru.marslab.filmoteca.ui.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

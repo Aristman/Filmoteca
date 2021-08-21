@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui
+package ru.marslab.filmoteca.ui.settings
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
@@ -7,11 +7,18 @@ import ru.marslab.filmoteca.domain.repository.Store
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class SettingsViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val store: Store
 ) : ViewModel() {
-    fun loadSettings() {
-        store.adult = sharedPreferences.getBoolean(Store.SETTING_ADULT, false)
-    }
+
+    var adult: Boolean
+        get() = store.adult
+        set(value) {
+            store.adult = value
+            sharedPreferences.edit()
+                .putBoolean(Store.SETTING_ADULT, value)
+                .apply()
+        }
+
 }

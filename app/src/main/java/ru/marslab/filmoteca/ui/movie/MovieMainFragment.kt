@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.welcome
+package ru.marslab.filmoteca.ui.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,17 +10,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
-import ru.marslab.filmoteca.databinding.FragmentWelcomeScreenBinding
+import ru.marslab.filmoteca.databinding.FragmentMovieMainBinding
 import ru.marslab.filmoteca.databinding.RvLayoutHorizonShortListBinding
 import ru.marslab.filmoteca.ui.model.MovieShortUi
-import ru.marslab.filmoteca.ui.util.*
-import ru.marslab.filmoteca.ui.welcome.adapter.HorizonListAdapter
+import ru.marslab.filmoteca.ui.movie.adapter.HorizonListAdapter
+import ru.marslab.filmoteca.ui.util.ViewState
+import ru.marslab.filmoteca.ui.util.showMessageWithAction
+import ru.marslab.filmoteca.ui.util.viewHide
+import ru.marslab.filmoteca.ui.util.viewShow
 
 @AndroidEntryPoint
-class WelcomeScreenFragment : Fragment() {
+class MovieMainFragment : Fragment() {
 
-    private var _binding: FragmentWelcomeScreenBinding? = null
-    private val binding: FragmentWelcomeScreenBinding
+    private var _binding: FragmentMovieMainBinding? = null
+    private val binding: FragmentMovieMainBinding
         get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
 
     private val welcomeViewModel by viewModels<WelcomeViewModel>()
@@ -33,8 +36,13 @@ class WelcomeScreenFragment : Fragment() {
 
     private val popularTvShowsAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
-            showMovieDetailsFragment(it.id)
+            showTvDetailsFragment(it.id)
         }
+    }
+
+    private fun showTvDetailsFragment(id: Int) {
+        val action = MovieMainFragmentDirections.actionMovieMainFragmentToTvDetailFragment(id)
+        findNavController().navigate(action)
     }
 
     private val topRatedMoviesAdapter: HorizonListAdapter by lazy {
@@ -42,8 +50,9 @@ class WelcomeScreenFragment : Fragment() {
             showMovieDetailsFragment(it.id)
         }
     }
+
     private fun showMovieDetailsFragment(id: Int) {
-        val action = WelcomeScreenFragmentDirections.actionWelcomeScreenFragmentToMovieDetailFragment(id)
+        val action = MovieMainFragmentDirections.actionMovieMainFragmentToMovieDetailFragment(id)
         findNavController().navigate(action)
     }
 
@@ -52,7 +61,7 @@ class WelcomeScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieMainBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 

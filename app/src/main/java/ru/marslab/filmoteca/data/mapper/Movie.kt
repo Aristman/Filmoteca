@@ -1,13 +1,9 @@
 package ru.marslab.filmoteca.data.mapper
 
-import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
 import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
-import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 import ru.marslab.filmoteca.domain.model.Movie
-import ru.marslab.filmoteca.domain.model.RequestToken
-import ru.marslab.filmoteca.domain.model.TvShow
 
 fun GuestRatedMoviesNW.toDomain(): List<Movie> =
     this.movies.map { movie ->

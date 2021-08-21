@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.ui.movie
+package ru.marslab.filmoteca.ui.tv
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,16 +12,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
+import ru.marslab.filmoteca.ui.movie.MovieDetailFragmentArgs
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
-import java.util.*
 
 @AndroidEntryPoint
-class MovieDetailFragment : Fragment() {
+class TvDetailFragment : Fragment() {
     private var _binding: FragmentMovieDelailBinding? = null
     private val binding: FragmentMovieDelailBinding
         get() = _binding!!
-    private val movieDetailViewModel by viewModels<MovieDetailViewModel>()
+    private val tvDetailViewModel by viewModels<TvDetailViewModel>()
     private val args: MovieDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -35,11 +35,11 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        movieDetailViewModel.getMovieDetailInfo(args.movieId)
+        tvDetailViewModel.getTvDetailInfo(args.movieId)
     }
 
     private fun initObservers() {
-        movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) { viewState ->
+        tvDetailViewModel.tvDetail.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
                     requireView().showMessage(viewState.message)
@@ -62,22 +62,9 @@ class MovieDetailFragment : Fragment() {
                 }
             }
         }
-        movieDetailViewModel.movieComment.observe(viewLifecycleOwner) { comment ->
-            binding.movieComment.setText(comment)
-        }
-    }
-
-    override fun onPause() {
-        movieDetailViewModel.saveMovieDataToHistory(
-            args.movieId,
-            Date().time,
-            binding.movieComment.text ?: ""
-        )
-        super.onPause()
     }
 
     override fun onDestroyView() {
-
         _binding = null
         super.onDestroyView()
     }

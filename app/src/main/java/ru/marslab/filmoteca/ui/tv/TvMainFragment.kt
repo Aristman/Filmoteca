@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marslab.filmoteca.databinding.FragmentMainTvBinding
+import ru.marslab.filmoteca.databinding.FragmentTvMainBinding
 
 @AndroidEntryPoint
-class MainTvFragment : Fragment() {
-    private var _binding: FragmentMainTvBinding? = null
-    private val binding: FragmentMainTvBinding
+class TvMainFragment : Fragment() {
+    private var _binding: FragmentTvMainBinding? = null
+    private val binding: FragmentTvMainBinding
         get() = _binding!!
-    private val mainTvViewModel by viewModels<MainTvViewModel>()
+    private val mainTvViewModel by viewModels<TvMainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainTvBinding.inflate(inflater, container, false)
+        _binding = FragmentTvMainBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
