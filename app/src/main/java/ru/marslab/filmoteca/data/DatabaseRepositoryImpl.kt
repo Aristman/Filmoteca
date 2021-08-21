@@ -8,7 +8,7 @@ class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepos
     override suspend fun getMovieComment(id: Int): String? {
         val movieData = database.moviesHistoryDao().getMovieData(id)
         return if (movieData.isNotEmpty()) {
-            movieData[0].comment
+            movieData.first().comment
         } else {
             null
         }
