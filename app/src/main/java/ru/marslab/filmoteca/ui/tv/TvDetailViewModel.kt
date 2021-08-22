@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.mapper.toMovie
 import ru.marslab.filmoteca.domain.repository.TvRepository
@@ -19,14 +20,15 @@ private const val ERROR_LOAD_DATA = "Ошибка загрузки данных 
 
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(
-    private val tvRepository: TvRepository
+    private val tvRepository: TvRepository,
+    private val dispatchers: AppDispatchers
 ) : ViewModel() {
     private var _tvDetail: MutableLiveData<ViewState> = MutableLiveData()
     val tvDetail: LiveData<ViewState>
         get() = _tvDetail
 
     fun getTvDetailInfo(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatchers.io) {
             val tvShow = tvRepository.getTvDetailInfo(id)?.toDomain()
             if (tvShow == null) {
                 _tvDetail.postValue(ViewState.LoadError(ERROR_LOAD_DATA))
