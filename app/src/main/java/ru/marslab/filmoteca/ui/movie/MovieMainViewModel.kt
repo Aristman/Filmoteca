@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.MovieRepository
 import ru.marslab.filmoteca.domain.repository.TvRepository
@@ -20,7 +21,8 @@ private const val ERROR_LOAD_POPULAR_MOVIES =
 @HiltViewModel
 class WelcomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
-    private val tvRepository: TvRepository
+    private val tvRepository: TvRepository,
+    private val dispatchers: AppDispatchers
 ) : ViewModel() {
 
     private var _popularMovies: MutableLiveData<ViewState> = MutableLiveData()
@@ -38,7 +40,7 @@ class WelcomeViewModel @Inject constructor(
 
     fun loadPopularMovies() {
         _popularMovies.value = ViewState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatchers.io) {
             val listMovies = movieRepository.getPopularMovies()?.toDomain()
             if (listMovies == null) {
                 _popularMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
@@ -50,7 +52,7 @@ class WelcomeViewModel @Inject constructor(
 
     fun loadPopularTvShows() {
         _popularTvShows.value = ViewState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatchers.io) {
             val listMovies = tvRepository.getPopularTvShows()?.toDomain()
             if (listMovies == null) {
                 _popularTvShows.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
@@ -62,7 +64,7 @@ class WelcomeViewModel @Inject constructor(
 
     fun loadTopRatedMovies() {
         _topRatedMovies.value = ViewState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatchers.io) {
             val listMovies = movieRepository.getTopRatedMovies()?.toDomain()
             if (listMovies == null) {
                 _topRatedMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
