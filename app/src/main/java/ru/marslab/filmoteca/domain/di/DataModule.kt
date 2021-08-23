@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.data.room.database.MainDatabase
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.data.repository.Store
 import javax.inject.Singleton
 
 @Module

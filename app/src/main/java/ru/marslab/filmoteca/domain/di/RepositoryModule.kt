@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.marslab.filmoteca.data.*
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.data.room.database.MainDatabase
-import ru.marslab.filmoteca.domain.repository.*
+import ru.marslab.filmoteca.data.repository.*
 import javax.inject.Singleton
 
 @Module

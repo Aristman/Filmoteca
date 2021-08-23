@@ -3,7 +3,7 @@ package ru.marslab.filmoteca.ui.settings
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.data.repository.Store
 import javax.inject.Inject
 
 @HiltViewModel

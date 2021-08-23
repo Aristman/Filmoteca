@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.domain.repository
+package ru.marslab.filmoteca.data.repository
 
 interface DatabaseRepository {
     suspend fun getMovieComment(id: Int): String?

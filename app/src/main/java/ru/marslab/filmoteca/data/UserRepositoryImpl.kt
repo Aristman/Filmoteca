@@ -4,8 +4,8 @@ import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.model.RequestToken
 import ru.marslab.filmoteca.domain.model.User
-import ru.marslab.filmoteca.domain.repository.Store
-import ru.marslab.filmoteca.domain.repository.UserRepository
+import ru.marslab.filmoteca.data.repository.Store
+import ru.marslab.filmoteca.data.repository.UserRepository
 import ru.marslab.filmoteca.ui.util.logMessage
 
 class UserRepositoryImpl(private val api: MovieApi, private val store: Store) : UserRepository {
