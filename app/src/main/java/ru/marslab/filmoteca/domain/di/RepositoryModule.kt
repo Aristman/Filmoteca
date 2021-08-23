@@ -1,6 +1,5 @@
 package ru.marslab.filmoteca.domain.di
 
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,5 +35,10 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideStore(sharedPreferences: SharedPreferences): Store = StoreImpl(sharedPreferences)
+    fun provideStore(): Store = StoreImpl()
+
+    @Singleton
+    @Provides
+    fun provideSettingsRepository(api: MovieApi, store: Store): SettingsRepository =
+        SettingsRepositoryImpl(api, store)
 }
