@@ -73,27 +73,27 @@ interface MovieApi {
     ): Response<MovieDetailsNW>
 
     @GET("configuration")
-    fun getConfigApi(
+    suspend fun getConfigApi(
         @Query("api_key") apiKey: String
     ): Response<ConfigApiNW>
 
     @GET("configuration/countries")
-    fun getConfigCountries(
+    suspend fun getConfigCountries(
         @Query("api_key") apiKey: String
     ): Response<List<ConfigCountriesNW>>
 
     @GET("configuration/jobs")
-    fun getJobsConfig(
+    suspend fun getJobsConfig(
         @Query("api_key") apiKey: String
     ): Response<List<ConfigJobsNW>>
 
     @GET("configuration/languages")
-    fun getConfigLanguages(
+    suspend fun getConfigLanguages(
         @Query("api_key") apiKey: String
     ): Response<List<ConfigLanguagesNW>>
 
     @GET("configuration/timezones")
-    fun getConfigTimeZones(
+    suspend fun getConfigTimeZones(
         @Query("api_key") apiKey: String
     ): Response<List<ConfigTimeZonesNW>>
 }
