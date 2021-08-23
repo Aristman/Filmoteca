@@ -1,11 +1,13 @@
 package ru.marslab.filmoteca.ui
 
 import android.content.SharedPreferences
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
-import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.SettingsRepository
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
@@ -74,7 +76,7 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(COUNTRIES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
-                store.countries = countriesConfig.map { it.toDomain() }
+                store.countries = countriesConfig
                 logMessage(store.countries.toString())
                 loadJobsSetting()
             }
@@ -101,7 +103,7 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(LANGUAGES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
-                store.languages = languagesConfig.map { it.toDomain() }
+                store.languages = languagesConfig
                 logMessage(store.languages.toString())
                 loadTimeZonesSetting()
             }
@@ -115,7 +117,7 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(TIME_ZONES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.LoadingSuccessful)
-                store.timeZones = timeZonesConfig.map { it.toDomain() }
+                store.timeZones = timeZonesConfig
                 logMessage(store.timeZones.toString())
             }
         }
