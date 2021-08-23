@@ -9,6 +9,7 @@ class SettingsRepositoryImpl(
     private val api: MovieApi,
     private val store: Store
 ): SettingsRepository {
+
     override suspend fun getApiConfig(): ConfigApiNW? {
         val configApi = api.getConfigApi(store.apiKeyV3)
         return checkResponse(configApi)?.body()

@@ -5,11 +5,13 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
+import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.SettingsRepository
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
 import ru.marslab.filmoteca.ui.model.LoadConfigsState.ErrorStage.*
 import ru.marslab.filmoteca.ui.model.LoadConfigsState.LoadError
+import ru.marslab.filmoteca.ui.util.logMessage
 import javax.inject.Inject
 
 @HiltViewModel
@@ -59,6 +61,7 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(API_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Api)
+                // TODO ("сохранение требуемых данных конфигурации в Store")
                 loadCountriesSetting()
             }
         }
@@ -71,6 +74,8 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(COUNTRIES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
+                store.countries = countriesConfig.map { it.toDomain() }
+                logMessage(store.countries.toString())
                 loadJobsSetting()
             }
         }
@@ -83,6 +88,7 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(JOBS_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Jobs)
+                // TODO ("сохранение требуемых данных по Jobs в Store")
                 loadLanguagesSetting()
             }
         }
@@ -95,6 +101,8 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(LANGUAGES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
+                store.languages = languagesConfig.map { it.toDomain() }
+                logMessage(store.languages.toString())
                 loadTimeZonesSetting()
             }
         }
@@ -107,6 +115,8 @@ class MainViewModel @Inject constructor(
                 _configLoadStatus.postValue(LoadError(TIME_ZONES_ERROR))
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.LoadingSuccessful)
+                store.timeZones = timeZonesConfig.map { it.toDomain() }
+                logMessage(store.timeZones.toString())
             }
         }
     }

@@ -1,8 +1,6 @@
 package ru.marslab.filmoteca.domain.repository
 
-import ru.marslab.filmoteca.domain.model.Language
-import ru.marslab.filmoteca.domain.model.RequestToken
-import ru.marslab.filmoteca.domain.model.User
+import ru.marslab.filmoteca.domain.model.*
 
 interface Store {
     companion object {
@@ -15,7 +13,10 @@ interface Store {
     var sessionId: String?
     var requestToken: RequestToken?
     var user: User?
+
+    var countries: List<Country>
     var languages: List<Language>
+    var timeZones: List<TimeZone>
 
     var adult: Boolean
 
