@@ -32,7 +32,7 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getMovieDetailInfo(id: Int) {
         viewModelScope.launch(dispatchers.io) {
-            val movie = movieRepository.getMovieDetails(id)?.toDomain()
+            val movie = movieRepository.getMovieDetails(id)
             if (movie == null) {
                 _movieDetail.postValue(ViewState.LoadError(ERROR_LOAD_DATA))
             } else {

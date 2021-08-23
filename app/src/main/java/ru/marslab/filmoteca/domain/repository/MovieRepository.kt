@@ -1,10 +1,9 @@
 package ru.marslab.filmoteca.domain.repository
 
-import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
-import ru.marslab.filmoteca.data.model.movies.MoviesNW
+import ru.marslab.filmoteca.domain.model.Movie
 
 interface MovieRepository {
-    suspend fun getMovieDetails(id: Int): MovieDetailsNW?
-    suspend fun getPopularMovies(): MoviesNW?
-    suspend fun getTopRatedMovies(): MoviesNW?
+    suspend fun getMovieDetails(id: Int): Movie?
+    suspend fun getPopularMovies(): List<Movie>?
+    suspend fun getTopRatedMovies(): List<Movie>?
 }
