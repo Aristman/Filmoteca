@@ -1,19 +1,17 @@
 package ru.marslab.filmoteca.ui.model
 
 sealed class LoadConfigsState {
-    data class LoadError(val stage: ErrorStage): LoadConfigsState()
+    sealed class LoadError: LoadConfigsState() {
+        object ApiError: LoadError()
+        object CountriesError: LoadError()
+        object JobsError: LoadError()
+        object LanguagesError: LoadError()
+        object TimeZonesError: LoadError()
+    }
     object Api: LoadConfigsState()
     object Counties: LoadConfigsState()
     object Jobs: LoadConfigsState()
     object Languages: LoadConfigsState()
     object TimeZones: LoadConfigsState()
     object LoadingSuccessful: LoadConfigsState()
-
-    enum class ErrorStage {
-        API_ERROR,
-        COUNTRIES_ERROR,
-        JOBS_ERROR,
-        LANGUAGES_ERROR,
-        TIME_ZONES_ERROR
-    }
 }

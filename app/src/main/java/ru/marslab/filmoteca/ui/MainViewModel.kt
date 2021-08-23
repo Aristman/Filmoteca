@@ -11,7 +11,6 @@ import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.domain.repository.SettingsRepository
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
-import ru.marslab.filmoteca.ui.model.LoadConfigsState.ErrorStage.*
 import ru.marslab.filmoteca.ui.model.LoadConfigsState.LoadError
 import ru.marslab.filmoteca.ui.util.logMessage
 import javax.inject.Inject
@@ -32,24 +31,24 @@ class MainViewModel @Inject constructor(
         store.adult = sharedPreferences.getBoolean(Store.SETTING_ADULT, false)
     }
 
-    fun loadApiConfigs(stage: LoadConfigsState.ErrorStage? = null) {
+    fun loadApiConfigs(stage: LoadError? = null) {
         if (stage == null) {
             loadApiSetting()
         } else {
             when (stage) {
-                API_ERROR -> {
+                LoadError.ApiError -> {
                     loadApiSetting()
                 }
-                COUNTRIES_ERROR -> {
+                LoadError.CountriesError -> {
                     loadCountriesSetting()
                 }
-                JOBS_ERROR -> {
+                LoadError.JobsError -> {
                     loadJobsSetting()
                 }
-                LANGUAGES_ERROR -> {
+                LoadError.LanguagesError -> {
                     loadLanguagesSetting()
                 }
-                TIME_ZONES_ERROR -> {
+                LoadError.TimeZonesError -> {
                     loadTimeZonesSetting()
                 }
             }
@@ -60,7 +59,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val apiConfig = settingsRepository.getApiConfig()
             if (apiConfig == null) {
-                _configLoadStatus.postValue(LoadError(API_ERROR))
+                _configLoadStatus.postValue(LoadError.ApiError)
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Api)
                 // TODO ("сохранение требуемых данных конфигурации в Store")
@@ -73,7 +72,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val countriesConfig = settingsRepository.getCountriesConfig()
             if (countriesConfig == null) {
-                _configLoadStatus.postValue(LoadError(COUNTRIES_ERROR))
+                _configLoadStatus.postValue(LoadError.CountriesError)
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
                 store.countries = countriesConfig
@@ -87,7 +86,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val jobsConfig = settingsRepository.getJobsConfig()
             if (jobsConfig == null) {
-                _configLoadStatus.postValue(LoadError(JOBS_ERROR))
+                _configLoadStatus.postValue(LoadError.JobsError)
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Jobs)
                 // TODO ("сохранение требуемых данных по Jobs в Store")
@@ -100,7 +99,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val languagesConfig = settingsRepository.getLanguagesConfig()
             if (languagesConfig == null) {
-                _configLoadStatus.postValue(LoadError(LANGUAGES_ERROR))
+                _configLoadStatus.postValue(LoadError.LanguagesError)
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.Counties)
                 store.languages = languagesConfig
@@ -114,7 +113,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val timeZonesConfig = settingsRepository.getTimeZonesConfig()
             if (timeZonesConfig == null) {
-                _configLoadStatus.postValue(LoadError(TIME_ZONES_ERROR))
+                _configLoadStatus.postValue(LoadError.TimeZonesError)
             } else {
                 _configLoadStatus.postValue(LoadConfigsState.LoadingSuccessful)
                 store.timeZones = timeZonesConfig
