@@ -3,6 +3,7 @@ package ru.marslab.filmoteca.data.mapper
 import ru.marslab.filmoteca.data.model.tv.TvShowDetailsNW
 import ru.marslab.filmoteca.data.model.tv.TvShowsNW
 import ru.marslab.filmoteca.domain.model.TvShow
+import ru.marslab.filmoteca.domain.repository.Constants
 
 
 fun TvShowsNW.toDomain(): List<TvShow> =
@@ -21,7 +22,7 @@ fun TvShowsNW.toDomain(): List<TvShow> =
             0,
             tvShow.originalLanguage,
             tvShow.popularity,
-            tvShow.posterPath,
+            tvShow.posterPath?.let { Constants.BASE_POSTER_URL + it },
             null,
             tvShow.voteAverage,
             tvShow.voteCount,
@@ -43,7 +44,7 @@ fun TvShowDetailsNW.toDomain(): TvShow = TvShow(
     numberOfSeasons,
     originalLanguage,
     popularity,
-    posterPath,
+    posterPath?.let { Constants.BASE_POSTER_URL + it },
     type,
     voteAverage,
     voteCount,

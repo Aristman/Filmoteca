@@ -4,6 +4,7 @@ import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
 import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
 import ru.marslab.filmoteca.domain.model.Movie
+import ru.marslab.filmoteca.domain.repository.Constants
 
 fun GuestRatedMoviesNW.toDomain(): List<Movie> =
     this.movies.map { movie ->
@@ -14,7 +15,7 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
             null,
             movie.genreIds,
             movie.popularity,
-            movie.posterPath,
+            movie.posterPath?.let { Constants.BASE_POSTER_URL + it },
             listOf(),
             movie.releaseDate,
             listOf(),
@@ -26,22 +27,22 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
     }
 
 fun MoviesNW.toDomain(): List<Movie> =
-    this.Movies.map {
+    this.Movies.map {movie ->
         Movie(
-            id = it.id,
-            title = it.title,
-            originalTitle = it.originalTitle,
-            budget = null,
-            genres = it.genreIds,
-            popularity = it.popularity,
-            poster = it.posterPath,
-            productionCompanies = listOf(),
-            release = it.releaseDate,
-            spokenLanguages = listOf(),
-            originalLanguage = it.originalLanguage,
-            rating = it.voteAverage,
-            timing = null,
-            description = it.overview
+            movie.id,
+            movie.title,
+            movie.originalTitle,
+            null,
+            movie.genreIds,
+            movie.popularity,
+            movie.posterPath?.let { Constants.BASE_POSTER_URL + it },
+            listOf(),
+            movie.releaseDate,
+            listOf(),
+            movie.originalLanguage,
+            movie.voteAverage,
+            null,
+            movie.overview
         )
     }
 
@@ -53,7 +54,7 @@ fun MovieDetailsNW.toDomain(): Movie =
         budget,
         genres.map { it.id },
         popularity,
-        posterPath,
+        posterPath?.let { Constants.BASE_POSTER_URL + it },
         productionCompanies.map { it.name },
         releaseDate,
         spokenLanguages.map { it.name },
