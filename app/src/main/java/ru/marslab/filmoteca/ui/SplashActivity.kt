@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.ActivitySplashBinding
-import ru.marslab.filmoteca.data.repository.Store.Companion.START_DELAY
+import ru.marslab.filmoteca.domain.repository.Store.Companion.START_DELAY
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
 import ru.marslab.filmoteca.ui.util.showMessageWithAction
 

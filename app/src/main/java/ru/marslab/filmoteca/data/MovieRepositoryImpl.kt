@@ -4,8 +4,8 @@ import retrofit2.Response
 import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
 import ru.marslab.filmoteca.data.retrofit.MovieApi
-import ru.marslab.filmoteca.data.repository.MovieRepository
-import ru.marslab.filmoteca.data.repository.Store
+import ru.marslab.filmoteca.domain.repository.MovieRepository
+import ru.marslab.filmoteca.domain.repository.Store
 
 class MovieRepositoryImpl(private val api: MovieApi, private val store: Store) : MovieRepository {
 

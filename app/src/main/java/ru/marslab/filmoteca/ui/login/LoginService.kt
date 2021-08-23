@@ -6,8 +6,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import ru.marslab.filmoteca.domain.model.User
-import ru.marslab.filmoteca.data.repository.Store
-import ru.marslab.filmoteca.data.repository.UserRepository
+import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.domain.repository.UserRepository
 import javax.inject.Inject
 
 const val USER_EXTRA = "login_user"

@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.data.repository
+package ru.marslab.filmoteca.domain.repository
 
 import ru.marslab.filmoteca.domain.model.RequestToken
 import ru.marslab.filmoteca.domain.model.User

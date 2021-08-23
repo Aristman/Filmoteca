@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.mapper.toMovie
-import ru.marslab.filmoteca.data.repository.TvRepository
+import ru.marslab.filmoteca.domain.repository.TvRepository
 import ru.marslab.filmoteca.ui.mapper.toUiFull
 import ru.marslab.filmoteca.ui.util.ViewState
 import javax.inject.Inject
