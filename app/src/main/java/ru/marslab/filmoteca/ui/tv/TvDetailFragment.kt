@@ -52,7 +52,7 @@ class TvDetailFragment : Fragment() {
                         movieTitle.text = data.title
                         movieOriginTitle.text = data.titleOrigin
                         data.poster?.let {
-                            moviePoster.load(Store.BASE_POSTER_URL + it)
+                            moviePoster.load(it)
                         }
                         movieGanre.text = data.genres.joinToString(separator = ",")
                         movieRelease.text = data.release

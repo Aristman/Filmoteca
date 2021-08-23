@@ -6,8 +6,14 @@ import ru.marslab.filmoteca.domain.model.*
 fun ConfigCountriesNW.toDomain(): Country =
     Country(iso31661, englishName)
 
-fun ConfigLanguagesNW.toDomain(): Language =
-    Language(iso6391, englishName)
+fun ConfigLanguagesNW.toDomain(): Language {
+    val langName = if (name.isBlank() || name.isEmpty()) {
+        englishName
+    } else {
+        name
+    }
+    return Language(iso6391, langName)
+}
 
 fun ConfigTimeZonesNW.toDomain(): TimeZone =
     TimeZone(iso31661, zones)

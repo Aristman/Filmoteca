@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
+import ru.marslab.filmoteca.domain.repository.Constants.SETTING_ADULT
 import ru.marslab.filmoteca.domain.repository.SettingsRepository
 import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
@@ -28,7 +29,7 @@ class MainViewModel @Inject constructor(
         get() = _configLoadStatus
 
     fun loadLocalSettings() {
-        store.adult = sharedPreferences.getBoolean(Store.SETTING_ADULT, false)
+        store.adult = sharedPreferences.getBoolean(SETTING_ADULT, false)
     }
 
     fun loadApiConfigs(stage: LoadError? = null) {

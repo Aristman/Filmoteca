@@ -3,6 +3,7 @@ package ru.marslab.filmoteca.ui.settings
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.marslab.filmoteca.domain.repository.Constants
 import ru.marslab.filmoteca.domain.repository.Store
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class SettingsViewModel @Inject constructor(
         set(value) {
             store.adult = value
             sharedPreferences.edit()
-                .putBoolean(Store.SETTING_ADULT, value)
+                .putBoolean(Constants.SETTING_ADULT, value)
                 .apply()
         }
 
