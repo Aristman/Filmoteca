@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.data.mapper.toDomain
-import ru.marslab.filmoteca.data.repository.SettingsRepository
-import ru.marslab.filmoteca.data.repository.Store
+import ru.marslab.filmoteca.domain.repository.SettingsRepository
+import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.LoadConfigsState
 import ru.marslab.filmoteca.ui.model.LoadConfigsState.ErrorStage.*
 import ru.marslab.filmoteca.ui.model.LoadConfigsState.LoadError

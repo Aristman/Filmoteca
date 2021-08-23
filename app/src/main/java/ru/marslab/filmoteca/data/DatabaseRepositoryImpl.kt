@@ -2,7 +2,7 @@ package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.data.room.database.MainDatabase
 import ru.marslab.filmoteca.data.room.entity.MoviesHistoryTable
-import ru.marslab.filmoteca.data.repository.DatabaseRepository
+import ru.marslab.filmoteca.domain.repository.DatabaseRepository
 
 class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepository {
     override suspend fun getMovieComment(id: Int): String? {
