@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.marslab.filmoteca.databinding.RvItemShortMovieBinding
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.data.repository.Store
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 
 val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {

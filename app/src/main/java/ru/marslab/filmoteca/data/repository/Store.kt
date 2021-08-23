@@ -1,4 +1,4 @@
-package ru.marslab.filmoteca.domain.repository
+package ru.marslab.filmoteca.data.repository
 
 import ru.marslab.filmoteca.domain.model.*
 

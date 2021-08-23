@@ -2,8 +2,8 @@ package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.data.model.configuration.*
 import ru.marslab.filmoteca.data.retrofit.MovieApi
-import ru.marslab.filmoteca.domain.repository.SettingsRepository
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.data.repository.SettingsRepository
+import ru.marslab.filmoteca.data.repository.Store
 
 class SettingsRepositoryImpl(
     private val api: MovieApi,

@@ -2,7 +2,7 @@ package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.BuildConfig
 import ru.marslab.filmoteca.domain.model.*
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.data.repository.Store
 
 class StoreImpl : Store {
     override var sessionId: String? = null
