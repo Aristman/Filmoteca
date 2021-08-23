@@ -67,7 +67,7 @@ class SplashActivity : AppCompatActivity() {
                         R.string.load_settings_error,
                         R.string.repeat
                     ) {
-                        mainViewModel.loadApiConfigs(loadState.stage)
+                        mainViewModel.loadApiConfigs(loadState)
                     }
                 }
             }
