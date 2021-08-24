@@ -4,6 +4,8 @@ data class Movie(
     val id: Int,
     val title: String,
     val originalTitle: String,
+    val adult: Boolean,
+    val backDrop: String?,
     val budget: Int?,
     val genres: List<Int>,
     val popularity: Double,

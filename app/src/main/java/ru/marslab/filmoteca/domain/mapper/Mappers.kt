@@ -7,6 +7,8 @@ fun TvShow.toMovie(): Movie = Movie(
     id,
     title,
     originalTitle,
+    adult,
+    backDrop,
     null,
     genres,
     popularity,
