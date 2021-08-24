@@ -72,6 +72,7 @@ class MovieMainFragment : Fragment() {
         initRv()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun initObservers() {
         welcomeViewModel.run {
             popularMovies.observe(viewLifecycleOwner) { viewState ->
@@ -88,7 +89,7 @@ class MovieMainFragment : Fragment() {
                         showLoading(binding.popularMovies)
                     }
                     is ViewState.Successful<*> -> {
-                        val data = viewState.data as List<MovieShortUi>
+                        val data = viewState.data as? List<MovieShortUi>
                         showDataLayout(binding.popularMovies)
                         popularMoviesAdapter.submitList(data)
                     }
@@ -108,7 +109,7 @@ class MovieMainFragment : Fragment() {
                         showLoading(binding.popularTvShows)
                     }
                     is ViewState.Successful<*> -> {
-                        val data = viewState.data as List<MovieShortUi>
+                        val data = viewState.data as? List<MovieShortUi>
                         showDataLayout(binding.popularTvShows)
                         popularTvShowsAdapter.submitList(data)
                     }
@@ -128,7 +129,7 @@ class MovieMainFragment : Fragment() {
                         showLoading(binding.topRatedMovies)
                     }
                     is ViewState.Successful<*> -> {
-                        val data = viewState.data as List<MovieShortUi>
+                        val data = viewState.data as? List<MovieShortUi>
                         showDataLayout(binding.topRatedMovies)
                         topRatedMoviesAdapter.submitList(data)
                     }
