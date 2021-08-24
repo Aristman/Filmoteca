@@ -6,7 +6,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import ru.marslab.filmoteca.domain.model.User
-import ru.marslab.filmoteca.domain.repository.Store
+import ru.marslab.filmoteca.domain.repository.Storage
 import ru.marslab.filmoteca.domain.repository.UserRepository
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class LoginService(name: String = "GuestLoginService") : IntentService(name) {
     lateinit var userRepository: UserRepository
 
     @Inject
-    lateinit var store: Store
+    lateinit var storage: Storage
 
     override fun onHandleIntent(intent: Intent?) {
         intent?.getParcelableExtra<User>(USER_EXTRA)?.let {
@@ -42,7 +42,7 @@ class LoginService(name: String = "GuestLoginService") : IntentService(name) {
         if (guestSession == null) {
             loginIntent.putExtra(LOGIN_ERROR, true)
         } else {
-            store.sessionId = guestSession
+            storage.saveGuestSession(guestSession)
             loginIntent.putExtra(GUEST_LOGIN_SUCCESSFUL, true)
         }
         LocalBroadcastManager.getInstance(this@LoginService).sendBroadcast(loginIntent)

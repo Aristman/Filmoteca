@@ -1,5 +1,6 @@
 package ru.marslab.filmoteca.domain.di
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,18 +16,18 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideUserRepository(api: MovieApi, store: Store): UserRepository =
-        UserRepositoryImpl(api, store)
+    fun provideUserRepository(api: MovieApi, storage: Storage): UserRepository =
+        UserRepositoryImpl(api, storage)
 
     @Singleton
     @Provides
-    fun provideMovieRepository(api: MovieApi, store: Store): MovieRepository =
-        MovieRepositoryImpl(api, store)
+    fun provideMovieRepository(api: MovieApi, storage: Storage): MovieRepository =
+        MovieRepositoryImpl(api, storage)
 
     @Singleton
     @Provides
-    fun provideTvRepository(api: MovieApi, store: Store): TvRepository =
-        TvRepositoryImpl(api, store)
+    fun provideTvRepository(api: MovieApi, storage: Storage): TvRepository =
+        TvRepositoryImpl(api, storage)
 
     @Singleton
     @Provides
@@ -35,10 +36,11 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideStore(): Store = StoreImpl()
+    fun provideStorage(sharedPreferences: SharedPreferences): Storage =
+        StorageImpl(sharedPreferences)
 
     @Singleton
     @Provides
-    fun provideSettingsRepository(api: MovieApi, store: Store): SettingsRepository =
-        SettingsRepositoryImpl(api, store)
+    fun provideSettingsRepository(api: MovieApi, storage: Storage): SettingsRepository =
+        SettingsRepositoryImpl(api, storage)
 }
