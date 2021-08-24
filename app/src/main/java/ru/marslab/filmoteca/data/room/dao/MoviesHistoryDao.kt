@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import ru.marslab.filmoteca.data.room.entity.MoviesHistoryTable
+import ru.marslab.filmoteca.data.room.entity.*
 
 @Dao
 interface MoviesHistoryDao {
@@ -19,5 +19,17 @@ interface MoviesHistoryDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insertNewMovieData(data: MoviesHistoryTable)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertCountries(data: List<CountriesTable>)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertJobs(data: List<JobsTable>)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertLanguages(data: List<LanguagesTable>)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertTimeZones(data: List<TimeZonesTable>)
 
 }

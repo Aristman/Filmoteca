@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
-import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.DatabaseRepository
 import ru.marslab.filmoteca.domain.repository.MovieRepository
 import ru.marslab.filmoteca.ui.mapper.toUiFull

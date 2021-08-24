@@ -26,7 +26,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        mainViewModel.loadLocalSettings()
         mainViewModel.loadApiConfigs()
         initObservers()
     }
