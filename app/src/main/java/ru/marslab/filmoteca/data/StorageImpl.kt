@@ -14,6 +14,7 @@ private const val GUEST_SESSION_EXPIRES = "guest_session_expires"
 private const val USER_NAME = "user_name"
 private const val USER_PASSWORD = "user_password"
 private const val SETTING_ADULT = "setting_adult"
+private const val SETTING_LANGUAGE = "setting_language"
 
 
 class StorageImpl(private val sharedPreferences: SharedPreferences) : Storage {
@@ -75,6 +76,8 @@ class StorageImpl(private val sharedPreferences: SharedPreferences) : Storage {
 
     override val adult: Boolean
         get() = sharedPreferences.getBoolean(SETTING_ADULT, false)
+    override val language: String
+        get() = sharedPreferences.getString(SETTING_LANGUAGE, "") ?: ""
 
     override fun saveSettingAdult(value: Boolean) {
         sharedPreferences.edit()
@@ -82,4 +85,9 @@ class StorageImpl(private val sharedPreferences: SharedPreferences) : Storage {
             .apply()
     }
 
+    override fun saveSettingLanguage(language: String) {
+        sharedPreferences.edit()
+            .putString(SETTING_LANGUAGE, language)
+            .apply()
+    }
 }

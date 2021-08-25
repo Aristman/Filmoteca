@@ -44,6 +44,7 @@
     <string name="load_time_zones_complete">Настройки часовых поясов выполнены</string>
     <string name="load_settings_complete">Загрузка настроек завершена</string>
     <string name="backdrop_image">backdrop image</string>
+    <string name="language">Язык</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

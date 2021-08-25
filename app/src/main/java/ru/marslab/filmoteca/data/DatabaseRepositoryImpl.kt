@@ -1,6 +1,7 @@
 package ru.marslab.filmoteca.data
 
 import ru.marslab.filmoteca.data.mapper.toDb
+import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.room.database.MainDatabase
 import ru.marslab.filmoteca.data.room.entity.MoviesHistoryTable
 import ru.marslab.filmoteca.domain.model.Country
@@ -20,11 +21,13 @@ class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepos
     }
 
     override suspend fun saveMovieHistory(id: Int, lookTime: Long, comment: String) {
-        database.moviesHistoryDao().insertNewMovieData(MoviesHistoryTable(
-            id,
-            lookTime,
-            comment
-        ))
+        database.moviesHistoryDao().insertNewMovieData(
+            MoviesHistoryTable(
+                id,
+                lookTime,
+                comment
+            )
+        )
     }
 
     override suspend fun saveCountries(countries: List<Country>) {
@@ -38,6 +41,9 @@ class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepos
     override suspend fun saveLanguages(languages: List<Language>) {
         database.moviesHistoryDao().insertLanguages(languages.map { it.toDb() })
     }
+
+    override suspend fun getLanguages(): List<Language> =
+        database.moviesHistoryDao().getLanguages().map { it.toDomain() }
 
     override suspend fun saveTimeZones(timeZones: List<TimeZone>) {
         database.moviesHistoryDao().insertTimeZones(timeZones.map { it.toDb() })
