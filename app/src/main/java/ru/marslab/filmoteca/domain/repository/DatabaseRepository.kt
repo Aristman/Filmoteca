@@ -13,4 +13,5 @@ interface DatabaseRepository {
     suspend fun saveLanguages(languages: List<Language>)
     suspend fun getLanguages(): List<Language>
     suspend fun saveTimeZones(timeZones: List<TimeZone>)
+    suspend fun getTimeZones(): List<TimeZone>
 }

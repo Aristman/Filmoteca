@@ -22,6 +22,10 @@ class SettingsViewModel @Inject constructor(
     val languagesList: LiveData<List<String>>
         get() = _languagesList
 
+    private var _regionList: MutableLiveData<List<String>> = MutableLiveData()
+    val regionList: LiveData<List<String>>
+        get() = _regionList
+
     var adult: Boolean
         get() = storage.adult
         set(value) {
@@ -34,11 +38,26 @@ class SettingsViewModel @Inject constructor(
             storage.saveSettingLanguage(value)
         }
 
+    var region: String
+        get() = storage.region
+        set(value) {
+            storage.saveSettingRegion(value)
+        }
+
     fun getLanguagesList() {
         viewModelScope.launch(dispatchers.io) {
             val languages = databaseRepository.getLanguages()
             if (languages.isNotEmpty()) {
                 _languagesList.postValue(languages.map { it.name })
+            }
+        }
+    }
+
+    fun getRegionList() {
+        viewModelScope.launch(dispatchers.io) {
+            val timeZones = databaseRepository.getTimeZones()
+            if (timeZones.isNotEmpty()) {
+                _regionList.postValue(timeZones.map { it.names.first() })
             }
         }
     }

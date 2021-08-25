@@ -45,6 +45,7 @@
     <string name="load_settings_complete">Загрузка настроек завершена</string>
     <string name="backdrop_image">backdrop image</string>
     <string name="language">Язык</string>
+    <string name="region">Регион</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

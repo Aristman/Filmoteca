@@ -36,3 +36,6 @@ fun TimeZone.toDb(): TimeZonesTable =
 
 fun LanguagesTable.toDomain(): Language =
     Language(iso6391, name)
+
+fun TimeZonesTable.toDomain(): TimeZone =
+    TimeZone(iso31661, names.split(JOIN_SEPARATOR))

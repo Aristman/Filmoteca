@@ -35,4 +35,7 @@ interface MoviesHistoryDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertTimeZones(data: List<TimeZonesTable>)
 
+    @Query("SELECT * FROM time_zones")
+    suspend fun getTimeZones(): List<TimeZonesTable>
+
 }

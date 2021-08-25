@@ -49,4 +49,7 @@ class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepos
         database.moviesHistoryDao().insertTimeZones(timeZones.map { it.toDb() })
     }
 
+    override suspend fun getTimeZones(): List<TimeZone> =
+        database.moviesHistoryDao().getTimeZones().map { it.toDomain() }
+
 }

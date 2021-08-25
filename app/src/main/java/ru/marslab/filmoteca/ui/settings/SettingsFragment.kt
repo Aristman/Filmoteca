@@ -15,7 +15,10 @@ import ru.marslab.filmoteca.databinding.FragmentSettingsBinding
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    private val adapterSpinner: ArrayAdapter<String> by lazy {
+    private val adapterLanguages: ArrayAdapter<String> by lazy {
+        ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
+    }
+    private val adapterRegions: ArrayAdapter<String> by lazy {
         ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
     }
     private var _binding: FragmentSettingsBinding? = null
@@ -40,11 +43,19 @@ class SettingsFragment : Fragment() {
 
     private fun initObservers() {
         settingsViewModel.languagesList.observeForever {
-            adapterSpinner.clear()
-            adapterSpinner.addAll(it)
-            adapterSpinner.notifyDataSetChanged()
+            adapterLanguages.clear()
+            adapterLanguages.addAll(it)
+            adapterLanguages.notifyDataSetChanged()
             binding.settingLanguage.setSelection(
-                adapterSpinner.getPosition(settingsViewModel.language)
+                adapterLanguages.getPosition(settingsViewModel.language)
+            )
+        }
+        settingsViewModel.regionList.observeForever {
+            adapterRegions.clear()
+            adapterRegions.addAll(it)
+            adapterRegions.notifyDataSetChanged()
+            binding.settingRegion.setSelection(
+                adapterRegions.getPosition(settingsViewModel.region)
             )
         }
     }
@@ -62,12 +73,26 @@ class SettingsFragment : Fragment() {
                     id: Long
                 ) {
                     if (position != 0) {
-                        settingsViewModel.language = adapterSpinner.getItem(position).toString()
+                        settingsViewModel.language = adapterLanguages.getItem(position).toString()
                     }
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            }
+            settingRegion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (position != 0) {
+                        settingsViewModel.region = adapterRegions.getItem(position).toString()
+                    }
                 }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             }
         }
@@ -75,9 +100,11 @@ class SettingsFragment : Fragment() {
 
     private fun initView() {
         settingsViewModel.getLanguagesList()
+        settingsViewModel.getRegionList()
         binding.run {
             settingAdult.isChecked = settingsViewModel.adult
-            settingLanguage.adapter = adapterSpinner
+            settingLanguage.adapter = adapterLanguages
+            settingRegion.adapter = adapterRegions
         }
 
     }
