@@ -9,27 +9,47 @@
     app:cardCornerRadius="@dimen/card_conner_radius"
     app:cardElevation="@dimen/card_elevation">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/phone_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/default_dim"
-            android:layout_weight="3"
             android:lines="1"
+            android:gravity="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            tools:text="Имя контакта" />
+            tools:text="Имя контакта"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/phone_number"
+            app:layout_constraintEnd_toStartOf="@id/call_image"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/default_dim"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintTop_toBottomOf="@id/phone_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/call_image"
+            tools:text="+1234567890" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/call_image"
             android:layout_width="@dimen/phone_image"
             android:layout_height="@dimen/phone_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/phone_name"
+            app:layout_constraintBottom_toBottomOf="@id/phone_number"
             android:tint="@color/design_default_color_primary"
             app:srcCompat="@drawable/ic_baseline_phone_24" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

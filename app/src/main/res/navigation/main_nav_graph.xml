@@ -68,5 +68,10 @@
             android:name="movieId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/phonebookFragment"
+        android:name="ru.marslab.filmoteca.ui.phonebook.PhonebookFragment"
+        android:label="@string/phonebook"
+        tools:layout="@layout/fragment_phonebook" />
 
 </navigation>
