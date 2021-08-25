@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentPhonebookBinding
 import ru.marslab.filmoteca.ui.phonebook.adapter.PhonebookAdapter
+import ru.marslab.filmoteca.ui.phonebook.adapter.PhonebookItem
 import ru.marslab.filmoteca.ui.util.showMessage
 
 private const val REQUEST_CODE = 42
@@ -121,7 +123,51 @@ class PhonebookFragment : Fragment() {
     }
 
     private fun getContacts() {
-        TODO("Not yet implemented")
+        val contentResolver = requireContext().contentResolver
+        val cursorNames = contentResolver.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            null,
+            null,
+            null,
+            ContactsContract.Contacts.DISPLAY_NAME
+        )
+        val phonebookList: MutableList<PhonebookItem> = mutableListOf()
+        cursorNames?.let { cursor ->
+            cursor.moveToFirst()
+            do {
+                val hasNumber = cursor.getString(
+                    cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+                )
+                if (hasNumber == "1") {
+                    val contactId = cursor.getString(
+                        cursor.getColumnIndex(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
+                    )
+                    val cursorNumbers = contentResolver.query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
+                        null,
+                        null
+                    )
+                    cursorNumbers?.let { curNumbers ->
+                        curNumbers.moveToFirst()
+                        phonebookList.add(
+                            PhonebookItem(
+                                cursor.getString(
+                                    cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                                ),
+                                curNumbers.getString(
+                                    curNumbers.getColumnIndex((ContactsContract.CommonDataKinds.Phone.NUMBER))
+                                )
+                            )
+                        )
+                        curNumbers.close()
+                    }
+                }
+            } while (cursor.moveToNext())
+            phonebookAdapter.submitList(phonebookList)
+            cursor.close()
+        }
     }
 
     override fun onDestroyView() {
