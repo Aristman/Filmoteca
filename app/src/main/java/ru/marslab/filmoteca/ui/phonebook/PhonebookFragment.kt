@@ -2,7 +2,9 @@ package ru.marslab.filmoteca.ui.phonebook
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -32,7 +34,8 @@ class PhonebookFragment : Fragment() {
     }
 
     private fun callingToNumber(number: String) {
-        requireView().showMessage(number)
+        val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+        startActivity(callIntent)
     }
 
 
