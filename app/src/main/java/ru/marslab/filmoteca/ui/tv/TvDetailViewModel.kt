@@ -6,11 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
-import ru.marslab.filmoteca.data.mapper.toDomain
-import ru.marslab.filmoteca.domain.mapper.toMovie
 import ru.marslab.filmoteca.domain.repository.TvRepository
 import ru.marslab.filmoteca.ui.mapper.toUiFull
 import ru.marslab.filmoteca.ui.util.ViewState
@@ -29,11 +26,11 @@ class TvDetailViewModel @Inject constructor(
 
     fun getTvDetailInfo(id: Int) {
         viewModelScope.launch(dispatchers.io) {
-            val tvShow = tvRepository.getTvDetailInfo(id)?.toDomain()
+            val tvShow = tvRepository.getTvDetailInfo(id)
             if (tvShow == null) {
                 _tvDetail.postValue(ViewState.LoadError(ERROR_LOAD_DATA))
             } else {
-                _tvDetail.postValue(ViewState.Successful(tvShow.toMovie().toUiFull()))
+                _tvDetail.postValue(ViewState.Successful(tvShow.toUiFull()))
             }
 
         }

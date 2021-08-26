@@ -1,10 +1,10 @@
 package ru.marslab.filmoteca.domain.repository
 
-import ru.marslab.filmoteca.data.model.tv.TvShowDetailsNW
-import ru.marslab.filmoteca.data.model.tv.TvShowsNW
+import ru.marslab.filmoteca.domain.model.Movie
+import ru.marslab.filmoteca.domain.model.TvShow
 
 interface TvRepository {
 
-    suspend fun getPopularTvShows(): TvShowsNW?
-    suspend fun getTvDetailInfo(id: Int): TvShowDetailsNW?
+    suspend fun getPopularTvShows(): List<TvShow>?
+    suspend fun getTvDetailInfo(id: Int): Movie?
 }

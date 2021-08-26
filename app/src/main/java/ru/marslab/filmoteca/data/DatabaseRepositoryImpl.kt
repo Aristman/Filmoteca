@@ -1,7 +1,12 @@
 package ru.marslab.filmoteca.data
 
+import ru.marslab.filmoteca.data.mapper.toDb
 import ru.marslab.filmoteca.data.room.database.MainDatabase
 import ru.marslab.filmoteca.data.room.entity.MoviesHistoryTable
+import ru.marslab.filmoteca.domain.model.Country
+import ru.marslab.filmoteca.domain.model.Job
+import ru.marslab.filmoteca.domain.model.Language
+import ru.marslab.filmoteca.domain.model.TimeZone
 import ru.marslab.filmoteca.domain.repository.DatabaseRepository
 
 class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepository {
@@ -20,6 +25,22 @@ class DatabaseRepositoryImpl(private val database: MainDatabase) : DatabaseRepos
             lookTime,
             comment
         ))
+    }
+
+    override suspend fun saveCountries(countries: List<Country>) {
+        database.moviesHistoryDao().insertCountries(countries.map { it.toDb() })
+    }
+
+    override suspend fun saveJobs(jobs: List<Job>) {
+        database.moviesHistoryDao().insertJobs(jobs.map { it.toDb() })
+    }
+
+    override suspend fun saveLanguages(languages: List<Language>) {
+        database.moviesHistoryDao().insertLanguages(languages.map { it.toDb() })
+    }
+
+    override suspend fun saveTimeZones(timeZones: List<TimeZone>) {
+        database.moviesHistoryDao().insertTimeZones(timeZones.map { it.toDb() })
     }
 
 }

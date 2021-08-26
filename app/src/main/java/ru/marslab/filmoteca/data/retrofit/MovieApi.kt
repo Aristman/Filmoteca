@@ -5,6 +5,7 @@ import retrofit2.http.*
 import ru.marslab.filmoteca.data.model.auth.GuestNewSessionNW
 import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.auth.SessionNW
+import ru.marslab.filmoteca.data.model.configuration.*
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
 import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
@@ -70,4 +71,29 @@ interface MovieApi {
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String,
     ): Response<MovieDetailsNW>
+
+    @GET("configuration")
+    suspend fun getConfigApi(
+        @Query("api_key") apiKey: String
+    ): Response<ConfigApiNW>
+
+    @GET("configuration/countries")
+    suspend fun getConfigCountries(
+        @Query("api_key") apiKey: String
+    ): Response<List<ConfigCountriesNW>>
+
+    @GET("configuration/jobs")
+    suspend fun getJobsConfig(
+        @Query("api_key") apiKey: String
+    ): Response<List<ConfigJobsNW>>
+
+    @GET("configuration/languages")
+    suspend fun getConfigLanguages(
+        @Query("api_key") apiKey: String
+    ): Response<List<ConfigLanguagesNW>>
+
+    @GET("configuration/timezones")
+    suspend fun getConfigTimeZones(
+        @Query("api_key") apiKey: String
+    ): Response<List<ConfigTimeZonesNW>>
 }

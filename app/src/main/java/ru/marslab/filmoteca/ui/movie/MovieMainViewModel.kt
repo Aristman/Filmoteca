@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
-import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.domain.repository.MovieRepository
 import ru.marslab.filmoteca.domain.repository.TvRepository
 import ru.marslab.filmoteca.ui.mapper.toUiShort
@@ -41,7 +39,7 @@ class WelcomeViewModel @Inject constructor(
     fun loadPopularMovies() {
         _popularMovies.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = movieRepository.getPopularMovies()?.toDomain()
+            val listMovies = movieRepository.getPopularMovies()
             if (listMovies == null) {
                 _popularMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {
@@ -53,7 +51,7 @@ class WelcomeViewModel @Inject constructor(
     fun loadPopularTvShows() {
         _popularTvShows.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = tvRepository.getPopularTvShows()?.toDomain()
+            val listMovies = tvRepository.getPopularTvShows()
             if (listMovies == null) {
                 _popularTvShows.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {
@@ -65,7 +63,7 @@ class WelcomeViewModel @Inject constructor(
     fun loadTopRatedMovies() {
         _topRatedMovies.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = movieRepository.getTopRatedMovies()?.toDomain()
+            val listMovies = movieRepository.getTopRatedMovies()
             if (listMovies == null) {
                 _topRatedMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
-import ru.marslab.filmoteca.domain.repository.Store
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.movie.MovieDetailFragmentArgs
 import ru.marslab.filmoteca.ui.util.ViewState
@@ -52,7 +51,7 @@ class TvDetailFragment : Fragment() {
                         movieTitle.text = data.title
                         movieOriginTitle.text = data.titleOrigin
                         data.poster?.let {
-                            moviePoster.load(Store.BASE_POSTER_URL + it)
+                            moviePoster.load(it)
                         }
                         movieGanre.text = data.genres.joinToString(separator = ",")
                         movieRelease.text = data.release
