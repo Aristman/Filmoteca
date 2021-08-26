@@ -3,16 +3,18 @@
     package="ru.marslab.filmoteca">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Filmoteca">
-        <activity android:name=".ui.SplashActivity"
+        <activity
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,13 +26,14 @@
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustResize" />
 
-        <receiver android:name=".ui.MainBroadcastReceiver"
+        <receiver
+            android:name=".ui.MainBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.CONNECTIVITY_ACTION" />
             </intent-filter>
         </receiver>
-        <service android:name=".ui.login.LoginService"/>
+        <service android:name=".ui.login.LoginService" />
     </application>
 
 </manifest>
