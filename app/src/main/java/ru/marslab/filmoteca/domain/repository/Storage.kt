@@ -18,5 +18,10 @@ interface Storage {
     fun getApikeyV4(): String
 
     val adult: Boolean
+    val language: String
+    val timeZone: String
     fun saveSettingAdult(value: Boolean)
+    fun saveSettingLanguage(language: String)
+    fun saveSettingTimeZone(region: String)
+
 }
