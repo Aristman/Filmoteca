@@ -12,8 +12,8 @@ import ru.marslab.filmoteca.domain.repository.Storage
 class MovieRepositoryImpl(private val api: MovieApi, private val storage: Storage) :
     MovieRepository {
 
-    override suspend fun getMovieDetails(id: Int): Movie? {
-        val response = api.getMovieDetails(id, storage.getApikeyV3())
+    override suspend fun getMovieDetails(id: Int, language: Language?): Movie? {
+        val response = api.getMovieDetails(id, storage.getApikeyV3(), language?.iso6391)
         return checkResponse(response)?.body()?.toDomain()
     }
 
@@ -31,8 +31,13 @@ class MovieRepositoryImpl(private val api: MovieApi, private val storage: Storag
         return checkResponse(response)?.body()?.toDomain()
     }
 
-    override suspend fun getTopRatedMovies(): List<Movie>? {
-        val response = api.getTopRatedMovies(storage.getApikeyV3())
+    override suspend fun getTopRatedMovies(
+        language: Language?,
+        page: Int?,
+        region: TimeZone?
+    ): List<Movie>? {
+        val response =
+            api.getTopRatedMovies(storage.getApikeyV3(), language?.iso6391, page, region?.iso31661)
         return checkResponse(response)?.body()?.toDomain()
     }
 }

@@ -41,7 +41,12 @@ class WelcomeViewModel @Inject constructor(
     fun loadPopularMovies() {
         _popularMovies.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = movieRepository.getPopularMovies()
+            val settingLanguage = storage.getSettingLanguage()
+            val settingTimeZone = storage.getSettingTimeZone()
+            val listMovies = movieRepository.getPopularMovies(
+                language = settingLanguage,
+                region = settingTimeZone
+            )
             if (listMovies == null) {
                 _popularMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {
@@ -53,7 +58,8 @@ class WelcomeViewModel @Inject constructor(
     fun loadPopularTvShows() {
         _popularTvShows.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = tvRepository.getPopularTvShows()
+            val settingLanguage = storage.getSettingLanguage()
+            val listMovies = tvRepository.getPopularTvShows(settingLanguage)
             if (listMovies == null) {
                 _popularTvShows.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {
@@ -65,7 +71,12 @@ class WelcomeViewModel @Inject constructor(
     fun loadTopRatedMovies() {
         _topRatedMovies.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
-            val listMovies = movieRepository.getTopRatedMovies()
+            val settingLanguage = storage.getSettingLanguage()
+            val settingTimeZone = storage.getSettingTimeZone()
+            val listMovies = movieRepository.getTopRatedMovies(
+                language = settingLanguage,
+                region = settingTimeZone
+            )
             if (listMovies == null) {
                 _topRatedMovies.postValue(ViewState.LoadError(ERROR_LOAD_POPULAR_MOVIES))
             } else {
