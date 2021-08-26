@@ -46,6 +46,9 @@
     <string name="permission_contacts_dialog_message">Для работы с телефонной книгой необходимо ваше разрешение на доступ.</string>
     <string name="ok">OK</string>
     <string name="cancel">Отмена</string>
+    <string name="backdrop_image">backdrop image</string>
+    <string name="language">Язык</string>
+    <string name="region">Регион</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

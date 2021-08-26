@@ -19,6 +19,7 @@ fun Movie.toUiFull(): MovieDetailUi =
         title,
         originalTitle,
         poster,
+        backDrop,
         genres.map { it.toString() }, // TODO ("Доделать преобразование жанров из списка ИД в список названий")
         timing,
         release,

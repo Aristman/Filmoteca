@@ -4,6 +4,8 @@ data class TvShow(
     val id: Int,
     val title: String,
     val originalTitle: String,
+    val adult: Boolean,
+    val backDrop: String?,
     val languages: List<String>,
     val genres: List<Int>,
     val episodeRunTime: List<Int>,
