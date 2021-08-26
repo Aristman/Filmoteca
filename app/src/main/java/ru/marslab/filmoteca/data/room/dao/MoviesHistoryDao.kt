@@ -29,13 +29,13 @@ interface MoviesHistoryDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertLanguages(data: List<LanguagesTable>)
 
-    @Query("SELECT * FROM languages")
+    @Query("SELECT * FROM languages ORDER BY name")
     suspend fun getLanguages(): List<LanguagesTable>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertTimeZones(data: List<TimeZonesTable>)
 
-    @Query("SELECT * FROM time_zones")
+    @Query("SELECT * FROM time_zones ORDER BY names")
     suspend fun getTimeZones(): List<TimeZonesTable>
 
 }

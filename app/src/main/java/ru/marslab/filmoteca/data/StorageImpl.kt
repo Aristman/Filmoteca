@@ -79,7 +79,7 @@ class StorageImpl(private val sharedPreferences: SharedPreferences) : Storage {
         get() = sharedPreferences.getBoolean(SETTING_ADULT, false)
     override val language: String
         get() = sharedPreferences.getString(SETTING_LANGUAGE, "") ?: ""
-    override val region: String
+    override val timeZone: String
         get() = sharedPreferences.getString(SETTING_REGION, "") ?: ""
 
     override fun saveSettingAdult(value: Boolean) {
@@ -94,7 +94,7 @@ class StorageImpl(private val sharedPreferences: SharedPreferences) : Storage {
             .apply()
     }
 
-    override fun saveSettingRegion(region: String) {
+    override fun saveSettingTimeZone(region: String) {
         sharedPreferences.edit()
             .putString(SETTING_REGION, region)
             .apply()

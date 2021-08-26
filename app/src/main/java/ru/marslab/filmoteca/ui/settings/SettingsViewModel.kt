@@ -22,27 +22,33 @@ class SettingsViewModel @Inject constructor(
     val languagesList: LiveData<List<String>>
         get() = _languagesList
 
-    private var _regionList: MutableLiveData<List<String>> = MutableLiveData()
-    val regionList: LiveData<List<String>>
-        get() = _regionList
+    private var _timeZonesList: MutableLiveData<List<String>> = MutableLiveData()
+    val timeZonesList: LiveData<List<String>>
+        get() = _timeZonesList
 
-    var adult: Boolean
-        get() = storage.adult
-        set(value) {
-            storage.saveSettingAdult(value)
-        }
+    private var _adult: MutableLiveData<Boolean> = MutableLiveData()
+    val adult: LiveData<Boolean>
+        get() = _adult
 
-    var language: String
-        get() = storage.language
-        set(value) {
-            storage.saveSettingLanguage(value)
-        }
 
-    var region: String
-        get() = storage.region
-        set(value) {
-            storage.saveSettingRegion(value)
-        }
+    fun getAdultStorageValue(): Boolean = storage.adult
+
+    fun setAdult(adult: Boolean) {
+        _adult.value = adult
+        storage.saveSettingAdult(adult)
+    }
+
+    fun getStorageLanguage(): String = storage.language
+
+    fun setLanguage(languageName: String) {
+        storage.saveSettingLanguage(languageName)
+    }
+
+    fun getStorageTimeZone(): String = storage.timeZone
+
+    fun setTimeZone(timeZoneName: String) {
+        storage.saveSettingTimeZone(timeZoneName)
+    }
 
     fun getLanguagesList() {
         viewModelScope.launch(dispatchers.io) {
@@ -53,11 +59,11 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun getRegionList() {
+    fun getTimeZonesList() {
         viewModelScope.launch(dispatchers.io) {
             val timeZones = databaseRepository.getTimeZones()
             if (timeZones.isNotEmpty()) {
-                _regionList.postValue(timeZones.map { it.names.first() })
+                _timeZonesList.postValue(timeZones.map { it.names.first() })
             }
         }
     }

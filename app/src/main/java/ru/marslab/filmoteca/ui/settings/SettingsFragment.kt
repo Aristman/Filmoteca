@@ -18,7 +18,7 @@ class SettingsFragment : Fragment() {
     private val adapterLanguages: ArrayAdapter<String> by lazy {
         ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
     }
-    private val adapterRegions: ArrayAdapter<String> by lazy {
+    private val adapterTimeZones: ArrayAdapter<String> by lazy {
         ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
     }
     private var _binding: FragmentSettingsBinding? = null
@@ -42,28 +42,31 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        settingsViewModel.languagesList.observeForever {
+        settingsViewModel.languagesList.observeForever { languages ->
             adapterLanguages.clear()
-            adapterLanguages.addAll(it)
+            adapterLanguages.addAll(languages)
             adapterLanguages.notifyDataSetChanged()
             binding.settingLanguage.setSelection(
-                adapterLanguages.getPosition(settingsViewModel.language)
+                adapterLanguages.getPosition(settingsViewModel.getStorageLanguage())
             )
         }
-        settingsViewModel.regionList.observeForever {
-            adapterRegions.clear()
-            adapterRegions.addAll(it)
-            adapterRegions.notifyDataSetChanged()
+        settingsViewModel.timeZonesList.observeForever { timeZones ->
+            adapterTimeZones.clear()
+            adapterTimeZones.addAll(timeZones)
+            adapterTimeZones.notifyDataSetChanged()
             binding.settingRegion.setSelection(
-                adapterRegions.getPosition(settingsViewModel.region)
+                adapterTimeZones.getPosition(settingsViewModel.getStorageTimeZone())
             )
+        }
+        settingsViewModel.adult.observeForever {
+            binding.settingAdult.isChecked = it
         }
     }
 
     private fun initListeners() {
         binding.run {
             settingAdult.setOnCheckedChangeListener { _, isChecked ->
-                settingsViewModel.adult = isChecked
+                settingsViewModel.setAdult(isChecked)
             }
             settingLanguage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -73,7 +76,7 @@ class SettingsFragment : Fragment() {
                     id: Long
                 ) {
                     if (position != 0) {
-                        settingsViewModel.language = adapterLanguages.getItem(position).toString()
+                        settingsViewModel.setLanguage(adapterLanguages.getItem(position).toString())
                     }
                 }
 
@@ -88,7 +91,7 @@ class SettingsFragment : Fragment() {
                     id: Long
                 ) {
                     if (position != 0) {
-                        settingsViewModel.region = adapterRegions.getItem(position).toString()
+                        settingsViewModel.setTimeZone(adapterTimeZones.getItem(position).toString())
                     }
                 }
 
@@ -100,11 +103,11 @@ class SettingsFragment : Fragment() {
 
     private fun initView() {
         settingsViewModel.getLanguagesList()
-        settingsViewModel.getRegionList()
+        settingsViewModel.getTimeZonesList()
         binding.run {
-            settingAdult.isChecked = settingsViewModel.adult
+            settingAdult.isChecked = settingsViewModel.getAdultStorageValue()
             settingLanguage.adapter = adapterLanguages
-            settingRegion.adapter = adapterRegions
+            settingRegion.adapter = adapterTimeZones
         }
 
     }

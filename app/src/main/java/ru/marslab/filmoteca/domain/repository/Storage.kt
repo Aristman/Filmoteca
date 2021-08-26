@@ -19,9 +19,9 @@ interface Storage {
 
     val adult: Boolean
     val language: String
-    val region: String
+    val timeZone: String
     fun saveSettingAdult(value: Boolean)
     fun saveSettingLanguage(language: String)
-    fun saveSettingRegion(region: String)
+    fun saveSettingTimeZone(region: String)
 
 }
