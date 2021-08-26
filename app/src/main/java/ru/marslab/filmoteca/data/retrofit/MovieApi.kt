@@ -47,7 +47,10 @@ interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("region") region: String? = null
     ): Response<MoviesNW>
 
     @GET("tv/popular")

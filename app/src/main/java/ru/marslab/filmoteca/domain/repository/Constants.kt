@@ -5,14 +5,22 @@ object Constants {
     const val START_DELAY = 1000L
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w500"
+
     const val SETTING_ADULT = "adult"
+    const val SETTING_LANGUAGE = "setting_language"
+    const val SETTING_TIMEZONE = "setting_region"
 
-    const val STORE_SESSION_ID = "store_session_id"
-    const val STORE_TOKEN = "store_token"
-    const val STORE_USER = "store_user"
-    const val STORE_ADULT = "store_adult"
-    const val STORE_API_KEY_V3 = "store_api_key_v3"
-    const val STORE_API_KEY_V4 = "store_api_key_v4"
+    const val TOKEN_ID = "token_id"
+    const val TOKEN_EXPIRES = "token_expires"
+    const val GUEST_SESSION_ID = "guest_session_id"
+    const val GUEST_SESSION_EXPIRES = "guest_session_expires"
+    const val USER_NAME = "user_name"
+    const val USER_PASSWORD = "user_password"
 
-
+    const val USER_EXTRA = "login_user"
+    const val GUEST_LOGIN_SUCCESSFUL = "guest_login_successful"
+    const val USER_LOGIN_SUCCESSFUL = "user_login_successful"
+    const val LOGIN_ERROR = "login_error"
+    const val TOKEN_ERROR = "token_error"
+    const val LOGIN_INTENT_FILTER = "login_intent_filter"
 }

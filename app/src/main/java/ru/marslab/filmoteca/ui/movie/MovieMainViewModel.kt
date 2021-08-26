@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
 import ru.marslab.filmoteca.domain.repository.MovieRepository
+import ru.marslab.filmoteca.domain.repository.Storage
 import ru.marslab.filmoteca.domain.repository.TvRepository
 import ru.marslab.filmoteca.ui.mapper.toUiShort
 import ru.marslab.filmoteca.ui.util.ViewState
@@ -20,6 +21,7 @@ private const val ERROR_LOAD_POPULAR_MOVIES =
 class WelcomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
     private val tvRepository: TvRepository,
+    private val storage: Storage,
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
 
