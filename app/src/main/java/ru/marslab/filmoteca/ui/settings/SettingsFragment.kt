@@ -11,15 +11,17 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentSettingsBinding
+import ru.marslab.filmoteca.domain.model.Language
+import ru.marslab.filmoteca.domain.model.TimeZone
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    private val adapterLanguages: ArrayAdapter<String> by lazy {
-        ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
+    private val adapterLanguages: ArrayAdapter<Language> by lazy {
+        ArrayAdapter<Language>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
     }
-    private val adapterTimeZones: ArrayAdapter<String> by lazy {
-        ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
+    private val adapterTimeZones: ArrayAdapter<TimeZone> by lazy {
+        ArrayAdapter<TimeZone>(requireContext(), android.R.layout.simple_spinner_dropdown_item)
     }
     private var _binding: FragmentSettingsBinding? = null
     private val binding: FragmentSettingsBinding
@@ -54,7 +56,7 @@ class SettingsFragment : Fragment() {
             adapterTimeZones.clear()
             adapterTimeZones.addAll(timeZones)
             adapterTimeZones.notifyDataSetChanged()
-            binding.settingRegion.setSelection(
+            binding.settingTimeZone.setSelection(
                 adapterTimeZones.getPosition(settingsViewModel.getStorageTimeZone())
             )
         }
@@ -76,14 +78,15 @@ class SettingsFragment : Fragment() {
                     id: Long
                 ) {
                     if (position != 0) {
-                        settingsViewModel.setLanguage(adapterLanguages.getItem(position).toString())
+                        adapterLanguages.getItem(position)
+                            ?.let { settingsViewModel.setLanguage(it) }
                     }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             }
-            settingRegion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            settingTimeZone.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -91,7 +94,8 @@ class SettingsFragment : Fragment() {
                     id: Long
                 ) {
                     if (position != 0) {
-                        settingsViewModel.setTimeZone(adapterTimeZones.getItem(position).toString())
+                        adapterTimeZones.getItem(position)
+                            ?.let { settingsViewModel.setTimeZone(it) }
                     }
                 }
 
@@ -107,7 +111,7 @@ class SettingsFragment : Fragment() {
         binding.run {
             settingAdult.isChecked = settingsViewModel.getAdultStorageValue()
             settingLanguage.adapter = adapterLanguages
-            settingRegion.adapter = adapterTimeZones
+            settingTimeZone.adapter = adapterTimeZones
         }
 
     }

@@ -1,8 +1,6 @@
 package ru.marslab.filmoteca.domain.repository
 
-import ru.marslab.filmoteca.domain.model.Session
-import ru.marslab.filmoteca.domain.model.Token
-import ru.marslab.filmoteca.domain.model.User
+import ru.marslab.filmoteca.domain.model.*
 
 interface Storage {
     fun getGuestSession(): Session?
@@ -17,11 +15,11 @@ interface Storage {
     fun getApikeyV3(): String
     fun getApikeyV4(): String
 
-    val adult: Boolean
-    val language: String
-    val timeZone: String
+    fun getSettingAdult(): Boolean
+    fun getSettingLanguage(): Language?
+    fun getSettingTimeZone(): TimeZone?
     fun saveSettingAdult(value: Boolean)
-    fun saveSettingLanguage(language: String)
-    fun saveSettingTimeZone(region: String)
+    fun saveSettingLanguage(language: Language)
+    fun saveSettingTimeZone(region: TimeZone)
 
 }

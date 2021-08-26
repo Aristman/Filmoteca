@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@id/setting_adult"
             app:layout_constraintStart_toEndOf="@id/tv_language"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/setting_region" />
+            app:layout_constraintBottom_toTopOf="@id/setting_time_zone" />
 
         <TextView
             android:gravity="center"
@@ -52,13 +52,13 @@
             android:text="@string/region"
             android:layout_marginEnd="@dimen/dim_24"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintTop_toTopOf="@id/setting_region"
-            app:layout_constraintBottom_toBottomOf="@id/setting_region"
+            app:layout_constraintTop_toTopOf="@id/setting_time_zone"
+            app:layout_constraintBottom_toBottomOf="@id/setting_time_zone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/setting_region" />
+            app:layout_constraintEnd_toStartOf="@id/setting_time_zone" />
 
         <Spinner
-            android:id="@+id/setting_region"
+            android:id="@+id/setting_time_zone"
             android:layout_width="0dp"
             android:layout_height="@dimen/setting_item_height"
             app:layout_constraintTop_toBottomOf="@id/setting_language"

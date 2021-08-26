@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentLoginBinding
 import ru.marslab.filmoteca.domain.model.User
+import ru.marslab.filmoteca.domain.repository.Constants
 import ru.marslab.filmoteca.ui.util.showMessage
 import ru.marslab.filmoteca.ui.util.viewHide
 import ru.marslab.filmoteca.ui.util.viewShow
@@ -35,17 +36,17 @@ class LoginFragment : Fragment() {
     private fun loginHandler(extras: Bundle?) {
         extras?.let {
             when {
-                it.getBoolean(GUEST_LOGIN_SUCCESSFUL) ||
-                        it.getBoolean(USER_LOGIN_SUCCESSFUL) -> {
+                it.getBoolean(Constants.GUEST_LOGIN_SUCCESSFUL) ||
+                        it.getBoolean(Constants.USER_LOGIN_SUCCESSFUL) -> {
                     val action =
                         LoginFragmentDirections.actionLoginFragmentToMovieMainFragment()
                     findNavController().navigate(action)
                 }
-                it.getBoolean(LOGIN_ERROR) -> {
+                it.getBoolean(Constants.LOGIN_ERROR) -> {
                     requireView().showMessage(getString(R.string.login_error))
                     showMainView()
                 }
-                it.getBoolean(TOKEN_ERROR) -> {
+                it.getBoolean(Constants.TOKEN_ERROR) -> {
                     requireView().showMessage(getString(R.string.token_error))
                     showMainView()
                 }
@@ -65,7 +66,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         LocalBroadcastManager
             .getInstance(requireContext())
-            .registerReceiver(loginBroadcastReceiver, IntentFilter(LOGIN_INTENT_FILTER))
+            .registerReceiver(loginBroadcastReceiver, IntentFilter(Constants.LOGIN_INTENT_FILTER))
         initListeners()
         initView()
     }
@@ -100,7 +101,7 @@ class LoginFragment : Fragment() {
         requireContext().let {
             val serviceIntent = Intent(it, LoginService::class.java)
             user?.let {
-                serviceIntent.putExtra(USER_EXTRA, user)
+                serviceIntent.putExtra(Constants.USER_EXTRA, user)
             }
             it.startService(serviceIntent)
         }

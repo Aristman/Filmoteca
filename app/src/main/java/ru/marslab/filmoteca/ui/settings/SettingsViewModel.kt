@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
+import ru.marslab.filmoteca.domain.model.Language
+import ru.marslab.filmoteca.domain.model.TimeZone
 import ru.marslab.filmoteca.domain.repository.DatabaseRepository
 import ru.marslab.filmoteca.domain.repository.Storage
 import javax.inject.Inject
@@ -18,12 +20,12 @@ class SettingsViewModel @Inject constructor(
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
 
-    private var _languagesList: MutableLiveData<List<String>> = MutableLiveData()
-    val languagesList: LiveData<List<String>>
+    private var _languagesList: MutableLiveData<List<Language>> = MutableLiveData()
+    val languagesList: LiveData<List<Language>>
         get() = _languagesList
 
-    private var _timeZonesList: MutableLiveData<List<String>> = MutableLiveData()
-    val timeZonesList: LiveData<List<String>>
+    private var _timeZonesList: MutableLiveData<List<TimeZone>> = MutableLiveData()
+    val timeZonesList: LiveData<List<TimeZone>>
         get() = _timeZonesList
 
     private var _adult: MutableLiveData<Boolean> = MutableLiveData()
@@ -31,22 +33,22 @@ class SettingsViewModel @Inject constructor(
         get() = _adult
 
 
-    fun getAdultStorageValue(): Boolean = storage.adult
+    fun getAdultStorageValue(): Boolean = storage.getSettingAdult()
 
     fun setAdult(adult: Boolean) {
         _adult.value = adult
         storage.saveSettingAdult(adult)
     }
 
-    fun getStorageLanguage(): String = storage.language
+    fun getStorageLanguage(): Language? = storage.getSettingLanguage()
 
-    fun setLanguage(languageName: String) {
+    fun setLanguage(languageName: Language) {
         storage.saveSettingLanguage(languageName)
     }
 
-    fun getStorageTimeZone(): String = storage.timeZone
+    fun getStorageTimeZone(): TimeZone? = storage.getSettingTimeZone()
 
-    fun setTimeZone(timeZoneName: String) {
+    fun setTimeZone(timeZoneName: TimeZone) {
         storage.saveSettingTimeZone(timeZoneName)
     }
 
@@ -54,7 +56,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val languages = databaseRepository.getLanguages()
             if (languages.isNotEmpty()) {
-                _languagesList.postValue(languages.map { it.name })
+                _languagesList.postValue(languages)
             }
         }
     }
@@ -63,7 +65,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val timeZones = databaseRepository.getTimeZones()
             if (timeZones.isNotEmpty()) {
-                _timeZonesList.postValue(timeZones.map { it.names.first() })
+                _timeZonesList.postValue(timeZones)
             }
         }
     }

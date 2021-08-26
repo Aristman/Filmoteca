@@ -47,29 +47,39 @@ interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?,
+        @Query("page") page: Int?,
+        @Query("region") region: String?
     ): Response<MoviesNW>
 
     @GET("tv/popular")
     suspend fun getPopularTvShows(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?,
+        @Query("page") page: Int?
     ): Response<TvShowsNW>
 
     @GET("tv/{tv_id}")
     suspend fun getTvDetails(
         @Path("tv_id") id: Int,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?
     ): Response<TvShowDetailsNW>
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?,
+        @Query("page") page: Int?,
+        @Query("region") region: String?
     ): Response<MoviesNW>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String,
+        @Query("language") language: String?
     ): Response<MovieDetailsNW>
 
     @GET("configuration")
