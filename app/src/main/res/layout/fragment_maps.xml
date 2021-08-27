@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -10,4 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.googlemap.MapsFragment" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/address_find_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/address_find"
+            app:layout_constraintEnd_toStartOf="@id/address_find_button" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/address_find_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_map_24"
+            app:tint="@color/design_default_color_primary"
+            app:backgroundTint="@color/design_default_color_on_primary"
+            app:maxImageSize="@dimen/float_button_image_size"
+            app:layout_constraintStart_toEndOf="@id/address_find_field"
+            app:layout_constraintTop_toTopOf="@id/address_find_field"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/address_find_field"
+            android:contentDescription="@null" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

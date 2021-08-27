@@ -50,6 +50,9 @@
     <string name="language">Язык</string>
     <string name="region">Регион</string>
     <string name="map">Карта</string>
+    <string name="address_find">Поиск по адресу…</string>
+    <string name="permission_location_dialog_title">Доступ к локации</string>
+    <string name="permission_location_dialog_message">Для работы с картами приложению необходимо предоставить доступ к локации устройства.</string>
 
     <string-array name="setting_tags">
         <item>adult</item>
