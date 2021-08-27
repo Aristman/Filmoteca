@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/aboutFragment"
-        android:title="@string/about" />
-
     <item
         android:id="@+id/settingsFragment"
         android:title="@string/settings_title" />
-
-    <item
-        android:id="@+id/helpFragment"
-        android:title="@string/help" />
-
     <item
         android:id="@+id/phonebookFragment"
         android:title="@string/phonebook" />
-
+    <item
+        android:id="@+id/mapsFragment"
+        android:title="@string/map" />
+    <item
+        android:id="@+id/helpFragment"
+        android:title="@string/help" />
+    <item
+        android:id="@+id/aboutFragment"
+        android:title="@string/about" />
 </menu>

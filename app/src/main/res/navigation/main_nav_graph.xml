@@ -73,5 +73,10 @@
         android:name="ru.marslab.filmoteca.ui.phonebook.PhonebookFragment"
         android:label="@string/phonebook"
         tools:layout="@layout/fragment_phonebook" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="ru.marslab.filmoteca.ui.googlemap.MapsFragment"
+        android:label="@string/map"
+        tools:layout="@layout/fragment_maps" />
 
 </navigation>
