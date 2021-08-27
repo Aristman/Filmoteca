@@ -11,8 +11,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ru.marslab.filmoteca.R
+import ru.marslab.filmoteca.databinding.FragmentMapsBinding
 
 class MapsFragment : Fragment() {
+    private var _binding: FragmentMapsBinding? = null
+    private val binding: FragmentMapsBinding
+        get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -34,12 +38,14 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
 }

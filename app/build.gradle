@@ -6,6 +6,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android'
     id 'kotlinx-serialization'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 
@@ -92,6 +93,8 @@ dependencies {
     //Room Paging 3 Integration
     implementation("androidx.room:room-paging:2.4.0-alpha04")
 
+    //Google Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
 
 }
