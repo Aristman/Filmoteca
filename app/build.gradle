@@ -6,6 +6,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android'
     id 'kotlinx-serialization'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 
@@ -29,15 +30,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    buildTypes.each {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
-        def apiKeyV3 = properties.getProperty("tmdb_api_key_v3", "")
-        def apiKeyV4 = properties.getProperty("tmdb_api_key_v4", "")
-        it.buildConfigField "String", "API_KEY_V3", apiKeyV3
-        it.buildConfigField "String", "API_KEY_V4", apiKeyV4
     }
 
     compileOptions {
