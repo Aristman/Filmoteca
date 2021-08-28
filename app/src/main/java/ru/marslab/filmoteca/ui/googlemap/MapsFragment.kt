@@ -8,12 +8,14 @@ import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -88,7 +90,7 @@ class MapsFragment : Fragment() {
                 }
             }
         }
-        requestLocationPermission.permission.observeForever { permission ->
+        requestLocationPermission.permission.observe(viewLifecycleOwner) { permission ->
             when (permission) {
                 PermissionAccessLevel.Granted -> {
                     getUserLocation()
@@ -106,38 +108,46 @@ class MapsFragment : Fragment() {
         binding.addressFindButton.setOnClickListener {
             val parseToLatLng = binding.addressFindField.text.toString().toLatLng()
             if (parseToLatLng == null) {
-                val findFromLocationName =
-                    geocoder.getFromLocationName(
-                        binding.addressFindField.text.toString(),
-                        COUNT_FIND_RESULT
-                    )
-                if (findFromLocationName.size > 0) {
-                    googleMap?.moveCamera(CameraUpdateFactory.newLatLng(findFromLocationName.map {
-                        LatLng(
-                            it.latitude,
-                            it.longitude
-                        )
-                    }.first()))
-                }
+                findByAddress()
             } else {
-                val findFromLocationLatLng = geocoder.getFromLocation(
-                    parseToLatLng.latitude,
-                    parseToLatLng.longitude,
-                    COUNT_FIND_RESULT
-                )
-                if (findFromLocationLatLng.size > 0) {
-                    googleMap?.let { map ->
-                        map.moveCamera(CameraUpdateFactory.newLatLng(parseToLatLng))
-                        requireView().showMessage(
-                            getString(
-                                R.string.near_address,
-                                findFromLocationLatLng.first().getAddressLine(0)
-                            )
-                        )
-                        logMessage(findFromLocationLatLng.toString())
-                    }
-                }
+                findByLocation(parseToLatLng)
             }
+        }
+    }
+
+    private fun findByLocation(locationLatLng: LatLng) {
+        val findFromLocationLatLng = geocoder.getFromLocation(
+            locationLatLng.latitude,
+            locationLatLng.longitude,
+            COUNT_FIND_RESULT
+        )
+        if (findFromLocationLatLng.size > 0) {
+            googleMap?.let { map ->
+                map.moveCamera(CameraUpdateFactory.newLatLng(locationLatLng))
+                requireView().showMessage(
+                    getString(
+                        R.string.near_address,
+                        findFromLocationLatLng.first().getAddressLine(0)
+                    )
+                )
+                logMessage(findFromLocationLatLng.toString())
+            }
+        }
+    }
+
+    private fun findByAddress() {
+        val findFromLocationName =
+            geocoder.getFromLocationName(
+                binding.addressFindField.text.toString(),
+                COUNT_FIND_RESULT
+            )
+        if (findFromLocationName.size > 0) {
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(findFromLocationName.map {
+                LatLng(
+                    it.latitude,
+                    it.longitude
+                )
+            }.first()))
         }
     }
 
@@ -185,7 +195,7 @@ class MapsFragment : Fragment() {
                     )
                 )
                 val latLng = LatLng(location.latitude, location.longitude)
-                lifecycle.coroutineScope.launch(Dispatchers.Main) {
+                lifecycleScope.launch(Dispatchers.Main) {
                     googleMap?.let {
                         it.clear()
                         it.addMarker(
@@ -197,6 +207,7 @@ class MapsFragment : Fragment() {
                 }
                 mapLocation.postValue(latLng)
             } catch (e: IOException) {
+                e.message?.let { Log.e(Constants.LOG_TAG, it) }
                 e.printStackTrace()
             }
         }

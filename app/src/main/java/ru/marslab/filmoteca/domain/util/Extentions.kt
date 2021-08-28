@@ -8,6 +8,7 @@ import ru.marslab.filmoteca.domain.model.TimeZone
 
 private const val JOIN_SEPARATOR = "~"
 private const val JOIN_LIST_SEPARATOR = "="
+private const val LAT_LNG_STRING_SEPARATOR = " "
 
 @SuppressLint("NewApi", "SimpleDateFormat")
 fun String.toTime(pattern: String): Long? {
@@ -47,7 +48,7 @@ fun String.toTimeZone(): TimeZone? {
 
 fun String.toLatLng(): LatLng? {
     return try {
-        val splitString = this.split(" ")
+        val splitString = this.split(LAT_LNG_STRING_SEPARATOR)
         if (splitString.size == 2) {
             LatLng(splitString.first().toDouble(), splitString.last().toDouble())
         } else {

@@ -59,7 +59,7 @@ class PhonebookFragment : Fragment() {
     }
 
     private fun initObservers() {
-        contactsRequestPermission.permission.observeForever { permissionStatus ->
+        contactsRequestPermission.permission.observe(viewLifecycleOwner) { permissionStatus ->
             when (permissionStatus) {
                 PermissionAccessLevel.Granted -> {
                     getContacts()
