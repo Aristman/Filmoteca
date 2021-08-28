@@ -8,8 +8,6 @@ import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,7 +86,7 @@ class MapsFragment : Fragment() {
         requestLocationPermission.permission.observeForever { permission ->
             when (permission) {
                 PermissionAccessLevel.Granted -> {
-                    getLocation()
+                    getUserLocation()
                 }
                 PermissionAccessLevel.Denied -> {
                     requireView().showMessage(R.string.permission_location_dialog_message)
@@ -100,25 +98,17 @@ class MapsFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.run {
-            addressFindField.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {}
-
-            })
-        }
         binding.addressFindButton.setOnClickListener {
-//            googleMap?.
+            val findFromLocationName =
+                geocoder.getFromLocationName(binding.addressFindField.text.toString(), 3)
+            if (findFromLocationName.size > 0) {
+                googleMap?.moveCamera(CameraUpdateFactory.newLatLng(findFromLocationName.map {
+                    LatLng(
+                        it.latitude,
+                        it.longitude
+                    )
+                }.first()))
+            }
         }
     }
 
@@ -133,7 +123,7 @@ class MapsFragment : Fragment() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() {
+    private fun getUserLocation() {
         if (requestLocationPermission.isPermissionGranted()) {
             val locationService =
                 requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
