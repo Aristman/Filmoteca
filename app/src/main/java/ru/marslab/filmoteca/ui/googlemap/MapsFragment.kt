@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Address
 import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
@@ -19,7 +20,9 @@ import androidx.lifecycle.coroutineScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.ktx.awaitMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +40,8 @@ class MapsFragment : Fragment() {
         get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
     private var googleMap: GoogleMap? = null
     private var mapLocation: MutableLiveData<LatLng> = MutableLiveData()
+    private var startLocation: MutableLiveData<LatLng?> = MutableLiveData(null)
+    private var address: MutableLiveData<List<Address>> = MutableLiveData()
 
 
     override fun onCreateView(
@@ -62,8 +67,8 @@ class MapsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        mapLocation.observeForever {
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(it))
+        startLocation.observeForever { location ->
+            location?.let { googleMap?.moveCamera(CameraUpdateFactory.newLatLng(it)) }
         }
     }
 
@@ -157,12 +162,28 @@ class MapsFragment : Fragment() {
         val geocoder = Geocoder(requireContext())
         lifecycle.coroutineScope.launch(Dispatchers.IO) {
             try {
-                val address = geocoder.getFromLocation(
-                    location.latitude,
-                    location.longitude,
-                    1
+                address.postValue(
+                    geocoder.getFromLocation(
+                        location.latitude,
+                        location.longitude,
+                        1
+                    )
                 )
-                mapLocation.postValue(LatLng(location.latitude, location.longitude))
+                val latLng = LatLng(location.latitude, location.longitude)
+                lifecycle.coroutineScope.launch(Dispatchers.Main) {
+                    googleMap?.let {
+                        it.clear()
+                        it.addMarker(
+                            MarkerOptions()
+                                .position(latLng)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        )
+                    }
+                }
+                if (startLocation.value == null) {
+                    startLocation.postValue(latLng)
+                }
+                mapLocation.postValue(latLng)
             } catch (e: IOException) {
                 e.printStackTrace()
             }

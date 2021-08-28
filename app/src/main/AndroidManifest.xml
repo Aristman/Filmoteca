@@ -16,9 +16,7 @@
         android:theme="@style/Theme.Filmoteca">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-        <!--            android:value="${MAPS_API_KEY}" Рабочая версия внедрения API_KEY. После
-                    раскоментирования удалить файлы сроковых ресурсов содержащие API KEY-->
+            android:value="${MAPS_API_KEY}" />
 
 
         <activity
