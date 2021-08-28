@@ -33,7 +33,7 @@ import java.io.IOException
 
 class MapsFragment : Fragment() {
 
-    private val requestPermission: RequestPermission by lazy {
+    private val requestLocationPermission: RequestPermission by lazy {
         RequestPermission(
             this,
             R.string.permission_location_dialog_title,
@@ -68,7 +68,7 @@ class MapsFragment : Fragment() {
             googleMap = mapFragment?.awaitMap()
             googleMap?.moveCamera(CameraUpdateFactory.zoomBy(10f))
         }
-        requestPermission.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        requestLocationPermission.getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         initObservers()
         initListeners()
     }
@@ -82,7 +82,7 @@ class MapsFragment : Fragment() {
                 }
             }
         }
-        requestPermission.permission.observeForever { permission ->
+        requestLocationPermission.permission.observeForever { permission ->
             when (permission) {
                 PermissionAccessLevel.Granted -> {
                     getLocation()
@@ -104,7 +104,7 @@ class MapsFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        if (requestPermission.isPermissionGranted()) {
+        if (requestLocationPermission.isPermissionGranted()) {
             val locationService =
                 requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (locationService.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

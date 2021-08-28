@@ -28,7 +28,7 @@ class RequestPermission(
             }
         }
 
-    fun checkPermission(permission: String) {
+    fun getPermission(permission: String) {
         try {
             requestedPermission = permission
             when {
