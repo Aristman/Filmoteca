@@ -89,7 +89,6 @@ class MapsFragment : Fragment() {
                 }
                 PermissionAccessLevel.Denied -> {
                     requireView().showMessage(R.string.permission_location_dialog_message)
-
                 }
                 PermissionAccessLevel.Error -> {
                 }
