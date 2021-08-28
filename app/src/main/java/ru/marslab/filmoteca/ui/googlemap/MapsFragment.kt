@@ -1,9 +1,8 @@
 package ru.marslab.filmoteca.ui.googlemap
 
 import android.Manifest
-import android.app.AlertDialog
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationListener
@@ -12,8 +11,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.coroutineScope
@@ -29,18 +26,28 @@ import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMapsBinding
 import ru.marslab.filmoteca.domain.repository.Constants
+import ru.marslab.filmoteca.ui.util.PermissionAccessLevel
+import ru.marslab.filmoteca.ui.util.RequestPermission
 import ru.marslab.filmoteca.ui.util.showMessage
 import java.io.IOException
 
-private const val REQUEST_CODE = 12
-
 class MapsFragment : Fragment() {
+
+    private val requestPermission: RequestPermission by lazy {
+        RequestPermission(
+            this,
+            R.string.permission_location_dialog_title,
+            R.string.permission_location_dialog_message
+        )
+    }
+
     private var _binding: FragmentMapsBinding? = null
     private val binding: FragmentMapsBinding
         get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
     private var googleMap: GoogleMap? = null
-    private var mapLocation: MutableLiveData<LatLng> = MutableLiveData()
-    private var startLocation: MutableLiveData<LatLng?> = MutableLiveData(null)
+    private val geocoder: Geocoder by lazy { Geocoder(requireContext()) }
+    private var mapLocation: MutableLiveData<LatLng?> = MutableLiveData(null)
+    private var isStartLocation: Boolean = true
     private var address: MutableLiveData<List<Address>> = MutableLiveData()
 
 
@@ -61,87 +68,44 @@ class MapsFragment : Fragment() {
             googleMap = mapFragment?.awaitMap()
             googleMap?.moveCamera(CameraUpdateFactory.zoomBy(10f))
         }
-        checkPermission()
+        requestPermission.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         initObservers()
         initListeners()
     }
 
     private fun initObservers() {
-        startLocation.observeForever { location ->
-            location?.let { googleMap?.moveCamera(CameraUpdateFactory.newLatLng(it)) }
-        }
-    }
-
-    private fun checkPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                getLocation()
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.permission_location_dialog_title)
-                    .setMessage(R.string.permission_location_dialog_message)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        requestPermission()
-                    }
-                    .setNegativeButton(R.string.cancel) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-            else -> {
-                requestPermission()
+        mapLocation.observeForever { location ->
+            if (isStartLocation) {
+                location?.let {
+                    googleMap?.moveCamera(CameraUpdateFactory.newLatLng(it))
+                    isStartLocation = false
+                }
             }
         }
-    }
-
-    private fun requestPermission() {
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                getLocation()
-            } else {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.permission_location_dialog_title)
-                    .setMessage(R.string.permission_location_dialog_message)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        requestPermission()
-                    }
-                    .setNegativeButton(R.string.cancel) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-        }
-            .launch(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
+        requestPermission.permission.observeForever { permission ->
+            when (permission) {
+                PermissionAccessLevel.Granted -> {
                     getLocation()
-                } else {
+                }
+                PermissionAccessLevel.Denied -> {
                     requireView().showMessage(R.string.permission_location_dialog_message)
+
+                }
+                PermissionAccessLevel.Error -> {
                 }
             }
         }
     }
 
+    private fun initListeners() {
+        binding.addressFindButton.setOnClickListener {
+//            googleMap?.
+        }
+    }
+
+    @SuppressLint("MissingPermission")
     private fun getLocation() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (requestPermission.isPermissionGranted()) {
             val locationService =
                 requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (locationService.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -154,12 +118,15 @@ class MapsFragment : Fragment() {
                         onLocationListener
                     )
                 }
+            } else {
+                requireView().showMessage(R.string.not_enebled_gps)
             }
+        } else {
+            requireView().showMessage(R.string.permission_location_dialog_message)
         }
     }
 
     private val onLocationListener = LocationListener { location ->
-        val geocoder = Geocoder(requireContext())
         lifecycle.coroutineScope.launch(Dispatchers.IO) {
             try {
                 address.postValue(
@@ -180,19 +147,10 @@ class MapsFragment : Fragment() {
                         )
                     }
                 }
-                if (startLocation.value == null) {
-                    startLocation.postValue(latLng)
-                }
                 mapLocation.postValue(latLng)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        }
-    }
-
-    private fun initListeners() {
-        binding.addressFindButton.setOnClickListener {
-//            googleMap?.
         }
     }
 
