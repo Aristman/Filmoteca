@@ -8,6 +8,8 @@ import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +68,7 @@ class MapsFragment : Fragment() {
             childFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment?
         lifecycle.coroutineScope.launchWhenCreated {
             googleMap = mapFragment?.awaitMap()
+            myLocation()
             googleMap?.moveCamera(CameraUpdateFactory.zoomBy(10f))
         }
         requestLocationPermission.getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -97,8 +100,35 @@ class MapsFragment : Fragment() {
     }
 
     private fun initListeners() {
+        binding.run {
+            addressFindField.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+
+            })
+        }
         binding.addressFindButton.setOnClickListener {
 //            googleMap?.
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun myLocation() {
+        googleMap?.let { map ->
+            if (requestLocationPermission.isPermissionGranted()) {
+                map.isMyLocationEnabled = true
+                map.uiSettings.isMyLocationButtonEnabled = true
+            }
         }
     }
 
