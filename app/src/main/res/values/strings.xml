@@ -54,6 +54,7 @@
     <string name="permission_location_dialog_title">Доступ к локации</string>
     <string name="permission_location_dialog_message">Для работы с картами приложению необходимо предоставить доступ к локации устройства.</string>
     <string name="not_enebled_gps">Не включена GPS-локализация!</string>
+    <string name="near_address">Ближайший найденный адрес по координатам - %s</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

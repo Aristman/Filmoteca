@@ -51,8 +51,13 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.aboutFragment,
                 R.id.helpFragment,
-                R.id.loginFragment -> {
+                -> {
                     mainToolbar.viewHide()
+                    mainBottomNav.viewHide()
+                }
+                R.id.loginFragment,
+                R.id.mapsFragment -> {
+                    mainToolbar.viewShow()
                     mainBottomNav.viewHide()
                 }
                 else -> {

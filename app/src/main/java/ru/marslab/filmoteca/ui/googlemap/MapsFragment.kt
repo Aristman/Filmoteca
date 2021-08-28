@@ -26,10 +26,15 @@ import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMapsBinding
 import ru.marslab.filmoteca.domain.repository.Constants
+import ru.marslab.filmoteca.domain.util.toLatLng
 import ru.marslab.filmoteca.ui.util.PermissionAccessLevel
 import ru.marslab.filmoteca.ui.util.RequestPermission
+import ru.marslab.filmoteca.ui.util.logMessage
 import ru.marslab.filmoteca.ui.util.showMessage
 import java.io.IOException
+
+private const val COUNT_FIND_RESULT = 3
+private const val MAP_ZOOM_AMOUNT = 10f
 
 class MapsFragment : Fragment() {
 
@@ -67,7 +72,7 @@ class MapsFragment : Fragment() {
         lifecycle.coroutineScope.launchWhenCreated {
             googleMap = mapFragment?.awaitMap()
             myLocation()
-            googleMap?.moveCamera(CameraUpdateFactory.zoomBy(10f))
+            googleMap?.moveCamera(CameraUpdateFactory.zoomBy(MAP_ZOOM_AMOUNT))
         }
         requestLocationPermission.getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         initObservers()
@@ -99,15 +104,40 @@ class MapsFragment : Fragment() {
 
     private fun initListeners() {
         binding.addressFindButton.setOnClickListener {
-            val findFromLocationName =
-                geocoder.getFromLocationName(binding.addressFindField.text.toString(), 3)
-            if (findFromLocationName.size > 0) {
-                googleMap?.moveCamera(CameraUpdateFactory.newLatLng(findFromLocationName.map {
-                    LatLng(
-                        it.latitude,
-                        it.longitude
+            val parseToLatLng = binding.addressFindField.text.toString().toLatLng()
+            if (parseToLatLng == null) {
+                val findFromLocationName =
+                    geocoder.getFromLocationName(
+                        binding.addressFindField.text.toString(),
+                        COUNT_FIND_RESULT
                     )
-                }.first()))
+                if (findFromLocationName.size > 0) {
+                    googleMap?.moveCamera(CameraUpdateFactory.newLatLng(findFromLocationName.map {
+                        LatLng(
+                            it.latitude,
+                            it.longitude
+                        )
+                    }.first()))
+                }
+            } else {
+                val findFromLocationLatLng = geocoder.getFromLocation(
+                    parseToLatLng.latitude,
+                    parseToLatLng.longitude,
+                    COUNT_FIND_RESULT
+                )
+                if (findFromLocationLatLng.size > 0) {
+                    googleMap?.let { map ->
+                        map.moveCamera(CameraUpdateFactory.newLatLng(parseToLatLng))
+//                        map.moveCamera(CameraUpdateFactory.zoomBy(MAP_ZOOM_AMOUNT))
+                        requireView().showMessage(
+                            getString(
+                                R.string.near_address,
+                                findFromLocationLatLng.first().getAddressLine(0)
+                            )
+                        )
+                        logMessage(findFromLocationLatLng.toString())
+                    }
+                }
             }
         }
     }
