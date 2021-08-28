@@ -46,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
                     binding.loadingText.text = getString(R.string.load_api_complete)
                 }
                 LoadConfigsState.Counties -> {
-                    binding.loadingText.text = getText(R.string.load_counries_complete)
+                    binding.loadingText.text = getText(R.string.load_countries_complete)
                 }
                 LoadConfigsState.Jobs -> {
                     binding.loadingText.text = getString(R.string.load_jobs_complete)

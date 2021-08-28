@@ -128,7 +128,6 @@ class MapsFragment : Fragment() {
                 if (findFromLocationLatLng.size > 0) {
                     googleMap?.let { map ->
                         map.moveCamera(CameraUpdateFactory.newLatLng(parseToLatLng))
-//                        map.moveCamera(CameraUpdateFactory.zoomBy(MAP_ZOOM_AMOUNT))
                         requireView().showMessage(
                             getString(
                                 R.string.near_address,
@@ -168,7 +167,7 @@ class MapsFragment : Fragment() {
                     )
                 }
             } else {
-                requireView().showMessage(R.string.not_enebled_gps)
+                requireView().showMessage(R.string.not_enabled_gps)
             }
         } else {
             requireView().showMessage(R.string.permission_location_dialog_message)

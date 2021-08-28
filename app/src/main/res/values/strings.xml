@@ -36,7 +36,7 @@
     <string name="loading_settings">Загрузка настроек</string>
     <string name="comment">Коментарий</string>
     <string name="load_api_complete">Настройки API загружены</string>
-    <string name="load_counries_complete">Страны загружены</string>
+    <string name="load_countries_complete">Страны загружены</string>
     <string name="load_jobs_complete">Список профессий загружен</string>
     <string name="load_languages_complete">Языковые настройки загружены</string>
     <string name="load_time_zones_complete">Настройки часовых поясов выполнены</string>
@@ -53,7 +53,7 @@
     <string name="address_find">Поиск по адресу…</string>
     <string name="permission_location_dialog_title">Доступ к локации</string>
     <string name="permission_location_dialog_message">Для работы с картами приложению необходимо предоставить доступ к локации устройства.</string>
-    <string name="not_enebled_gps">Не включена GPS-локализация!</string>
+    <string name="not_enabled_gps">Не включена GPS-локализация!</string>
     <string name="near_address">Ближайший найденный адрес по координатам - %s</string>
 
     <string-array name="setting_tags">
