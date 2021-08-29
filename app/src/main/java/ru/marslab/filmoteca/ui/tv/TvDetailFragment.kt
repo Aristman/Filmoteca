@@ -9,32 +9,31 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
+import ru.marslab.filmoteca.databinding.FragmentTvDelailBinding
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
-import ru.marslab.filmoteca.ui.movie.MovieDetailFragmentArgs
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
 
 @AndroidEntryPoint
 class TvDetailFragment : Fragment() {
-    private var _binding: FragmentMovieDelailBinding? = null
-    private val binding: FragmentMovieDelailBinding
+    private var _binding: FragmentTvDelailBinding? = null
+    private val binding: FragmentTvDelailBinding
         get() = _binding!!
     private val tvDetailViewModel by viewModels<TvDetailViewModel>()
-    private val args: MovieDetailFragmentArgs by navArgs()
+    private val args: TvDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMovieDelailBinding.inflate(inflater, container, false)
+        _binding = FragmentTvDelailBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        tvDetailViewModel.getTvDetailInfo(args.movieId)
+        tvDetailViewModel.getTvDetailInfo(args.tvShowId)
     }
 
     private fun initObservers() {
