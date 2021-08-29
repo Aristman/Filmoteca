@@ -2,16 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/settingsFragment"
-        android:title="@string/settings_title" />
+        android:title="@string/settings_title"
+        android:icon="@drawable/ic_baseline_settings_24" />
     <item
         android:id="@+id/phonebookFragment"
-        android:title="@string/phonebook" />
+        android:title="@string/phonebook"
+        android:icon="@drawable/ic_baseline_phone_24" />
     <item
         android:id="@+id/mapsFragment"
-        android:title="@string/map" />
+        android:title="@string/map"
+        android:icon="@drawable/ic_baseline_map_24" />
     <item
         android:id="@+id/helpFragment"
-        android:title="@string/help" />
+        android:title="@string/help"
+        android:icon="@drawable/ic_baseline_help_24" />
     <item
         android:id="@+id/aboutFragment"
         android:title="@string/about" />

@@ -3,7 +3,6 @@ package ru.marslab.filmoteca.ui
 import android.content.IntentFilter
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainBottomNav: BottomNavigationView
     private lateinit var mainToolbar: Toolbar
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel by viewModels<MainViewModel>()
 
     private val broadcastReceiver = MainBroadcastReceiver()
 
@@ -66,7 +64,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.root)
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.loginFragment, R.id.movieMainFragment), binding.root)
         mainToolbar.setupWithNavController(navController, appBarConfiguration)
         binding.mainNavView.setupWithNavController(navController)
         mainBottomNav.setupWithNavController(navController)
