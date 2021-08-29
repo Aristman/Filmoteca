@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     private fun initUi() {
         mainToolbar = binding.mainContent.mainToolbar
         mainBottomNav = binding.mainContent.mainBottomNav
-
         setSupportActionBar(mainToolbar)
         initNavController()
     }
@@ -69,5 +68,7 @@ class MainActivity : AppCompatActivity() {
         mainToolbar.setupWithNavController(navController, appBarConfiguration)
         binding.mainNavView.setupWithNavController(navController)
         mainBottomNav.setupWithNavController(navController)
+
+        navController.navigate(R.id.loginFragment)
     }
 }

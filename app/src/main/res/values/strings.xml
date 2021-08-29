@@ -55,6 +55,8 @@
     <string name="permission_location_dialog_message">Для работы с картами приложению необходимо предоставить доступ к локации устройства.</string>
     <string name="not_enabled_gps">Не включена GPS-локализация!</string>
     <string name="near_address">Ближайший найденный адрес по координатам - %s</string>
+    <string name="movies">Фильмы</string>
+    <string name="tv_detail_fragment">Информация о сериале</string>
 
     <string-array name="setting_tags">
         <item>adult</item>
