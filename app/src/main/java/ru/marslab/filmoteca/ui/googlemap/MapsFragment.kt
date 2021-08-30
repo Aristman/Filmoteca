@@ -121,7 +121,7 @@ class MapsFragment : Fragment() {
             locationLatLng.longitude,
             COUNT_FIND_RESULT
         )
-        if (findFromLocationLatLng.size > 0) {
+        if (findFromLocationLatLng.isNotEmpty()) {
             googleMap?.let { map ->
                 map.moveCamera(CameraUpdateFactory.newLatLng(locationLatLng))
                 requireView().showMessage(
