@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/movieMainFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="ru.marslab.filmoteca.ui.login.LoginFragment"
@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_loginFragment_to_movieMainFragment"
             app:destination="@id/movieMainFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainTvFragment"
+            app:destination="@id/tvMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -24,10 +27,14 @@
         android:label="@string/help"
         tools:layout="@layout/fragment_help" />
     <fragment
-        android:id="@+id/mainTvFragment"
+        android:id="@+id/tvMainFragment"
         android:name="ru.marslab.filmoteca.ui.tv.TvMainFragment"
         android:label="@string/tv"
-        tools:layout="@layout/fragment_tv_main" />
+        tools:layout="@layout/fragment_tv_main">
+        <action
+            android:id="@+id/action_mainTvFragment_to_tvDetailFragment"
+            app:destination="@id/tvDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/peopleMainFragment"
         android:name="ru.marslab.filmoteca.ui.people.PeopleMainFragment"
@@ -50,22 +57,19 @@
     <fragment
         android:id="@+id/movieMainFragment"
         android:name="ru.marslab.filmoteca.ui.movie.MovieMainFragment"
-        android:label="fragment_movie_main"
+        android:label="@string/movies"
         tools:layout="@layout/fragment_movie_main" >
         <action
             android:id="@+id/action_movieMainFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
-        <action
-            android:id="@+id/action_movieMainFragment_to_tvDetailFragment"
-            app:destination="@id/tvDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvDetailFragment"
         android:name="ru.marslab.filmoteca.ui.tv.TvDetailFragment"
-        android:label="TvDetailFragment"
+        android:label="@string/tv_detail_fragment"
         tools:layout="@layout/fragment_movie_delail">
         <argument
-            android:name="movieId"
+            android:name="tvShowId"
             app:argType="integer" />
     </fragment>
     <fragment

@@ -109,19 +109,19 @@ class PhonebookFragment : Fragment() {
                             null,
                             null
                         )
-                        cursorNumbers?.let { curNumbers ->
-                            curNumbers.moveToFirst()
+                        if (cursorNumbers != null && cursorNumbers.count != 0) {
+                            cursorNumbers.moveToFirst()
                             phonebookList.add(
                                 PhonebookItem(
                                     cursor.getString(
                                         cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
                                     ),
-                                    curNumbers.getString(
-                                        curNumbers.getColumnIndex((ContactsContract.CommonDataKinds.Phone.NUMBER))
+                                    cursorNumbers.getString(
+                                        cursorNumbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                                     )
                                 )
                             )
-                            curNumbers.close()
+                            cursorNumbers.close()
                         }
                     }
                 } while (cursor.moveToNext())

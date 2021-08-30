@@ -28,4 +28,9 @@ object Constants {
     const val LOGIN_ERROR = "login_error"
     const val TOKEN_ERROR = "token_error"
     const val LOGIN_INTENT_FILTER = "login_intent_filter"
+
+    const val ERROR_LOAD_MOVIES =
+        "Ошибка загрузки списка фильмов: пустой список от сервера"
+    const val ERROR_LOAD_TV =
+        "Ошибка загрузки списка сериалов: пустой список от сервера"
 }

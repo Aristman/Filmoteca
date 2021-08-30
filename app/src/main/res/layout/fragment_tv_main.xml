@@ -5,4 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.tv.TvMainFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/popular_tv_shows"
+                layout="@layout/rv_layout_horizon_short_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/top_rated_tv_shows"
+                layout="@layout/rv_layout_horizon_short_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </FrameLayout>
