@@ -21,12 +21,12 @@ class SplashActivity : AppCompatActivity() {
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(LayoutInflater.from(this))
     }
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val splashViewModel by viewModels<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        mainViewModel.loadApiConfigs()
+        splashViewModel.loadApiConfigs()
         initObservers()
     }
 
@@ -40,13 +40,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        mainViewModel.configLoadStatus.observe(this) {loadState ->
+        splashViewModel.configLoadStatus.observe(this) { loadState ->
             when (loadState) {
                 LoadConfigsState.Api -> {
                     binding.loadingText.text = getString(R.string.load_api_complete)
                 }
                 LoadConfigsState.Counties -> {
-                    binding.loadingText.text = getText(R.string.load_counries_complete)
+                    binding.loadingText.text = getText(R.string.load_countries_complete)
                 }
                 LoadConfigsState.Jobs -> {
                     binding.loadingText.text = getString(R.string.load_jobs_complete)
@@ -66,7 +66,7 @@ class SplashActivity : AppCompatActivity() {
                         R.string.load_settings_error,
                         R.string.repeat
                     ) {
-                        mainViewModel.loadApiConfigs(loadState)
+                        splashViewModel.loadApiConfigs(loadState)
                     }
                 }
             }

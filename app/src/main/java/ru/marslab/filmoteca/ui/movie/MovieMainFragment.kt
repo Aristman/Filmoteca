@@ -26,23 +26,12 @@ class MovieMainFragment : Fragment() {
     private val binding: FragmentMovieMainBinding
         get() = checkNotNull(_binding) { getString(R.string.binding_not_init) }
 
-    private val welcomeViewModel by viewModels<WelcomeViewModel>()
+    private val movieMainViewModel by viewModels<WelcomeViewModel>()
 
     private val popularMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
             showMovieDetailsFragment(it.id)
         }
-    }
-
-    private val popularTvShowsAdapter: HorizonListAdapter by lazy {
-        HorizonListAdapter {
-            showTvDetailsFragment(it.id)
-        }
-    }
-
-    private fun showTvDetailsFragment(id: Int) {
-        val action = MovieMainFragmentDirections.actionMovieMainFragmentToTvDetailFragment(id)
-        findNavController().navigate(action)
     }
 
     private val topRatedMoviesAdapter: HorizonListAdapter by lazy {
@@ -74,7 +63,7 @@ class MovieMainFragment : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun initObservers() {
-        welcomeViewModel.run {
+        movieMainViewModel.run {
             popularMovies.observe(viewLifecycleOwner) { viewState ->
                 when (viewState) {
                     is ViewState.LoadError -> {
@@ -82,7 +71,7 @@ class MovieMainFragment : Fragment() {
                             R.string.load_list_movies_error,
                             R.string.repeat
                         ) {
-                            welcomeViewModel.loadPopularMovies()
+                            movieMainViewModel.loadPopularMovies()
                         }
                     }
                     ViewState.Loading -> {
@@ -95,26 +84,6 @@ class MovieMainFragment : Fragment() {
                     }
                 }
             }
-            popularTvShows.observe(viewLifecycleOwner) { viewState ->
-                when (viewState) {
-                    is ViewState.LoadError -> {
-                        requireView().showMessageWithAction(
-                            R.string.load_list_tvshows_error,
-                            R.string.repeat
-                        ) {
-                            welcomeViewModel.loadPopularTvShows()
-                        }
-                    }
-                    ViewState.Loading -> {
-                        showLoading(binding.popularTvShows)
-                    }
-                    is ViewState.Successful<*> -> {
-                        val data = viewState.data as? List<MovieShortUi>
-                        showDataLayout(binding.popularTvShows)
-                        popularTvShowsAdapter.submitList(data)
-                    }
-                }
-            }
             topRatedMovies.observe(viewLifecycleOwner) { viewState ->
                 when (viewState) {
                     is ViewState.LoadError -> {
@@ -122,7 +91,7 @@ class MovieMainFragment : Fragment() {
                             R.string.load_list_movies_error,
                             R.string.repeat
                         ) {
-                            welcomeViewModel.loadTopRatedMovies()
+                            movieMainViewModel.loadTopRatedMovies()
                         }
                     }
                     ViewState.Loading -> {
@@ -141,22 +110,18 @@ class MovieMainFragment : Fragment() {
     private fun initView() {
         binding.run {
             popularMovies.listTitle.text = getString(R.string.popular_movies_title)
-            popularTvShows.listTitle.text = getString(R.string.popular_tvshows_title)
             topRatedMovies.listTitle.text = getString(R.string.top_rated_movies_title)
             showDataLayout(popularMovies)
-            showDataLayout(popularTvShows)
             showDataLayout(topRatedMovies)
         }
     }
 
     private fun initRv() {
         binding.run {
-            setupPopularMovies(this.popularMovies, popularMoviesAdapter)
-            setupPopularMovies(this.popularTvShows, popularTvShowsAdapter)
-            setupPopularMovies(this.topRatedMovies, topRatedMoviesAdapter)
-            welcomeViewModel.loadPopularMovies()
-            welcomeViewModel.loadPopularTvShows()
-            welcomeViewModel.loadTopRatedMovies()
+            setupRecyclerView(this.popularMovies, popularMoviesAdapter)
+            setupRecyclerView(this.topRatedMovies, topRatedMoviesAdapter)
+            movieMainViewModel.loadPopularMovies()
+            movieMainViewModel.loadTopRatedMovies()
         }
     }
 
@@ -174,7 +139,7 @@ class MovieMainFragment : Fragment() {
         }
     }
 
-    private fun setupPopularMovies(
+    private fun setupRecyclerView(
         itemBinding: RvLayoutHorizonShortListBinding,
         itemAdapter: HorizonListAdapter
     ) {

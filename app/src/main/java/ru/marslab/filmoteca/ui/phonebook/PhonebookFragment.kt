@@ -1,26 +1,23 @@
 package ru.marslab.filmoteca.ui.phonebook
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentPhonebookBinding
 import ru.marslab.filmoteca.ui.phonebook.adapter.PhonebookAdapter
 import ru.marslab.filmoteca.ui.phonebook.adapter.PhonebookItem
+import ru.marslab.filmoteca.ui.util.PermissionAccessLevel
+import ru.marslab.filmoteca.ui.util.RequestPermission
 import ru.marslab.filmoteca.ui.util.showMessage
 
-private const val REQUEST_CODE = 42
 
 class PhonebookFragment : Fragment() {
 
@@ -31,6 +28,13 @@ class PhonebookFragment : Fragment() {
         PhonebookAdapter { phoneItem ->
             callingToNumber(phoneItem.number)
         }
+    }
+    private val contactsRequestPermission: RequestPermission by lazy {
+        RequestPermission(
+            this,
+            R.string.permission_contacts_dialog_title,
+            R.string.permission_contacts_dialog_message
+        )
     }
 
     private fun callingToNumber(number: String) {
@@ -49,8 +53,24 @@ class PhonebookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObservers()
         initRv()
-        checkPermission()
+        contactsRequestPermission.getPermission(Manifest.permission.READ_CONTACTS)
+    }
+
+    private fun initObservers() {
+        contactsRequestPermission.permission.observe(viewLifecycleOwner) { permissionStatus ->
+            when (permissionStatus) {
+                PermissionAccessLevel.Granted -> {
+                    getContacts()
+                }
+                PermissionAccessLevel.Denied -> {
+                    requireView().showMessage(R.string.permission_contacts_dialog_message)
+                }
+                PermissionAccessLevel.Error -> {
+                }
+            }
+        }
     }
 
     private fun initRv() {
@@ -58,70 +78,6 @@ class PhonebookFragment : Fragment() {
             adapter = phonebookAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        }
-    }
-
-    private fun checkPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_CONTACTS
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                getContacts()
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.permission_contacts_dialog_title)
-                    .setMessage(R.string.permission_contacts_dialog_message)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        requestPermission()
-                    }
-                    .setNegativeButton(R.string.cancel) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-            else -> {
-                requestPermission()
-            }
-        }
-    }
-
-    private fun requestPermission() {
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                getContacts()
-            } else {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.permission_contacts_dialog_title)
-                    .setMessage(R.string.permission_contacts_dialog_message)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        requestPermission()
-                    }
-                    .setNegativeButton(R.string.cancel) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-        }
-            .launch(Manifest.permission.READ_CONTACTS)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
-                    getContacts()
-                } else {
-                    requireView().showMessage(R.string.permission_contacts_dialog_message)
-                }
-            }
         }
     }
 
@@ -134,42 +90,46 @@ class PhonebookFragment : Fragment() {
             null,
             ContactsContract.Contacts.DISPLAY_NAME
         )
-        val phonebookList: MutableList<PhonebookItem> = mutableListOf()
-        cursorNames?.let { cursor ->
-            cursor.moveToFirst()
-            do {
-                val hasNumber = cursor.getString(
-                    cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
-                )
-                if (hasNumber == "1") {
-                    val contactId = cursor.getString(
-                        cursor.getColumnIndex(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
+        if (contactsRequestPermission.isPermissionGranted()) {
+            val phonebookList: MutableList<PhonebookItem> = mutableListOf()
+            cursorNames?.let { cursor ->
+                cursor.moveToFirst()
+                do {
+                    val hasNumber = cursor.getString(
+                        cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
                     )
-                    val cursorNumbers = contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
-                        null,
-                        null
-                    )
-                    cursorNumbers?.let { curNumbers ->
-                        curNumbers.moveToFirst()
-                        phonebookList.add(
-                            PhonebookItem(
-                                cursor.getString(
-                                    cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                                ),
-                                curNumbers.getString(
-                                    curNumbers.getColumnIndex((ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    if (hasNumber == "1") {
+                        val contactId = cursor.getString(
+                            cursor.getColumnIndex(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
+                        )
+                        val cursorNumbers = contentResolver.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
+                            null,
+                            null
+                        )
+                        if (cursorNumbers != null && cursorNumbers.count != 0) {
+                            cursorNumbers.moveToFirst()
+                            phonebookList.add(
+                                PhonebookItem(
+                                    cursor.getString(
+                                        cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                                    ),
+                                    cursorNumbers.getString(
+                                        cursorNumbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                                    )
                                 )
                             )
-                        )
-                        curNumbers.close()
+                            cursorNumbers.close()
+                        }
                     }
-                }
-            } while (cursor.moveToNext())
-            phonebookAdapter.submitList(phonebookList)
-            cursor.close()
+                } while (cursor.moveToNext())
+                phonebookAdapter.submitList(phonebookList)
+                cursor.close()
+            }
+        } else {
+            requireView().showMessage(R.string.permission_contacts_dialog_message)
         }
     }
 

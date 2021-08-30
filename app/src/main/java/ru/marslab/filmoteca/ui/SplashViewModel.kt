@@ -14,7 +14,7 @@ import ru.marslab.filmoteca.ui.model.LoadConfigsState.LoadError
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val databaseRepository: DatabaseRepository,
     private val dispatchers: AppDispatchers

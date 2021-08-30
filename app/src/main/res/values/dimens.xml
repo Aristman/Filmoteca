@@ -14,4 +14,6 @@
     <dimen name="horizon_rv_height">238dp</dimen>
     <dimen name="phone_image">40dp</dimen>
     <dimen name="setting_item_height">40dp</dimen>
+    <dimen name="float_button_image_size">44dp</dimen>
+    <dimen name="find_address_margin">56dp</dimen>
 </resources>
