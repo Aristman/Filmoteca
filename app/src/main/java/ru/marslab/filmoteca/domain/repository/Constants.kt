@@ -33,4 +33,9 @@ object Constants {
         "Ошибка загрузки списка фильмов: пустой список от сервера"
     const val ERROR_LOAD_TV =
         "Ошибка загрузки списка сериалов: пустой список от сервера"
+
+    const val PUSH_KEY_TITLE = "title"
+    const val PUSH_KEY_BODY = "message"
+    const val PUSH_KEY_CHANNEL_ID = "PUSH_KEY_CHANNEL_ID"
+    const val PUSH_KEY_NOTIFICATION_ID = 51
 }
