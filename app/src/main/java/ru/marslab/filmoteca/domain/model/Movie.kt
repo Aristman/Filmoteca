@@ -8,6 +8,7 @@ data class Movie(
     val backDrop: String?,
     val budget: Int?,
     val genres: List<Int>,
+    val genreString: String?,
     val poster: String?,
     val productionCompanies: List<String>,
     val release: String,

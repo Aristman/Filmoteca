@@ -6,7 +6,7 @@ data class MovieDetailUi(
     val originalTitle: String,
     val backDrop: String?,
     val poster: String?,
-    val genres: List<String>,
+    val genres: String,
     val timing: Int?,
     val release: String,
     val popularity: Double,

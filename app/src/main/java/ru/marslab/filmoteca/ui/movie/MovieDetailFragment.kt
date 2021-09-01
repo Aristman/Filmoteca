@@ -79,7 +79,7 @@ class MovieDetailFragment : Fragment() {
                         data.backDrop?.let {
                             backdropImage.load(it)
                         }
-                        movieGenres.text = data.genres.joinToString(separator = ",")
+                        movieGenres.text = data.genres
                         movieRelease.text = data.release
                         data.timing?.let { movieTiming.text = it.toTimeString() }
                         movieRating.text = data.userRating.toString()

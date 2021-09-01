@@ -1,6 +1,6 @@
-package ru.marslab.filmoteca.domain.model
+package ru.marslab.filmoteca.ui.model
 
-data class TvShow(
+data class TvShowDetailUi(
     val id: Int,
     val title: String,
     val originalTitle: String,

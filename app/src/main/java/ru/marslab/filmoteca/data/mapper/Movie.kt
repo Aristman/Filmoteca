@@ -16,6 +16,7 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
             backDrop = movie.backdropPath?.let { Constants.BASE_POSTER_URL + it },
             budget = null,
             genres = movie.genreIds,
+            genreString = "",
             poster = movie.posterPath?.let { Constants.BASE_POSTER_URL + it },
             productionCompanies = listOf(),
             release = movie.releaseDate,
@@ -30,7 +31,7 @@ fun GuestRatedMoviesNW.toDomain(): List<Movie> =
     }
 
 fun MoviesNW.toDomain(): List<Movie> =
-    this.Movies.map {movie ->
+    this.Movies.map { movie ->
         Movie(
             id = movie.id,
             title = movie.title,
@@ -39,6 +40,7 @@ fun MoviesNW.toDomain(): List<Movie> =
             backDrop = movie.backdropPath?.let { Constants.BASE_POSTER_URL + it },
             budget = null,
             genres = movie.genreIds,
+            genreString = "",
             poster = movie.posterPath?.let { Constants.BASE_POSTER_URL + it },
             productionCompanies = listOf(),
             release = movie.releaseDate,
@@ -61,6 +63,7 @@ fun MovieDetailsNW.toDomain(): Movie =
         backDrop = backdropPath?.let { Constants.BASE_POSTER_URL + it },
         budget = budget,
         genres = genres.map { it.id },
+        genreString = genres.joinToString(separator = Constants.STRING_SEPARATOR) { it.name },
         poster = posterPath?.let { Constants.BASE_POSTER_URL + it },
         productionCompanies = productionCompanies.map { it.name },
         release = releaseDate,
