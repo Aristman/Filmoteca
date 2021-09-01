@@ -57,6 +57,7 @@
     <string name="near_address">Ближайший найденный адрес по координатам - %s</string>
     <string name="movies">Фильмы</string>
     <string name="tv_detail_fragment">Информация о сериале</string>
+    <string name="comment_title">Оставить комментарий</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

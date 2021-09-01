@@ -33,4 +33,6 @@ object Constants {
         "Ошибка загрузки списка фильмов: пустой список от сервера"
     const val ERROR_LOAD_TV =
         "Ошибка загрузки списка сериалов: пустой список от сервера"
+
+    const val IMAGE_CORNER_RADIUS = 40f
 }

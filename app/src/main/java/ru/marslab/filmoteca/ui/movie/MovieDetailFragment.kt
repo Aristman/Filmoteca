@@ -13,13 +13,13 @@ import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
+import ru.marslab.filmoteca.domain.repository.Constants
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
 import ru.marslab.filmoteca.ui.util.toTimeString
 import java.util.*
 
-private const val IMAGE_CORNER_RADIUS = 40f
 
 @AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
@@ -73,7 +73,7 @@ class MovieDetailFragment : Fragment() {
                         movieOriginTitle.text = data.originalTitle
                         data.poster?.let {
                             moviePoster.load(it) {
-                                transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
+                                transformations(RoundedCornersTransformation(Constants.IMAGE_CORNER_RADIUS))
                             }
                         }
                         data.backDrop?.let {
