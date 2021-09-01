@@ -41,5 +41,5 @@ object Constants {
     const val PUSH_KEY_BODY = "message"
     const val PUSH_KEY_CHANNEL_ID = "PUSH_KEY_CHANNEL_ID"
     const val PUSH_KEY_NOTIFICATION_ID = 51
-    const val RATED_STRING_FORMAT = "##.0"
+    const val RATED_STRING_FORMAT = "0.0"
 }
