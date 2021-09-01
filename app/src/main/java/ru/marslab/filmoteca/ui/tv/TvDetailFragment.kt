@@ -83,15 +83,13 @@ class TvDetailFragment : Fragment() {
     }
 
     private fun initListeners() {
-        with(binding) {
-            favoriteImage.setOnClickListener {
-                if (isFavorite) {
-                    favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                } else {
-                    favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_like_24)
-                }
-                isFavorite = isFavorite.not()
+        binding.favoriteImage.setOnClickListener {
+            if (isFavorite) {
+                binding.favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            } else {
+                binding.favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_like_24)
             }
+            isFavorite = !isFavorite
         }
     }
 
