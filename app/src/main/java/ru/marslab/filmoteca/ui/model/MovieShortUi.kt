@@ -5,5 +5,5 @@ data class MovieShortUi(
     val title: String,
     val poster: String?,
     val releaseDate: String,
-    val rating: Double
+    val userRating: Double
 )

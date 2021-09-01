@@ -48,11 +48,11 @@ class TvDetailFragment : Fragment() {
                     val data = viewState.data as MovieDetailUi
                     binding.apply {
                         movieTitle.text = data.title
-                        movieOriginTitle.text = data.titleOrigin
+                        movieOriginTitle.text = data.originalTitle
                         data.poster?.let {
                             moviePoster.load(it)
                         }
-                        movieGanre.text = data.genres.joinToString(separator = ",")
+                        movieGenres.text = data.genres.joinToString(separator = ",")
                         movieRelease.text = data.release
                         movieTiming.text = data.timing.toString()
                         movieDescription.text = data.description

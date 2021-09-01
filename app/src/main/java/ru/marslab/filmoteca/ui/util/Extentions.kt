@@ -64,3 +64,9 @@ fun View.viewHide() {
 fun logMessage(message: String) {
     Log.d(LOG_TAG, message)
 }
+
+fun Int.toTimeString(): String {
+    val hours = this / 60
+    val minutes = this % 60
+    return "$hours ч. $minutes мин"
+}
