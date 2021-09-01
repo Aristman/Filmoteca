@@ -36,4 +36,5 @@ object Constants {
         "Ошибка загрузки списка сериалов: пустой список от сервера"
 
     const val IMAGE_CORNER_RADIUS = 40f
+    const val RATED_STRING_FORMAT = "##.0"
 }

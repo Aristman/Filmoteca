@@ -4,7 +4,9 @@ import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-const val LOG_TAG = "MOVIE"
+private const val LOG_TAG = "MOVIE"
+private const val COUNT_MINUTES = 60
+
 
 fun View.showMessage(message: String, longShow: Boolean = true) {
     Snackbar.make(
@@ -65,8 +67,8 @@ fun logMessage(message: String) {
     Log.d(LOG_TAG, message)
 }
 
-fun Int.toTimeString(): String {
-    val hours = this / 60
-    val minutes = this % 60
-    return "$hours ч. $minutes мин"
+fun Int.toTimeString(resultString: String): String {
+    val hours = this / COUNT_MINUTES
+    val minutes = this % COUNT_MINUTES
+    return String.format(resultString, hours, minutes)
 }

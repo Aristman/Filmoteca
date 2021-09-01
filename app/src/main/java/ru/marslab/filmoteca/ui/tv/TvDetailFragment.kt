@@ -17,6 +17,7 @@ import ru.marslab.filmoteca.domain.repository.Constants
 import ru.marslab.filmoteca.ui.model.TvShowDetailUi
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class TvDetailFragment : Fragment() {
@@ -52,33 +53,37 @@ class TvDetailFragment : Fragment() {
                 }
                 is ViewState.Successful<*> -> {
                     val data = viewState.data as TvShowDetailUi
-                    binding.apply {
-                        (activity as AppCompatActivity).supportActionBar?.title = data.title
-                        tvOriginTitle.text = data.originalTitle
-                        data.poster?.let {
-                            tvPoster.load(it) {
-                                transformations(RoundedCornersTransformation(Constants.IMAGE_CORNER_RADIUS))
-                            }
-                        }
-                        data.backDrop?.let {
-                            backdropImage.load(it)
-                        }
-                        tvGenres.text = data.genreString
-                        tvRating.text = data.userRating.toString()
-                        tvRelease.text = data.firstAirDate
-                        tvCountSeasons.text =
-                            getString(R.string.count_seasons_text, data.numberOfSeasons)
-                        tvCountEpisodes.text =
-                            getString(R.string.count_episodes_text, data.numberOfEpisodes)
-                        tvDescription.text = data.description
-                    }
+                    updateUi(data)
                 }
             }
         }
     }
 
+    private fun updateUi(data: TvShowDetailUi) {
+        with(binding) {
+            (activity as AppCompatActivity).supportActionBar?.title = data.title
+            tvOriginTitle.text = data.originalTitle
+            data.poster?.let {
+                tvPoster.load(it) {
+                    transformations(RoundedCornersTransformation(Constants.IMAGE_CORNER_RADIUS))
+                }
+            }
+            data.backDrop?.let {
+                backdropImage.load(it)
+            }
+            tvGenres.text = data.genreString
+            tvRating.text = DecimalFormat(Constants.RATED_STRING_FORMAT).format(data.userRating)
+            tvRelease.text = data.firstAirDate
+            tvCountSeasons.text =
+                getString(R.string.count_seasons_text, data.numberOfSeasons)
+            tvCountEpisodes.text =
+                getString(R.string.count_episodes_text, data.numberOfEpisodes)
+            tvDescription.text = data.description
+        }
+    }
+
     private fun initListeners() {
-        binding.run {
+        with(binding) {
             favoriteImage.setOnClickListener {
                 if (isFavorite) {
                     favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_border_24)

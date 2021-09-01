@@ -18,6 +18,7 @@ import ru.marslab.filmoteca.ui.model.MovieDetailUi
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
 import ru.marslab.filmoteca.ui.util.toTimeString
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -46,7 +47,7 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.run {
+        with(binding) {
             favoriteImage.setOnClickListener {
                 if (isFavorite) {
                     favoriteImage.setImageResource(R.drawable.ic_baseline_favorite_border_24)
@@ -68,28 +69,34 @@ class MovieDetailFragment : Fragment() {
                 }
                 is ViewState.Successful<*> -> {
                     val data = viewState.data as MovieDetailUi
-                    binding.apply {
-                        (activity as? AppCompatActivity)?.supportActionBar?.title = data.title
-                        movieOriginTitle.text = data.originalTitle
-                        data.poster?.let {
-                            moviePoster.load(it) {
-                                transformations(RoundedCornersTransformation(Constants.IMAGE_CORNER_RADIUS))
-                            }
-                        }
-                        data.backDrop?.let {
-                            backdropImage.load(it)
-                        }
-                        movieGenres.text = data.genres
-                        movieRelease.text = data.release
-                        data.timing?.let { movieTiming.text = it.toTimeString() }
-                        movieRating.text = data.userRating.toString()
-                        movieDescription.text = data.description
-                    }
+                    updateUi(data)
                 }
             }
         }
         movieDetailViewModel.movieComment.observe(viewLifecycleOwner) { comment ->
             binding.movieComment.setText(comment)
+        }
+    }
+
+    private fun updateUi(data: MovieDetailUi) {
+        with(binding) {
+            (activity as? AppCompatActivity)?.supportActionBar?.title = data.title
+            movieOriginTitle.text = data.originalTitle
+            data.poster?.let {
+                moviePoster.load(it) {
+                    transformations(RoundedCornersTransformation(Constants.IMAGE_CORNER_RADIUS))
+                }
+            }
+            data.backDrop?.let {
+                backdropImage.load(it)
+            }
+            movieGenres.text = data.genres
+            movieRelease.text = data.release
+            data.timing?.let {
+                movieTiming.text = it.toTimeString(getString(R.string.time_string_pattern))
+            }
+            movieRating.text = DecimalFormat(Constants.RATED_STRING_FORMAT).format(data.userRating)
+            movieDescription.text = data.description
         }
     }
 
@@ -103,7 +110,6 @@ class MovieDetailFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-
         _binding = null
         super.onDestroyView()
     }
