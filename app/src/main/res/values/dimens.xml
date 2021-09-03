@@ -9,11 +9,15 @@
     <dimen name="rated_movie_list_width">124dp</dimen>
     <dimen name="item_image_height">180dp</dimen>
     <dimen name="item_image_width">180dp</dimen>
-    <dimen name="movie_detail_image_width">180dp</dimen>
-    <dimen name="movie_detail_image_height">300dp</dimen>
+    <dimen name="movie_detail_image_width">180dp</dimen>//
+    <dimen name="movie_detail_image_height">240dp</dimen>
+    <dimen name="movie_detail_backdrop_width">120dp</dimen>//
+    <dimen name="movie_detail_backdrop_height">180dp</dimen>
     <dimen name="horizon_rv_height">238dp</dimen>
     <dimen name="phone_image">40dp</dimen>
     <dimen name="setting_item_height">40dp</dimen>
     <dimen name="float_button_image_size">44dp</dimen>
     <dimen name="find_address_margin">56dp</dimen>
+    <dimen name="backdrop_image_margin">48dp</dimen>
+    <dimen name="favorite_image_size">32dp</dimen>
 </resources>

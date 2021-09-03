@@ -6,24 +6,27 @@ import ru.marslab.filmoteca.ui.model.MovieShortUi
 
 fun Movie.toUiShort(): MovieShortUi =
     MovieShortUi(
-        id,
-        title,
-        poster,
-        release,
-        rating
+        id = id,
+        title = title,
+        poster = poster,
+        releaseDate = release,
+        userRating = userRating
     )
 
 fun Movie.toUiFull(): MovieDetailUi =
     MovieDetailUi(
-        id,
-        title,
-        originalTitle,
-        poster,
-        backDrop,
-        genres.map { it.toString() }, // TODO ("Доделать преобразование жанров из списка ИД в список названий")
-        timing,
-        release,
-        description
+        id = id,
+        title = title,
+        originalTitle = originalTitle,
+        poster = poster,
+        backDrop = backDrop,
+        genres = genreString ?: "",
+        timing = timing,
+        release = release,
+        popularity = popularity,
+        userRating = userRating,
+        voteCount = voteCount,
+        description = description
     )
 
 

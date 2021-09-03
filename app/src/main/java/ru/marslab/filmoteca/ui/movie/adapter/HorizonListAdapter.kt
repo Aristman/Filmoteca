@@ -43,7 +43,7 @@ class HorizonViewHolder(
         with(binding) {
             movieTitle.text = item.title
             movieReleaseDate.text = item.releaseDate
-            movieRating.text = item.rating.toString()
+            movieRating.text = item.userRating.toString()
         }
         binding.root.setOnClickListener {
             callback(item)

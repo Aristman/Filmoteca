@@ -2,6 +2,7 @@ package ru.marslab.filmoteca.domain.repository
 
 object Constants {
     const val STRING_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss z"
+    const val STRING_SEPARATOR = ","
     const val START_DELAY = 1000L
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w500"
@@ -34,8 +35,11 @@ object Constants {
     const val ERROR_LOAD_TV =
         "Ошибка загрузки списка сериалов: пустой список от сервера"
 
+    const val IMAGE_CORNER_RADIUS = 40f
+
     const val PUSH_KEY_TITLE = "title"
     const val PUSH_KEY_BODY = "message"
     const val PUSH_KEY_CHANNEL_ID = "PUSH_KEY_CHANNEL_ID"
     const val PUSH_KEY_NOTIFICATION_ID = 51
+    const val RATED_STRING_FORMAT = "0.0"
 }

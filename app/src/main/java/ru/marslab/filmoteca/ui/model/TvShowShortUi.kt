@@ -6,6 +6,6 @@ data class TvShowShortUi(
     val poster: String?,
     val releaseDate: String,
     val seasonCount: Int,
-    val rating: Double
+    val UserRating: Double
 )
 
