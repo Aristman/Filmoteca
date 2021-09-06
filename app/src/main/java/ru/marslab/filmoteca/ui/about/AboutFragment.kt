@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.marslab.filmoteca.BuildConfig
 import ru.marslab.filmoteca.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
@@ -18,6 +19,11 @@ class AboutFragment : Fragment() {
     ): View? {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.tvRelease.text = BuildConfig.BUILD_TYPE
     }
 
     override fun onDestroyView() {

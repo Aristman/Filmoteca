@@ -17,3 +17,4 @@ apikey.properties
 /.idea/codeStyles/Project.xml
 /.idea
 /.idea/
+/keystore.properties
