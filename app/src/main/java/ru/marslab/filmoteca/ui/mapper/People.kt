@@ -8,12 +8,14 @@ fun Actor.toShortUi(): PeopleShortUi =
     PeopleShortUi(
         id = id,
         name = name,
-        photo = photoPath
+        photo = photoPath,
+        job = null
     )
 
 fun Employee.toShortUi(): PeopleShortUi =
     PeopleShortUi(
         id = id,
         name = name,
-        photo = photoPath
+        photo = photoPath,
+        job = job
     )

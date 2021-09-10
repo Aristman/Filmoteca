@@ -5,29 +5,47 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/default_dim"
+    android:background="?selectableItemBackground"
     android:elevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/card_conner_radius"
-    android:background="?selectableItemBackground">
+    app:cardCornerRadius="@dimen/card_conner_radius">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:lines="2"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/item_photo"
+            app:layout_constraintEnd_toEndOf="@id/item_photo" />
 
         <ImageView
             android:id="@+id/item_photo"
             android:layout_width="@dimen/people_list_photo_width"
             android:layout_height="@dimen/people_list_photo_height"
+            android:contentDescription="@string/photo"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_not_interested_24"
-            android:contentDescription="@string/photo" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_title" />
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_margin="@dimen/default_dim"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/item_photo"
+            app:layout_constraintStart_toStartOf="@id/item_photo"
+            app:layout_constraintTop_toBottomOf="@id/item_photo" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -36,10 +36,10 @@ class MovieDetailFragment : Fragment() {
     private val movieDetailViewModel by viewModels<MovieDetailViewModel>()
     private val args: MovieDetailFragmentArgs by navArgs()
     private val actorListAdapter: PeopleListAdapter by lazy {
-        PeopleListAdapter { handleClickToActor(it.id) }
+        PeopleListAdapter(visibilityTitle = false) { handleClickToActor(it.id) }
     }
     private val employeeListAdapter: PeopleListAdapter by lazy {
-        PeopleListAdapter { handleClickToEmployee(it.id) }
+        PeopleListAdapter(visibilityTitle = true) { handleClickToEmployee(it.id) }
     }
     private var isFavorite: Boolean = false
 
