@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
 import ru.marslab.filmoteca.domain.repository.Constants
@@ -44,6 +47,7 @@ class MovieDetailFragment : Fragment() {
         initObservers()
         initListeners()
         movieDetailViewModel.getMovieDetailInfo(args.movieId)
+        movieDetailViewModel.getMoviePeople(args.movieId)
     }
 
     private fun initListeners() {
@@ -62,7 +66,7 @@ class MovieDetailFragment : Fragment() {
         movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
-                    requireView().showMessage(viewState.message)
+                    viewState.error.message?.let { requireView().showMessage(it) }
                 }
                 ViewState.Loading -> {
                 }
@@ -70,10 +74,23 @@ class MovieDetailFragment : Fragment() {
                     val data = viewState.data as MovieDetailUi
                     updateUi(data)
                 }
+                ViewState.Init -> {
+                }
             }
         }
         movieDetailViewModel.movieComment.observe(viewLifecycleOwner) { comment ->
             binding.movieComment.setText(comment)
+        }
+        lifecycleScope.launch {
+            movieDetailViewModel.moviePeople.collect { viewState ->
+                when (viewState) {
+                    ViewState.Init -> {
+                    }
+                    is ViewState.LoadError -> TODO()
+                    ViewState.Loading -> TODO()
+                    is ViewState.Successful<*> -> TODO()
+                }
+            }
         }
     }
 

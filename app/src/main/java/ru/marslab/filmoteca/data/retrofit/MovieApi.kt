@@ -7,6 +7,7 @@ import ru.marslab.filmoteca.data.model.auth.RequestTokenNW
 import ru.marslab.filmoteca.data.model.auth.SessionNW
 import ru.marslab.filmoteca.data.model.configuration.*
 import ru.marslab.filmoteca.data.model.guest.GuestRatedMoviesNW
+import ru.marslab.filmoteca.data.model.movies.MovieCreditsNW
 import ru.marslab.filmoteca.data.model.movies.MovieDetailsNW
 import ru.marslab.filmoteca.data.model.movies.MoviesNW
 import ru.marslab.filmoteca.data.model.tv.TvShowDetailsNW
@@ -81,6 +82,13 @@ interface MovieApi {
         @Query("api_key") apiKey: String,
         @Query("language") language: String?
     ): Response<MovieDetailsNW>
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?
+    ): Response<MovieCreditsNW>
 
     @GET("configuration")
     suspend fun getConfigApi(

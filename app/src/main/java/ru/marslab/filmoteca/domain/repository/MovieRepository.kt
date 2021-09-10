@@ -2,6 +2,7 @@ package ru.marslab.filmoteca.domain.repository
 
 import ru.marslab.filmoteca.domain.model.Language
 import ru.marslab.filmoteca.domain.model.Movie
+import ru.marslab.filmoteca.domain.model.People
 import ru.marslab.filmoteca.domain.model.TimeZone
 
 interface MovieRepository {
@@ -21,4 +22,9 @@ interface MovieRepository {
         page: Int? = null,
         region: TimeZone? = null
     ): List<Movie>?
+
+    suspend fun getMoviePeople(
+        id: Int,
+        language: Language? = null
+    ): People?
 }
