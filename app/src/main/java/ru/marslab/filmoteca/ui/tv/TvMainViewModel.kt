@@ -1,5 +1,6 @@
 package ru.marslab.filmoteca.ui.tv
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +32,7 @@ class TvMainViewModel @Inject constructor(
             val settingLanguage = storage.getSettingLanguage()
             val listMovies = tvRepository.getPopularTvShows(settingLanguage)
             if (listMovies == null) {
-                _popularTvShows.postValue(ViewState.LoadError(Constants.ERROR_LOAD_TV))
+                _popularTvShows.postValue(ViewState.LoadError(NetworkErrorException(Constants.ERROR_LOAD_TV)))
             } else {
                 _popularTvShows.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
             }

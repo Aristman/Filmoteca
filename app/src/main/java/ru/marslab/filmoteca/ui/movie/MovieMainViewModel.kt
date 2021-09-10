@@ -1,5 +1,6 @@
 package ru.marslab.filmoteca.ui.movie
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,7 +43,7 @@ class WelcomeViewModel @Inject constructor(
                 region = settingTimeZone
             )
             if (listMovies == null) {
-                _popularMovies.postValue(ViewState.LoadError(Constants.ERROR_LOAD_MOVIES))
+                _popularMovies.postValue(ViewState.LoadError(NetworkErrorException(Constants.ERROR_LOAD_MOVIES)))
             } else {
                 _popularMovies.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
             }
@@ -60,7 +61,7 @@ class WelcomeViewModel @Inject constructor(
                 region = settingTimeZone
             )
             if (listMovies == null) {
-                _topRatedMovies.postValue(ViewState.LoadError(Constants.ERROR_LOAD_MOVIES))
+                _topRatedMovies.postValue(ViewState.LoadError(NetworkErrorException(Constants.ERROR_LOAD_MOVIES)))
             } else {
                 _topRatedMovies.postValue(ViewState.Successful(listMovies.map { it.toUiShort() }))
             }

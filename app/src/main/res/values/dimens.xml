@@ -20,4 +20,6 @@
     <dimen name="find_address_margin">56dp</dimen>
     <dimen name="backdrop_image_margin">48dp</dimen>
     <dimen name="favorite_image_size">32dp</dimen>
+    <dimen name="people_list_photo_width">96dp</dimen>
+    <dimen name="people_list_photo_height">144dp</dimen>
 </resources>

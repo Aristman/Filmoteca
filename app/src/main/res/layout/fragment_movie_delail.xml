@@ -110,19 +110,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_poster" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cast_people"
+        <TextView
+            android:id="@+id/list_actors_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_description">
+            android:gravity="center"
+            android:text="@string/list_actors"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toTopOf="@id/rv_list_actors"
+            app:layout_constraintTop_toBottomOf="@id/movie_description" />
 
-        </androidx.cardview.widget.CardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_actors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/list_actors_title"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/rv_item_people_list" />
+
+        <TextView
+            android:id="@+id/list_employees_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/list_employees"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toTopOf="@id/rv_list_employees"
+            app:layout_constraintTop_toBottomOf="@id/rv_list_actors" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_employees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/rv_item_people_list"
+            app:layout_constraintTop_toBottomOf="@id/list_employees_title" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/movie_comment_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_text_field"
+            android:hint="@string/comment"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_description">
@@ -131,8 +162,7 @@
                 android:id="@+id/movie_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top"
-                android:hint="@string/comment" />
+                android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

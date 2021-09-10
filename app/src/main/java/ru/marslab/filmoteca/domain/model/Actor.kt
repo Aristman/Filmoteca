@@ -4,6 +4,6 @@ data class Actor(
     val id: Int,
     val name: String,
     val originalName: String,
-    val profilePath: String?,
+    val photoPath: String?,
     val popularity: Double
 )

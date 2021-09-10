@@ -16,8 +16,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieDelailBinding
+import ru.marslab.filmoteca.domain.model.People
 import ru.marslab.filmoteca.domain.repository.Constants
+import ru.marslab.filmoteca.ui.mapper.toShortUi
 import ru.marslab.filmoteca.ui.model.MovieDetailUi
+import ru.marslab.filmoteca.ui.movie.adapter.PeopleListAdapter
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessage
 import ru.marslab.filmoteca.ui.util.toTimeString
@@ -32,6 +35,12 @@ class MovieDetailFragment : Fragment() {
         get() = _binding!!
     private val movieDetailViewModel by viewModels<MovieDetailViewModel>()
     private val args: MovieDetailFragmentArgs by navArgs()
+    private val actorListAdapter: PeopleListAdapter by lazy {
+        PeopleListAdapter { handleClickToActor(it.id) }
+    }
+    private val employeeListAdapter: PeopleListAdapter by lazy {
+        PeopleListAdapter { handleClickToEmployee(it.id) }
+    }
     private var isFavorite: Boolean = false
 
     override fun onCreateView(
@@ -46,8 +55,26 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         initListeners()
+        initRv()
         movieDetailViewModel.getMovieDetailInfo(args.movieId)
         movieDetailViewModel.getMoviePeople(args.movieId)
+    }
+
+    private fun initRv() {
+        binding.run {
+            rvListActors.adapter = actorListAdapter
+            rvListEmployees.adapter = employeeListAdapter
+        }
+    }
+
+    private fun handleClickToEmployee(employeeId: Int) {
+        requireView().showMessage("Employee - $employeeId")
+        //TODO("Not yet implemented")
+    }
+
+    private fun handleClickToActor(actorId: Int) {
+        requireView().showMessage("actor - $actorId")
+        // TODO("Not yet implemented")
     }
 
     private fun initListeners() {
@@ -86,12 +113,33 @@ class MovieDetailFragment : Fragment() {
                 when (viewState) {
                     ViewState.Init -> {
                     }
-                    is ViewState.LoadError -> TODO()
-                    ViewState.Loading -> TODO()
-                    is ViewState.Successful<*> -> TODO()
+                    ViewState.Loading -> {
+                        updateUiWhenLoadingPeople()
+                    }
+                    is ViewState.LoadError -> {
+                        handleErrorLoadPeople(viewState.error.message)
+                    }
+                    is ViewState.Successful<*> -> {
+                        val people = viewState.data as? People
+                        people?.actors?.let { actors ->
+                            actorListAdapter.submitList(actors.map { it.toShortUi() })
+                        }
+                        people?.employees?.let { employees ->
+                            employeeListAdapter.submitList(employees.map { it.toShortUi() })
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private fun handleErrorLoadPeople(message: String?) {
+        message?.let { requireView().showMessage(it) }
+    }
+
+    private fun updateUiWhenLoadingPeople() {
+        binding.rvListEmployees.visibility = View.GONE
+        binding.rvListActors.visibility = View.GONE
     }
 
     private fun updateUi(data: MovieDetailUi) {

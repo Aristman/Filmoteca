@@ -9,7 +9,7 @@ import coil.load
 import ru.marslab.filmoteca.databinding.RvItemShortMovieBinding
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 
-val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
+private val diffCallback = object : DiffUtil.ItemCallback<MovieShortUi>() {
     override fun areItemsTheSame(oldItem: MovieShortUi, newItem: MovieShortUi): Boolean =
         oldItem.id == newItem.id
 

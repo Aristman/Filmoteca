@@ -61,6 +61,9 @@
     <string name="count_episodes_text">Всего эпизодов: %d</string>
     <string name="count_seasons_text">%d сезонов</string>
     <string name="time_string_pattern">%d ч. %d мин.</string>
+    <string name="list_actors">Список актеров</string>
+    <string name="list_employees">Съемочная группа</string>
+    <string name="photo">Фотография</string>
 
     <string-array name="setting_tags">
         <item>adult</item>

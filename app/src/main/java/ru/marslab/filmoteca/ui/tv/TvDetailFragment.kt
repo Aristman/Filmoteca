@@ -47,7 +47,7 @@ class TvDetailFragment : Fragment() {
         tvDetailViewModel.tvDetail.observe(viewLifecycleOwner) { viewState ->
             when (viewState) {
                 is ViewState.LoadError -> {
-                    requireView().showMessage(viewState.error)
+                    viewState.error.message?.let { requireView().showMessage(it) }
                 }
                 ViewState.Loading -> {
                 }

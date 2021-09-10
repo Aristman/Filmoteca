@@ -35,7 +35,7 @@ data class MovieCreditsNW(
         @SerializedName("popularity")
         val popularity: Double,
         @SerializedName("profile_path")
-        val profilePath: String
+        val profilePath: String?
     )
 
     data class Crew(
@@ -60,6 +60,6 @@ data class MovieCreditsNW(
         @SerializedName("popularity")
         val popularity: Double,
         @SerializedName("profile_path")
-        val profilePath: String
+        val profilePath: String?
     )
 }
