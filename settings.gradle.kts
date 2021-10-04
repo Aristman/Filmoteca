@@ -1,2 +1,2 @@
 rootProject.name = "Filmoteca"
-include ':app'
+include(":app")
