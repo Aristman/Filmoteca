@@ -15,6 +15,7 @@ val hiltVersion = rootProject.extra.get("hilt_version") as String
 val retrofitVersion = rootProject.extra.get("retrofit_version") as String
 val coroutinesVersion = rootProject.extra.get("coroutines_version") as String
 val roomVersion = rootProject.extra.get("room_version") as String
+val pagingVersion = "3.0.1"
 
 
 android {
@@ -109,6 +110,9 @@ dependencies {
     //FireBase
     implementation("com.google.firebase:firebase-bom:28.4.1")
     implementation("com.google.firebase:firebase-messaging:22.0.0")
+
+    //Paging 3
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
 
 
 }
