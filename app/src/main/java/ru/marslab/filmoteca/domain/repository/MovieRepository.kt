@@ -30,4 +30,5 @@ interface MovieRepository {
     ): People?
 
     fun getPopularMoviesPagingSource(): PagingSource<Int, Movie>
+    fun getRatedMoviesPagingSource(): PagingSource<Int, Movie>
 }

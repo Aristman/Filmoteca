@@ -1,7 +1,6 @@
 package ru.marslab.filmoteca.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagingData
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieMainBinding
 import ru.marslab.filmoteca.databinding.RvLayoutHorizonShortListBinding
-import ru.marslab.filmoteca.ui.model.MovieShortUi
-import ru.marslab.filmoteca.ui.movie.adapter.HorizonListAdapter
+import ru.marslab.filmoteca.ui.mapper.toUiShort
 import ru.marslab.filmoteca.ui.movie.adapter.MovieHorizonPagingAdapter
-import ru.marslab.filmoteca.ui.util.ViewState
-import ru.marslab.filmoteca.ui.util.showMessageWithAction
 import ru.marslab.filmoteca.ui.util.viewHide
 import ru.marslab.filmoteca.ui.util.viewShow
+
 
 @AndroidEntryPoint
 class MovieMainFragment : Fragment() {
@@ -33,20 +30,14 @@ class MovieMainFragment : Fragment() {
 
     private val movieMainViewModel by viewModels<WelcomeViewModel>()
 
-    private val popularMoviesAdapter: HorizonListAdapter by lazy {
-        HorizonListAdapter {
-            showMovieDetailsFragment(it.id)
-        }
-    }
-
     private val popularMoviesPagingAdapter: MovieHorizonPagingAdapter by lazy {
         MovieHorizonPagingAdapter {
             showMovieDetailsFragment(it.id)
         }
     }
 
-    private val topRatedMoviesAdapter: HorizonListAdapter by lazy {
-        HorizonListAdapter {
+    private val topRatedMoviesPagingAdapter: MovieHorizonPagingAdapter by lazy {
+        MovieHorizonPagingAdapter {
             showMovieDetailsFragment(it.id)
         }
     }
@@ -72,60 +63,16 @@ class MovieMainFragment : Fragment() {
         initRv()
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun initObservers() {
         movieMainViewModel.run {
             lifecycleScope.launchWhenStarted {
-                popularMoviesPagingAdapter.submitData(PagingData.empty())
-                popularMoviesFlow.collectLatest { pagingData ->
-                    Log.d("MY_TAG", pagingData.toString())
-//                    popularMoviesPagingAdapter.submitData(pagingData.map { it.toUiShort() })
+                popularMovies.collectLatest { pagingData ->
+                    popularMoviesPagingAdapter.submitData(pagingData.map { it.toUiShort() })
                 }
             }
-            popularMovies.observe(viewLifecycleOwner) { viewState ->
-                when (viewState) {
-                    is ViewState.LoadError -> {
-                        requireView().showMessageWithAction(
-                            R.string.load_list_movies_error,
-                            R.string.repeat
-                        ) {
-                            movieMainViewModel.loadPopularMovies()
-                        }
-                    }
-                    ViewState.Loading -> {
-                        showLoading(binding.popularMovies)
-                    }
-                    is ViewState.Successful<*> -> {
-                        val data = viewState.data as? List<MovieShortUi>
-                        showDataLayout(binding.popularMovies)
-                        popularMoviesAdapter.submitList(data)
-                    }
-                    ViewState.Init -> {
-                        movieMainViewModel.loadPopularMovies()
-                    }
-                }
-            }
-            topRatedMovies.observe(viewLifecycleOwner) { viewState ->
-                when (viewState) {
-                    is ViewState.LoadError -> {
-                        requireView().showMessageWithAction(
-                            R.string.load_list_movies_error,
-                            R.string.repeat
-                        ) {
-                            movieMainViewModel.loadTopRatedMovies()
-                        }
-                    }
-                    ViewState.Loading -> {
-                        showLoading(binding.topRatedMovies)
-                    }
-                    is ViewState.Successful<*> -> {
-                        val data = viewState.data as? List<MovieShortUi>
-                        showDataLayout(binding.topRatedMovies)
-                        topRatedMoviesAdapter.submitList(data)
-                    }
-                    ViewState.Init -> {
-                        movieMainViewModel.loadTopRatedMovies()
-                    }
+            lifecycleScope.launchWhenStarted {
+                ratedMovies.collectLatest { pagingData ->
+                    topRatedMoviesPagingAdapter.submitData(pagingData.map { it.toUiShort() })
                 }
             }
         }
@@ -142,22 +89,8 @@ class MovieMainFragment : Fragment() {
 
     private fun initRv() {
         binding.run {
-            setupPagingRecyclerView(this.popularMovies, popularMoviesPagingAdapter)
-//            setupRecyclerView(this.popularMovies, popularMoviesAdapter)
-            setupRecyclerView(this.topRatedMovies, topRatedMoviesAdapter)
-        }
-    }
-
-    private fun setupPagingRecyclerView(
-        itemBinding: RvLayoutHorizonShortListBinding,
-        itemAdapter: MovieHorizonPagingAdapter
-    ) {
-        itemBinding.run {
-            with(listRv) {
-                adapter = itemAdapter
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            }
+            setupRecyclerView(this.popularMovies, popularMoviesPagingAdapter)
+            setupRecyclerView(this.topRatedMovies, topRatedMoviesPagingAdapter)
         }
     }
 
@@ -168,16 +101,9 @@ class MovieMainFragment : Fragment() {
         }
     }
 
-    private fun showLoading(itemBinding: RvLayoutHorizonShortListBinding) {
-        with(itemBinding) {
-            dataLayout.viewHide()
-            loadingIndicator.viewShow()
-        }
-    }
-
     private fun setupRecyclerView(
         itemBinding: RvLayoutHorizonShortListBinding,
-        itemAdapter: HorizonListAdapter
+        itemAdapter: MovieHorizonPagingAdapter
     ) {
         itemBinding.run {
             with(listRv) {

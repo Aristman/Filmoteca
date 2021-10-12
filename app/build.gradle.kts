@@ -94,7 +94,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     //Room Paging 3 Integration
-    implementation("androidx.room:room-paging:2.4.0-alpha05")
+//    implementation("androidx.room:room-paging:2.4.0-alpha05")
 
     //Google Maps
     implementation("com.google.android.gms:play-services-maps:17.0.1")
@@ -108,7 +108,7 @@ dependencies {
     implementation("com.google.maps.android:android-maps-utils:2.2.3")
 
     //FireBase
-    implementation("com.google.firebase:firebase-bom:28.4.1")
+    implementation("com.google.firebase:firebase-bom:28.4.2")
     implementation("com.google.firebase:firebase-messaging:22.0.0")
 
     //Paging 3

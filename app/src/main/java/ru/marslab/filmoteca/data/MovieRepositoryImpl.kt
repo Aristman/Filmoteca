@@ -6,6 +6,7 @@ import ru.marslab.filmoteca.data.mapper.toActorsDomain
 import ru.marslab.filmoteca.data.mapper.toDomain
 import ru.marslab.filmoteca.data.mapper.toEmployeeDomain
 import ru.marslab.filmoteca.data.paging.PopularMoviesPagingSource
+import ru.marslab.filmoteca.data.paging.RatedMoviesPagingSource
 import ru.marslab.filmoteca.data.retrofit.MovieApi
 import ru.marslab.filmoteca.domain.model.Language
 import ru.marslab.filmoteca.domain.model.Movie
@@ -59,6 +60,14 @@ class MovieRepositoryImpl(private val api: MovieApi, private val storage: Storag
 
     override fun getPopularMoviesPagingSource(): PagingSource<Int, Movie> =
         PopularMoviesPagingSource(
+            api,
+            storage.getApikeyV3(),
+            storage.getSettingLanguage()?.iso6391,
+            storage.getSettingTimeZone()?.iso31661
+        )
+
+    override fun getRatedMoviesPagingSource(): PagingSource<Int, Movie> =
+        RatedMoviesPagingSource(
             api,
             storage.getApikeyV3(),
             storage.getSettingLanguage()?.iso6391,
