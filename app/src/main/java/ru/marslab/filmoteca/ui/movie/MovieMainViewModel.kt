@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.marslab.filmoteca.AppDispatchers
@@ -23,15 +26,21 @@ class WelcomeViewModel @Inject constructor(
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
 
-    private var _popularMovies: MutableLiveData<ViewState> = MutableLiveData()
+    private var _popularMovies: MutableLiveData<ViewState> = MutableLiveData(ViewState.Init)
     val popularMovies: LiveData<ViewState>
         get() = _popularMovies
 
 
-    private var _topRatedMovies: MutableLiveData<ViewState> = MutableLiveData()
+    private var _topRatedMovies: MutableLiveData<ViewState> = MutableLiveData(ViewState.Init)
     val topRatedMovies: LiveData<ViewState>
         get() = _topRatedMovies
 
+    val popularMoviesFlow = Pager(
+        PagingConfig(pageSize = 20)
+    ) {
+        movieRepository.getPopularMoviesPagingSource()
+    }.flow
+        .cachedIn(viewModelScope)
 
     fun loadPopularMovies() {
         _popularMovies.value = ViewState.Loading

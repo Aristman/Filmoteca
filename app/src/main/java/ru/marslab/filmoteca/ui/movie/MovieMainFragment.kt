@@ -1,19 +1,24 @@
 package ru.marslab.filmoteca.ui.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import ru.marslab.filmoteca.R
 import ru.marslab.filmoteca.databinding.FragmentMovieMainBinding
 import ru.marslab.filmoteca.databinding.RvLayoutHorizonShortListBinding
 import ru.marslab.filmoteca.ui.model.MovieShortUi
 import ru.marslab.filmoteca.ui.movie.adapter.HorizonListAdapter
+import ru.marslab.filmoteca.ui.movie.adapter.MovieHorizonPagingAdapter
 import ru.marslab.filmoteca.ui.util.ViewState
 import ru.marslab.filmoteca.ui.util.showMessageWithAction
 import ru.marslab.filmoteca.ui.util.viewHide
@@ -30,6 +35,12 @@ class MovieMainFragment : Fragment() {
 
     private val popularMoviesAdapter: HorizonListAdapter by lazy {
         HorizonListAdapter {
+            showMovieDetailsFragment(it.id)
+        }
+    }
+
+    private val popularMoviesPagingAdapter: MovieHorizonPagingAdapter by lazy {
+        MovieHorizonPagingAdapter {
             showMovieDetailsFragment(it.id)
         }
     }
@@ -64,6 +75,13 @@ class MovieMainFragment : Fragment() {
     @Suppress("UNCHECKED_CAST")
     private fun initObservers() {
         movieMainViewModel.run {
+            lifecycleScope.launchWhenStarted {
+                popularMoviesPagingAdapter.submitData(PagingData.empty())
+                popularMoviesFlow.collectLatest { pagingData ->
+                    Log.d("MY_TAG", pagingData.toString())
+//                    popularMoviesPagingAdapter.submitData(pagingData.map { it.toUiShort() })
+                }
+            }
             popularMovies.observe(viewLifecycleOwner) { viewState ->
                 when (viewState) {
                     is ViewState.LoadError -> {
@@ -81,6 +99,9 @@ class MovieMainFragment : Fragment() {
                         val data = viewState.data as? List<MovieShortUi>
                         showDataLayout(binding.popularMovies)
                         popularMoviesAdapter.submitList(data)
+                    }
+                    ViewState.Init -> {
+                        movieMainViewModel.loadPopularMovies()
                     }
                 }
             }
@@ -102,6 +123,9 @@ class MovieMainFragment : Fragment() {
                         showDataLayout(binding.topRatedMovies)
                         topRatedMoviesAdapter.submitList(data)
                     }
+                    ViewState.Init -> {
+                        movieMainViewModel.loadTopRatedMovies()
+                    }
                 }
             }
         }
@@ -118,10 +142,22 @@ class MovieMainFragment : Fragment() {
 
     private fun initRv() {
         binding.run {
-            setupRecyclerView(this.popularMovies, popularMoviesAdapter)
+            setupPagingRecyclerView(this.popularMovies, popularMoviesPagingAdapter)
+//            setupRecyclerView(this.popularMovies, popularMoviesAdapter)
             setupRecyclerView(this.topRatedMovies, topRatedMoviesAdapter)
-            movieMainViewModel.loadPopularMovies()
-            movieMainViewModel.loadTopRatedMovies()
+        }
+    }
+
+    private fun setupPagingRecyclerView(
+        itemBinding: RvLayoutHorizonShortListBinding,
+        itemAdapter: MovieHorizonPagingAdapter
+    ) {
+        itemBinding.run {
+            with(listRv) {
+                adapter = itemAdapter
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            }
         }
     }
 
